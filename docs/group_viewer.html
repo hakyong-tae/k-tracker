@@ -118,7 +118,7 @@
 
   async function loadEventInfo() {
     try {
-      const res = await fetch("../data/myresult_races_parsed.json");
+      const res = await fetch("/data/myresult_races_parsed.json");
       const events = await res.json();
       const event = events.find(e => e.id?.toString() === eventId);
       if (event) {
