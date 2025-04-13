@@ -53,6 +53,10 @@
       font-weight: bold;
       margin-left: 5px;
     }
+    .loading {
+      display: inline-block;
+      margin-left: 5px;
+    }
   </style>
   <!-- FontAwesome 아이콘 CDN -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
@@ -88,8 +92,9 @@
     <label for="bibInput" class="form-label">🎽 배번호로 선수 등록</label>
     <div class="input-group">
       <input type="text" class="form-control" id="bibInput" placeholder="예: 1234" />
-      <button class="btn btn-primary" onclick="addRunner()">추가</button>
+      <button class="btn btn-primary" id="addRunnerBtn">추가</button>
     </div>
+    <div id="addStatus" class="mt-2"></div>
   </div>
 
   <div id="runnerList"></div>
@@ -127,6 +132,14 @@
     // 초기화 확인
     console.log("refreshButton 요소:", manualButton);
     console.log("countdown 요소:", countdownElement);
+    
+    // 버튼 이벤트 리스너 추가
+    document.getElementById("addRunnerBtn").addEventListener("click", addRunner);
+    document.getElementById("bibInput").addEventListener("keypress", function(e) {
+      if (e.key === "Enter") {
+        addRunner();
+      }
+    });
     
     loadEventInfo();
     loadRunners();
@@ -278,31 +291,58 @@
   async function addRunner() {
     const bibInput = document.getElementById('bibInput');
     const bib = bibInput.value.trim();
-    if (!bib) return;
-
+    const addStatus = document.getElementById('addStatus');
+    
+    if (!bib) {
+      addStatus.innerHTML = "<span class='text-danger'>배번호를 입력해주세요.</span>";
+      return;
+    }
+    
+    // 로딩 상태 표시
+    addStatus.innerHTML = "<span class='text-info'>선수 정보를 불러오는 중... <i class='fas fa-spinner fa-spin loading'></i></span>";
+    
     try {
-      const res = await fetch(`https://k-tracker-api.onrender.com/api/myresult/${eventId}/${bib}`);
-      const data = await res.json();
+      console.log(`선수 정보 요청 URL: https://k-tracker-api.onrender.com/api/myresult/${eventId}/${bib}`);
       
-      if (data.error) throw new Error(data.error);
+      const res = await fetch(`https://k-tracker-api.onrender.com/api/myresult/${eventId}/${bib}`);
+      console.log("API 응답 상태:", res.status);
+      
+      const data = await res.json();
+      console.log("API 응답 데이터:", data);
+      
+      if (data.error) {
+        addStatus.innerHTML = `<span class='text-danger'>오류: ${data.error}</span>`;
+        throw new Error(data.error);
+      }
 
       const name = data.name?.trim() || "이름 미확인";
-      console.log("API 응답:", data);
       console.log("선수 이름:", name);
 
       const runners = JSON.parse(localStorage.getItem(groupKey) || "[]");
       if (!runners.find(r => r.bib === bib)) {
-        runners.push({ bib, name, records: data.records });
+        runners.push({ 
+          bib, 
+          name, 
+          records: data.records || []
+        });
         localStorage.setItem(groupKey, JSON.stringify(runners));
         bibInput.value = "";
         loadRunners();
         updateLastRefreshTime();  // 선수 추가 시에도 새로고침 시간 업데이트
+        addStatus.innerHTML = `<span class='text-success'>${name} 선수(배번호 ${bib})가 추가되었습니다.</span>`;
       } else {
-        alert("이미 등록된 배번호입니다.");
+        addStatus.innerHTML = "<span class='text-warning'>이미 등록된 배번호입니다.</span>";
       }
     } catch (err) {
       console.error("선수 등록 에러:", err);
-      alert("선수 정보를 불러오지 못했습니다.");
+      
+      // 코드 400번대 오류인 경우
+      addStatus.innerHTML = `<span class='text-danger'>선수 정보를 찾을 수 없습니다. 배번호를 다시 확인해주세요.</span>`;
+      
+      // 네트워크 오류 등 다른 오류인 경우
+      if (err.name === 'TypeError' || err.name === 'NetworkError') {
+        addStatus.innerHTML = `<span class='text-danger'>네트워크 오류가 발생했습니다. 인터넷 연결을 확인하고 다시 시도해주세요.</span>`;
+      }
     }
   }
 
@@ -323,8 +363,11 @@
       try {
         // API에서 최신 정보 가져오기
         const apiUrl = `https://k-tracker-api.onrender.com/api/myresult/${eventId}/${runner.bib}`;
+        console.log(`러너 ${runner.bib} 정보 업데이트 요청:`, apiUrl);
+        
         const res = await fetch(apiUrl);
         const data = await res.json();
+        console.log(`러너 ${runner.bib} 응답 데이터:`, data);
         
         if (!data.error) {
           // 성공적으로 정보를 가져왔다면 업데이트
@@ -334,6 +377,7 @@
             records: data.records || runner.records || []
           });
         } else {
+          console.warn(`러너 ${runner.bib} 정보 업데이트 중 API 오류:`, data.error);
           // 에러가 있다면 기존 정보 유지
           updatedRunners.push(runner);
         }
@@ -369,9 +413,13 @@
 
   function removeRunner(index) {
     const runners = JSON.parse(localStorage.getItem(groupKey) || "[]");
-    runners.splice(index, 1);
-    localStorage.setItem(groupKey, JSON.stringify(runners));
-    loadRunners();
+    const runnerToRemove = runners[index];
+    
+    if (confirm(`${runnerToRemove.name || "이름 없음"} 선수(배번호 ${runnerToRemove.bib})를 삭제하시겠습니까?`)) {
+      runners.splice(index, 1);
+      localStorage.setItem(groupKey, JSON.stringify(runners));
+      loadRunners();
+    }
   }
 
   // 백버튼 추가 기능
