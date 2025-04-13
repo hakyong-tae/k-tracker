@@ -2,8 +2,8 @@
     "name": "k-tracker-server",
     "version": "1.0.0",
     "main": "index.js",
-    "scripts": {
-        "start": "node index.js",
+    "scripts": { 
+        "start": "node index.js", "postinstall": "npx puppeteer browsers install chrome",
         "dev": "nodemon index.js"
     },
     "dependencies": {
