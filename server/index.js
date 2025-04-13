@@ -22,7 +22,7 @@ app.get("/api/myresult/:eventId/:bib", async (req, res) => {
 
   try {
     const browser = await puppeteer.launch({
-      headless: true,
+      headless: "chrome",
       args: [
         "--no-sandbox",
     "--disable-setuid-sandbox",
@@ -33,7 +33,7 @@ app.get("/api/myresult/:eventId/:bib", async (req, res) => {
     "--deterministic-fetch",
     "--disable-features=IsolateOrigins",
     "--disable-site-isolation-trials"
-      ],     executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || '/opt/render/.cache/puppeteer/chrome/linux-135.0.7049.84/chrome-linux64/chrome',
+      ],
 
 
     });
