@@ -56,11 +56,10 @@ app.get("/api/myresult/:eventId/:bib", async (req, res) => {
       const bibLine = Array.from(document.querySelectorAll("div, span, p"))
         .map(el => el.innerText)
         .find(text => text.includes("배번") && text.includes("남자"));
-        if (!name) {
-          const match = text.match(/(?:하프|Half)[\s\n]+([^\s\n]+)[\s\n]+남자/);
-          if (match) name = match[1].trim();
-        }
-        
+      if (!name) {
+  const match = text.match(/(?:하프|Half)[\s\n]+([^\s\n]+)[\s\n]+남자/);
+  if (match) name = match[1].trim();
+}
       if (bibLine) {
         const match = bibLine.match(/배번\s*\d+\s*-\s*남자\s*-\s*([^\s]+)/);
         if (match) name = match[1].trim();
@@ -110,6 +109,19 @@ app.get("/api/myresult/:eventId/:bib", async (req, res) => {
   } catch (err) {
     console.error("❌ 크롤링 실패:", err);
     res.status(500).json({ error: "크롤링 실패", detail: err.message });
+  }
+});
+
+const path = require("path");
+const fs = require("fs");
+
+app.get("/races", (req, res) => {
+  const jsonPath = path.join(__dirname, "../data/myresult_races_parsed.json");
+  if (fs.existsSync(jsonPath)) {
+    const data = fs.readFileSync(jsonPath, "utf-8");
+    res.json(JSON.parse(data));
+  } else {
+    res.status(404).json({ error: "Race data not found." });
   }
 });
 
