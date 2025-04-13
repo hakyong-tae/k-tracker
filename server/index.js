@@ -25,12 +25,16 @@ app.get("/api/myresult/:eventId/:bib", async (req, res) => {
       headless: true,
       args: [
         "--no-sandbox",
-        "--disable-setuid-sandbox",
-        "--disable-gpu",
-        "--disable-dev-shm-usage",
-        "--single-process",
-        "--no-zygote",
-      ],
+    "--disable-setuid-sandbox",
+    "--disable-gpu",
+    "--disable-dev-shm-usage",
+    "--no-first-run",
+    "--no-zygote",
+    "--deterministic-fetch",
+    "--disable-features=IsolateOrigins",
+    "--disable-site-isolation-trials"
+      ],   executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || undefined
+
     });
 
     const page = await browser.newPage();
