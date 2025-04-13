@@ -307,8 +307,66 @@
     }
   }
 
-  function loadRunners() {
-    const runners = JSON.parse(localStorage.getItem(groupKey) || "[]");
+  async function loadRunners() {
+  const storedRunners = JSON.parse(localStorage.getItem(groupKey) || "[]");
+  const container = document.getElementById("runnerList");
+  container.innerHTML = "";
+
+  if (storedRunners.length === 0) {
+    container.innerHTML = "<p>아직 등록된 선수가 없습니다.</p>";
+    return;
+  }
+
+  // 모든 러너의 정보를 실시간으로 업데이트
+  const updatedRunners = [];
+  
+  for (const runner of storedRunners) {
+    try {
+      // API에서 최신 정보 가져오기
+      const apiUrl = `https://k-tracker-api.onrender.com/api/myresult/${eventId}/${runner.bib}`;
+      const res = await fetch(apiUrl);
+      const data = await res.json();
+      
+      if (!data.error) {
+        // 성공적으로 정보를 가져왔다면 업데이트
+        updatedRunners.push({
+          bib: runner.bib,
+          name: data.name?.trim() || runner.name || "이름 미확인",
+          records: data.records || runner.records || []
+        });
+      } else {
+        // 에러가 있다면 기존 정보 유지
+        updatedRunners.push(runner);
+      }
+    } catch (err) {
+      console.error(`선수 ${runner.bib} 정보 업데이트 에러:`, err);
+      // 에러 발생 시 기존 정보 유지
+      updatedRunners.push(runner);
+    }
+  }
+
+  // 업데이트된 정보를 로컬 스토리지에 저장
+  localStorage.setItem(groupKey, JSON.stringify(updatedRunners));
+  
+  // 화면에 표시
+  updatedRunners.forEach((runner, index) => {
+    const div = document.createElement("div");
+    div.className = "runner-box";
+
+    const resultUrl = `https://myresult.co.kr/${eventId}/${runner.bib}`;
+    const lastCheckpoint = (runner.records || []).slice().reverse().find(r => r.checkpointTime && r.checkpointTime !== "-");
+
+    div.innerHTML = `
+      <button class="remove-btn" onclick="removeRunner(${index})">&times;</button>
+      <a href="${resultUrl}" target="_blank">
+        <h5>▶️ ${runner.name || "이름 없음"}</h5>
+        <p class="runner-meta">🎽 배번호: ${runner.bib}</p>
+        ${lastCheckpoint ? `<p class="runner-meta">📍 ${lastCheckpoint.section} | ⏱ ${lastCheckpoint.checkpointTime}</p>` : ""}
+      </a>
+    `;
+    container.appendChild(div);
+  });
+}    const runners = JSON.parse(localStorage.getItem(groupKey) || "[]");
     const container = document.getElementById("runnerList");
     container.innerHTML = "";
 
