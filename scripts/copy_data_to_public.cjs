@@ -13,7 +13,7 @@ for (const file of filesToCopy) {
   fs.mkdirSync(path.dirname(dest), { recursive: true });
 
   if (fs.existsSync(src)) {
-    fs.copyFileSync('./data/myresult_races_parsed.json', './docs/data/myresult_races_parsed.json');
+    fs.copyFileSync('./data/myresult_races_parsed.json', './public/data/myresult_races_parsed.json');
     console.log(`✅ 복사 완료: ${file}`);
   } else {
     console.warn(`⚠️ 원본 파일 없음: ${file}`);

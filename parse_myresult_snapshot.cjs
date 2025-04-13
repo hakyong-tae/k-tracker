@@ -2,11 +2,10 @@
 const cheerio = require("cheerio");
 const fs = require("fs");
 
-const html = fs.readFileSync("data/myresult_snapshot.html", "utf-8");
-const $ = cheerio.load(html);
+const rawhtml = fs.readFileSync("data/myresult_snapshot.html", "utf-8");
+const $ = cheerio.load(rawhtml);
 
 const races = [];
-
 $(".ant-list-item").each((i, el) => {
   const $li = $(el);
   const title = $li.find(".ant-list-item-meta-title a").text().trim();

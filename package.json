@@ -7,7 +7,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "copy-data": "node scripts/copy_data_to_public.cjs",
-    "parse": "node parse_myresult_snapshot.cjs && npm run copy-data"
+    "parse": "node parse_myresult_snapshot.cjs && npm run copy-data",
+  "fetch-snapshot": "node scripts/fetch_myresult_snapshot_puppeteer.mjs",
+  "parse-snapshot": "node parse_myresult_snapshot.cjs",
+  "update-events": "npm run fetch-snapshot && npm run parse-snapshot"
+
+
   },
   
   "keywords": [],
