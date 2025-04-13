@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>K-TRACKER | 그룹 뷰어</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <style>
+    body {
+      padding: 2rem;
+      background-color: #f2f2f2;
+    }
+    .runner-box {
+      background: white;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      transition: background-color 0.3s;
+      position: relative;
+    }
+    .runner-box:hover {
+      background-color: #f8f9fa;
+    }
+    .runner-box h5 {
+      margin-bottom: 0.5rem;
+    }
+    .runner-box a {
+      color: inherit;
+      text-decoration: none;
+      display: block;
+    }
+    .runner-meta {
+      font-size: 0.9rem;
+      color: #555;
+    }
+    .remove-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      background: transparent;
+      border: none;
+      color: #dc3545;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+    footer a:hover {
+    color: #ffc107 !important; /* 노란색 hover 효과 */
+    text-decoration: none;
+    }
+    #countdown {
+      color: #dc3545;
+      font-weight: bold;
+      margin-left: 5px;
+    }
+  </style>
+  <!-- FontAwesome 아이콘 CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+<div class="container">
+  <h1 class="mb-4 text-center">📊 그룹 러너 정보</h1>
+
+  <div id="eventInfo" class="alert alert-info" role="alert">
+    대회 정보를 불러오는 중입니다...
+  </div>
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <strong>그룹명:</strong> <span id="groupNameText">-</span>
+    </div>
+    <div>
+      <button class="btn btn-sm btn-outline-primary me-2" onclick="renameGroup()">✏️ 그룹 이름 수정</button>
+      <button class="btn btn-sm btn-outline-secondary me-2" onclick="copyShareLink()">🔗 공유 링크 복사</button>
+      <button id="refreshButton" class="btn btn-sm btn-outline-success" onclick="manualRefresh()">
+        🔄 수동 새로고침 <span id="countdown"></span>
+      </button>
+    </div>
+  </div>
+
+<!-- 🔽 수동/자동 새로고침 안내 영역 추가 -->
+<div class="text-center mb-4" style="font-size: 0.9rem; color: #777;">
+  ⏱ 5분마다 자동 새로고침됩니다<br>
+  <span id="lastRefreshTime">최근 새로고침: -</span>
+</div>
+
+  <div class="mb-4">
+    <label for="bibInput" class="form-label">🎽 배번호로 선수 등록</label>
+    <div class="input-group">
+      <input type="text" class="form-control" id="bibInput" placeholder="예: 1234" />
+      <button class="btn btn-primary" onclick="addRunner()">추가</button>
+    </div>
+  </div>
+
+  <div id="runnerList"></div>
+
+  <div class="text-center mt-4">
+    <a id="backToGroup" class="btn btn-outline-secondary">⬅️ 그룹 선택으로 돌아가기</a>
+  </div>
+</div>
+
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const eventId = urlParams.get("eventId");
+  const groupId = urlParams.get("group");
+  console.log("eventId:", eventId);  // 콘솔에서 확인
+  console.log("groupId:", groupId);  // 콘솔에서 확인
+  const groupKey = `group_${eventId}_${groupId}`;
+
+  // 전역 변수 선언만 하고 초기화는 window.onload에서 수행
+  let lastManualRefreshTime = 0;
+  let lastAutoRefreshTime = 0;
+  let manualButton;
+  let countdownElement;
+  let autoRefreshTimer = null;
+  let countdownTimer = null;
+  let countdownSeconds = 0;
+
+  document.getElementById("groupNameText").textContent = groupId || "-";
+
+  // 페이지가 로드될 때 자동 새로고침 타이머 시작
+  window.onload = function() {
+    // DOM 요소를 window.onload 안에서 참조
+    manualButton = document.getElementById("refreshButton");
+    countdownElement = document.getElementById("countdown");
+    
+    // 초기화 확인
+    console.log("refreshButton 요소:", manualButton);
+    console.log("countdown 요소:", countdownElement);
+    
+    loadEventInfo();
+    loadRunners();
+    updateLastRefreshTime();
+    startAutoRefresh();
+  };
+
+  function startAutoRefresh() {
+    // 기존 타이머가 있으면 제거
+    if (autoRefreshTimer) {
+      clearInterval(autoRefreshTimer);
+    }
+    
+    // 5분(300,000ms)마다 자동 새로고침
+    autoRefreshTimer = setInterval(() => {
+      loadRunners();
+      updateLastRefreshTime();
+    }, 300000);
+  }
+
+  function updateLastRefreshTime() {
+    const now = new Date();
+    lastAutoRefreshTime = now.getTime();
+    const timeString = now.toLocaleTimeString();
+    document.getElementById("lastRefreshTime").textContent = `최근 새로고침: ${timeString}`;
+  }
+
+  function startCountdown(seconds) {
+    console.log("카운트다운 시작:", seconds);
+    console.log("카운트다운 요소:", countdownElement);
+    
+    // 기존 카운트다운 타이머가 있으면 제거
+    if (countdownTimer) {
+      clearInterval(countdownTimer);
+    }
+    
+    countdownSeconds = seconds;
+    
+    // countdownElement가 null인 경우 다시 가져오기
+    if (!countdownElement) {
+      countdownElement = document.getElementById("countdown");
+      console.log("카운트다운 요소 재설정:", countdownElement);
+    }
+    
+    updateCountdownDisplay();
+    
+    countdownTimer = setInterval(() => {
+      countdownSeconds--;
+      updateCountdownDisplay();
+      
+      if (countdownSeconds <= 0) {
+        clearInterval(countdownTimer);
+        manualButton.disabled = false;
+        manualButton.innerHTML = "🔄 수동 새로고침 <span id='countdown'></span>";
+        // countdown 요소 참조 갱신
+        countdownElement = document.getElementById("countdown");
+      }
+    }, 1000);
+  }
+  
+  function updateCountdownDisplay() {
+    if (!countdownElement) {
+      countdownElement = document.getElementById("countdown");
+    }
+    
+    if (countdownElement && countdownSeconds > 0) {
+      countdownElement.textContent = `(${countdownSeconds}초)`;
+    } else if (countdownElement) {
+      countdownElement.textContent = "";
+    } else {
+      console.error("카운트다운 요소를 찾을 수 없습니다.");
+    }
+  }
+
+  function manualRefresh() {
+    const now = Date.now();
+    if (now - lastManualRefreshTime < 60000) {
+      alert("⏳ 수동 새로고침은 1분에 1번만 가능합니다.");
+      return;
+    }
+
+    lastManualRefreshTime = now;
+    loadRunners();  // ✅ 선수 기록 새로 불러옴
+    updateLastRefreshTime();  // 마지막 새로고침 시간 업데이트
+    
+    // 자동 타이머 재설정
+    startAutoRefresh();
+    
+    // 버튼과 카운트다운 요소 재확인
+    manualButton = document.getElementById("refreshButton");
+    countdownElement = document.getElementById("countdown");
+    
+    if (manualButton) {
+      manualButton.disabled = true;
+      manualButton.innerHTML = "🔄 새로고침 대기 중 <span id='countdown'></span>";
+      // countdown 요소 참조 갱신
+      countdownElement = document.getElementById("countdown");
+    }
+    
+    // 60초 카운트다운 시작
+    startCountdown(60);
+  }
+
+  function renameGroup() {
+    const newName = prompt("새 그룹 이름을 입력하세요:", groupId);
+    if (!newName || newName === groupId) return;
+
+    const oldKey = groupKey;
+    const newKey = `group_${eventId}_${newName}`;
+    const data = localStorage.getItem(oldKey);
+    if (data) {
+      localStorage.setItem(newKey, data);
+      localStorage.removeItem(oldKey);
+      alert("그룹 이름이 변경되었습니다.");
+      location.href = `group_viewer.html?eventId=${eventId}&group=${newName}`;
+    }
+  }
+
+  function copyShareLink() {
+    const url = window.location.href;
+    navigator.clipboard.writeText(url)
+      .then(() => alert("공유 링크가 복사되었습니다."))
+      .catch(() => alert("복사 실패. 수동으로 복사해주세요."));
+  }
+
+  async function loadEventInfo() {
+    // 로딩 중 메시지 표시
+    const eventInfoElement = document.getElementById("eventInfo");
+    eventInfoElement.innerHTML = "대회 정보를 불러오는 중입니다...";
+    
+    try {
+      const res = await fetch("/data/myresult_races_parsed.json");
+      const events = await res.json();
+      const event = events.find(e => e.id?.toString() === eventId);
+
+      if (event) {
+        const dateTime = event.date || event.dateTime || "";
+        const location = event.location || "장소 정보 없음";
+        eventInfoElement.innerHTML = `
+          <strong>${event.name}</strong><br>${dateTime} | ${location}`;
+      } else {
+        eventInfoElement.innerHTML = "❌ 대회 정보를 찾을 수 없습니다.";
+      }
+    } catch (e) {
+      console.error("대회 정보 불러오기 에러:", e);
+      eventInfoElement.textContent = "❌ 대회 정보를 불러오지 못했습니다.";
+    }
+  }
+
+  async function addRunner() {
+    const bibInput = document.getElementById('bibInput');
+    const bib = bibInput.value.trim();
+    if (!bib) return;
+
+    try {
+      const res = await fetch(`http://localhost:3000/api/myresult/${eventId}/${bib}`);
+      const data = await res.json();
+      
+      if (data.error) throw new Error(data.error);
+
+      const name = data.name?.trim() || "이름 미확인";
+      console.log("API 응답:", data);
+      console.log("선수 이름:", name);
+
+      const runners = JSON.parse(localStorage.getItem(groupKey) || "[]");
+      if (!runners.find(r => r.bib === bib)) {
+        runners.push({ bib, name, records: data.records });
+        localStorage.setItem(groupKey, JSON.stringify(runners));
+        bibInput.value = "";
+        loadRunners();
+        updateLastRefreshTime();  // 선수 추가 시에도 새로고침 시간 업데이트
+      } else {
+        alert("이미 등록된 배번호입니다.");
+      }
+    } catch (err) {
+      console.error("선수 등록 에러:", err);
+      alert("선수 정보를 불러오지 못했습니다.");
+    }
+  }
+
+  function loadRunners() {
+    const runners = JSON.parse(localStorage.getItem(groupKey) || "[]");
+    const container = document.getElementById("runnerList");
+    container.innerHTML = "";
+
+    if (runners.length === 0) {
+      container.innerHTML = "<p>아직 등록된 선수가 없습니다.</p>";
+      return;
+    }
+
+    runners.forEach((runner, index) => {
+      const div = document.createElement("div");
+      div.className = "runner-box";
+
+      const resultUrl = `https://myresult.co.kr/${eventId}/${runner.bib}`;
+      const lastCheckpoint = (runner.records || []).slice().reverse().find(r => r.checkpointTime && r.checkpointTime !== "-");
+
+      div.innerHTML = `
+        <button class="remove-btn" onclick="removeRunner(${index})">&times;</button>
+        <a href="${resultUrl}" target="_blank">
+          <h5>▶️ ${runner.name || "이름 없음"}</h5>  <!-- 이름 표시 -->
+          <p class="runner-meta">🎽 배번호: ${runner.bib}</p>
+          ${lastCheckpoint ? `<p class="runner-meta">📍 ${lastCheckpoint.section} | ⏱ ${lastCheckpoint.checkpointTime}</p>` : ""}
+        </a>
+      `;
+      container.appendChild(div);
+    });
+  }
+
+  function removeRunner(index) {
+    const runners = JSON.parse(localStorage.getItem(groupKey) || "[]");
+    runners.splice(index, 1);
+    localStorage.setItem(groupKey, JSON.stringify(runners));
+    loadRunners();
+  }
+
+  // 백버튼 추가 기능
+  document.getElementById("backToGroup").href = "group_register.html?eventId=" + eventId;
+</script>
+</body>
+</html>
