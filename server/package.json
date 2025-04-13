@@ -3,7 +3,8 @@
     "version": "1.0.0",
     "main": "index.js",
     "scripts": { 
-        "start": "node index.js", "postinstall": "npx puppeteer browsers install chrome",
+        "start": "node index.js", 
+        "postinstall": "npx puppeteer browsers install chrome",
         "dev": "nodemon index.js"
     },
     "dependencies": {
@@ -13,5 +14,8 @@
     },
     "devDependencies": {
         "nodemon": "^3.1.9"
-    }
+    },
+    "puppeteer": {
+  "cache": "/opt/render/.cache/puppeteer"
+}
 }
