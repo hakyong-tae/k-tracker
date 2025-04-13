@@ -368,18 +368,7 @@
   });
 }
 
-const runners = JSON.parse(localStorage.getItem(groupKey) || "[]");
-    const container = document.getElementById("runnerList");
-    container.innerHTML = "";
 
-    if (runners.length === 0) {
-      container.innerHTML = "<p>아직 등록된 선수가 없습니다.</p>";
-      return;
-    }
-
-    runners.forEach((runner, index) => {
-      const div = document.createElement("div");
-      div.className = "runner-box";
 
       const resultUrl = `https://myresult.co.kr/${eventId}/${runner.bib}`;
       const lastCheckpoint = (runner.records || []).slice().reverse().find(r => r.checkpointTime && r.checkpointTime !== "-");
