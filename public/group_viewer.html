@@ -258,7 +258,7 @@
     eventInfoElement.innerHTML = "대회 정보를 불러오는 중입니다...";
     
     try {
-      const res = await fetch("/data/myresult_races_parsed.json");
+      const res = await fetch("https://k-tracker-api.onrender.com/races");
       const events = await res.json();
       const event = events.find(e => e.id?.toString() === eventId);
 
@@ -282,7 +282,7 @@
     if (!bib) return;
 
     try {
-      const res = await fetch(`http://localhost:3000/api/myresult/${eventId}/${bib}`);
+      const res = await fetch(`https://k-tracker-api.onrender.com/api/myresult/${eventId}/${bib}`);
       const data = await res.json();
       
       if (data.error) throw new Error(data.error);
