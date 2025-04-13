@@ -366,7 +366,9 @@
     `;
     container.appendChild(div);
   });
-}    const runners = JSON.parse(localStorage.getItem(groupKey) || "[]");
+}
+
+const runners = JSON.parse(localStorage.getItem(groupKey) || "[]");
     const container = document.getElementById("runnerList");
     container.innerHTML = "";
 
