@@ -123,17 +123,7 @@ function enterGroup() {
   window.location.href = `group_viewer.html?group=${group}&eventId=${eventId}`;
 }
 
-  const group = document.getElementById("groupName").value.trim();
-  if (!group || !eventId) {
-    alert("대회 또는 그룹명을 확인해주세요.");
-    return;
-  }
-  if (group.length > 16) {
-    alert("그룹명은 16글자 이하로 입력해주세요.");
-    return;
-  }
-  window.location.href = `group_viewer.html?group=${group}&eventId=${eventId}`;
-}
+ 
 
 
       function enterGroupFromList(group) {
