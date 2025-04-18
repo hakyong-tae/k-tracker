@@ -26,7 +26,6 @@ app.get("/api/myresult/:eventId/:bib", async (req, res) => {
   try {
     const browser = await puppeteer.launch({
       headless: "new",
-      executablePath: process.env.PUPPETEER_EXECUTABLE_PATH, // Railway에서 설정할 경로
       args: [
         "--no-sandbox",
         "--disable-setuid-sandbox",
