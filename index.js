@@ -1,4 +1,3 @@
-console.log("🔥 API SERVER ENTRY POINT IS RUNNING");
 
 const express = require("express");
 const puppeteer = require("puppeteer");
@@ -11,7 +10,10 @@ app.use(cors());
 
 const PORT = process.env.PORT || 3000;
 const cache = {}; // 1분 캐시
-
+// ✅ 이 아래부터 라우팅을 정의하세요
+app.get("/api/health", (req, res) => {
+  res.send("✅ API is alive and reachable.");
+});
 app.get("/", (req, res) => {
   res.send("✅ K-Tracker API is alive!");
 });
