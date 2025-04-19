@@ -28,6 +28,9 @@ app.get("/api/myresult/:eventId/:bib", async (req, res) => {
   }
 
   try {
+    // ✅ 로그 추가 1
+    console.log("🧪 puppeteer 브라우저 실행 시도");
+
     const browser = await puppeteer.launch({
       headless: "new",
       args: [
@@ -92,7 +95,7 @@ app.get("/api/myresult/:eventId/:bib", async (req, res) => {
     cache[key] = { data, timestamp: now };
     res.json(data);
   } catch (err) {
-    console.error("❌ 크롤링 실패:", err);
+    console.error("❌ puppeteer 실행 실패 또는 크롤링 중 에러 발생:", err);
     res.status(500).json({ error: "크롤링 실패", detail: err.message });
   }
 });
