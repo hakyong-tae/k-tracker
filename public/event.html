@@ -51,7 +51,7 @@
   <script>
     async function loadRaceList() {
       try {
-        const res = await fetch("https://k-tracker-api.onrender.com/races");
+        const res = await fetch("https://k-tracker-api.fly.dev/races");
         const races = await res.json();
 
         const list = document.getElementById("race-list");

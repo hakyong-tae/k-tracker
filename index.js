@@ -40,7 +40,8 @@ app.get("/api/myresult/:eventId/:bib", async (req, res) => {
         "--disable-dev-shm-usage",
         "--single-process",
         "--no-zygote"
-      ],
+      ],   executablePath: process.env.CHROMIUM_PATH || "/usr/bin/chromium-browser" // Fly.io 기본 Chromium 경로
+
     });
 
     const page = await browser.newPage();

@@ -270,7 +270,7 @@
     eventInfoElement.innerHTML = "대회 정보를 불러오는 중입니다...";
     
     try {
-      const res = await fetch("https://k-tracker-api.onrender.com/races");
+      const res = await fetch("https://k-tracker-api.fly.dev/races");
       const events = await res.json();
       const event = events.find(e => e.id?.toString() === eventId);
 
@@ -302,9 +302,9 @@
     addStatus.innerHTML = "<span class='text-info'>선수 정보를 불러오는 중... <i class='fas fa-spinner fa-spin loading'></i></span>";
     
     try {
-      console.log(`선수 정보 요청 URL: https://k-tracker-api.onrender.com/api/myresult/${eventId}/${bib}`);
+      console.log(`선수 정보 요청 URL: https://k-tracker-api.fly.dev/api/myresult/${eventId}/${bib}`);
       
-      const res = await fetch(`https://k-tracker-api.onrender.com/api/myresult/${eventId}/${bib}`);
+      const res = await fetch(`https://k-tracker-api.fly.dev/api/myresult/${eventId}/${bib}`);
       console.log("API 응답 상태:", res.status);
       
       const data = await res.json();
@@ -362,7 +362,7 @@
     for (const runner of storedRunners) {
       try {
         // API에서 최신 정보 가져오기
-        const apiUrl = `https://k-tracker-api.onrender.com/api/myresult/${eventId}/${runner.bib}`;
+        const apiUrl = `https://k-tracker-api.fly.dev/api/myresult/${eventId}/${runner.bib}`;
         console.log(`러너 ${runner.bib} 정보 업데이트 요청:`, apiUrl);
         
         const res = await fetch(apiUrl);
