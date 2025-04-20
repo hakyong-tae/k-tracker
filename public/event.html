@@ -51,7 +51,7 @@
   <script>
     async function loadRaceList() {
       try {
-        const res = await fetch("https://k-tracker-api.fly.dev/races");
+        const res = await fetch("https://myresult.co.kr/api/event/");
         const races = await res.json();
 
         const list = document.getElementById("race-list");
@@ -63,7 +63,7 @@
 
         const title = document.createElement("a");
         title.className = "race-title";
-        title.href = `group_register.html?eventId=${race.id}`;
+        title.href = `group_register.html?eventId=${race.id}&source=myresult`;
         title.textContent = race.name;
 
         const meta = document.createElement("div");

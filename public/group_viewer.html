@@ -16,414 +16,115 @@
       padding: 1rem;
       margin-bottom: 1rem;
       box-shadow: 0 0 5px rgba(0,0,0,0.1);
-      transition: background-color 0.3s;
-      position: relative;
-    }
-    .runner-box:hover {
-      background-color: #f8f9fa;
-    }
-    .runner-box h5 {
-      margin-bottom: 0.5rem;
-    }
-    .runner-box a {
-      color: inherit;
-      text-decoration: none;
-      display: block;
     }
     .runner-meta {
       font-size: 0.9rem;
       color: #555;
     }
-    .remove-btn {
-      position: absolute;
-      top: 0.5rem;
-      right: 0.5rem;
-      background: transparent;
-      border: none;
-      color: #dc3545;
-      font-size: 1.2rem;
-      cursor: pointer;
-    }
-    footer a:hover {
-    color: #ffc107 !important; /* 노란색 hover 효과 */
-    text-decoration: none;
-    }
-    #countdown {
-      color: #dc3545;
-      font-weight: bold;
-      margin-left: 5px;
-    }
-    .loading {
-      display: inline-block;
-      margin-left: 5px;
-    }
   </style>
-  <!-- FontAwesome 아이콘 CDN -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
-<div class="container">
-  <h1 class="mb-4 text-center">📊 그룹 러너 정보</h1>
+  <div class="container">
+    <h1 class="mb-4 text-center">📊 그룹 러너 정보</h1>
 
-  <div id="eventInfo" class="alert alert-info" role="alert">
-    대회 정보를 불러오는 중입니다...
-  </div>
-
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <div>
-      <strong>그룹명:</strong> <span id="groupNameText">-</span>
+    <div class="mb-4">
+      <label for="bibInput" class="form-label">🎽 배번호로 선수 등록</label>
+      <div class="input-group">
+        <input type="text" class="form-control" id="bibInput" placeholder="예: 1234" />
+        <button class="btn btn-primary" id="addRunnerBtn">추가</button>
+      </div>
     </div>
-    <div>
-      <button class="btn btn-sm btn-outline-primary me-2" onclick="renameGroup()">✏️ 그룹 이름 수정</button>
-      <button class="btn btn-sm btn-outline-secondary me-2" onclick="copyShareLink()">🔗 공유 링크 복사</button>
-      <button id="refreshButton" class="btn btn-sm btn-outline-success" onclick="manualRefresh()">
-        🔄 수동 새로고침 <span id="countdown"></span>
-      </button>
+
+    <div id="runnerList"></div>
+
+    <div class="text-center mt-4">
+      <a id="backToGroup" class="btn btn-outline-secondary">⬅️ 그룹 선택으로 돌아가기</a>
     </div>
   </div>
-
-<!-- 🔽 수동/자동 새로고침 안내 영역 추가 -->
-<div class="text-center mb-4" style="font-size: 0.9rem; color: #777;">
-  ⏱ 5분마다 자동 새로고침됩니다<br>
-  <span id="lastRefreshTime">최근 새로고침: -</span>
-</div>
-
-  <div class="mb-4">
-    <label for="bibInput" class="form-label">🎽 배번호로 선수 등록</label>
-    <div class="input-group">
-      <input type="text" class="form-control" id="bibInput" placeholder="예: 1234" />
-      <button class="btn btn-primary" id="addRunnerBtn">추가</button>
-    </div>
-    <div id="addStatus" class="mt-2"></div>
-  </div>
-
-  <div id="runnerList"></div>
-
-  <div class="text-center mt-4">
-    <a id="backToGroup" class="btn btn-outline-secondary">⬅️ 그룹 선택으로 돌아가기</a>
-  </div>
-</div>
 
 <script>
   const urlParams = new URLSearchParams(window.location.search);
   const eventId = urlParams.get("eventId");
   const groupId = urlParams.get("group");
-  console.log("eventId:", eventId);  // 콘솔에서 확인
-  console.log("groupId:", groupId);  // 콘솔에서 확인
+  const source = urlParams.get("source") || "myresult";
   const groupKey = `group_${eventId}_${groupId}`;
 
-  // 전역 변수 선언
-  let lastManualRefreshTime = 0;
-  let lastAutoRefreshTime = 0;
-  let manualButton = null;
-  let countdownElement = null;
-  let autoRefreshTimer = null;
-  let countdownTimer = null;
-  let countdownSeconds = 0;
-
-  // 페이지가 로드될 때 자동 새로고침 타이머 시작
-  window.onload = function() {
-    document.getElementById("groupNameText").textContent = groupId || "-";
-    
-    // DOM 요소 참조
-    manualButton = document.getElementById("refreshButton");
-    countdownElement = document.getElementById("countdown");
-    
-    // 초기화 확인
-    console.log("refreshButton 요소:", manualButton);
-    console.log("countdown 요소:", countdownElement);
-    
-    // 버튼 이벤트 리스너 추가
-    document.getElementById("addRunnerBtn").addEventListener("click", addRunner);
-    document.getElementById("bibInput").addEventListener("keypress", function(e) {
-      if (e.key === "Enter") {
-        addRunner();
-      }
-    });
-    
-    loadEventInfo();
-    loadRunners();
-    updateLastRefreshTime();
-    startAutoRefresh();
-  };
-
-  function startAutoRefresh() {
-    // 기존 타이머가 있으면 제거
-    if (autoRefreshTimer) {
-      clearInterval(autoRefreshTimer);
-    }
-    
-    // 5분(300,000ms)마다 자동 새로고침
-    autoRefreshTimer = setInterval(() => {
-      loadRunners();
-      updateLastRefreshTime();
-    }, 300000);
-  }
-
-  function updateLastRefreshTime() {
-    const now = new Date();
-    lastAutoRefreshTime = now.getTime();
-    const timeString = now.toLocaleTimeString();
-    document.getElementById("lastRefreshTime").textContent = `최근 새로고침: ${timeString}`;
-  }
-
-  function startCountdown(seconds) {
-    console.log("카운트다운 시작:", seconds);
-    
-    // 기존 카운트다운 타이머가 있으면 제거
-    if (countdownTimer) {
-      clearInterval(countdownTimer);
-    }
-    
-    countdownSeconds = seconds;
-    
-    // countdownElement가 null인 경우 다시 가져오기
-    if (!countdownElement) {
-      countdownElement = document.getElementById("countdown");
-      console.log("카운트다운 요소 재설정:", countdownElement);
-    }
-    
-    updateCountdownDisplay();
-    
-    countdownTimer = setInterval(() => {
-      countdownSeconds--;
-      updateCountdownDisplay();
-      
-      if (countdownSeconds <= 0) {
-        clearInterval(countdownTimer);
-        manualButton.disabled = false;
-        manualButton.innerHTML = "🔄 수동 새로고침 <span id='countdown'></span>";
-        // countdown 요소 참조 갱신
-        countdownElement = document.getElementById("countdown");
-      }
-    }, 1000);
-  }
-  
-  function updateCountdownDisplay() {
-    if (!countdownElement) {
-      countdownElement = document.getElementById("countdown");
-    }
-    
-    if (countdownElement && countdownSeconds > 0) {
-      countdownElement.textContent = `(${countdownSeconds}초)`;
-    } else if (countdownElement) {
-      countdownElement.textContent = "";
-    } else {
-      console.error("카운트다운 요소를 찾을 수 없습니다.");
-    }
-  }
-
-  function manualRefresh() {
-    const now = Date.now();
-    if (now - lastManualRefreshTime < 60000) {
-      alert("⏳ 수동 새로고침은 1분에 1번만 가능합니다.");
-      return;
-    }
-
-    lastManualRefreshTime = now;
-    loadRunners();  // ✅ 선수 기록 새로 불러옴
-    updateLastRefreshTime();  // 마지막 새로고침 시간 업데이트
-    
-    // 자동 타이머 재설정
-    startAutoRefresh();
-    
-    // 버튼과 카운트다운 요소 재확인
-    manualButton = document.getElementById("refreshButton");
-    countdownElement = document.getElementById("countdown");
-    
-    if (manualButton) {
-      manualButton.disabled = true;
-      manualButton.innerHTML = "🔄 새로고침 대기 중 <span id='countdown'></span>";
-      // countdown 요소 참조 갱신
-      countdownElement = document.getElementById("countdown");
-    }
-    
-    // 60초 카운트다운 시작
-    startCountdown(60);
-  }
-
-  function renameGroup() {
-    const newName = prompt("새 그룹 이름을 입력하세요:", groupId);
-    if (!newName || newName === groupId) return;
-
-    const oldKey = groupKey;
-    const newKey = `group_${eventId}_${newName}`;
-    const data = localStorage.getItem(oldKey);
-    if (data) {
-      localStorage.setItem(newKey, data);
-      localStorage.removeItem(oldKey);
-      alert("그룹 이름이 변경되었습니다.");
-      location.href = `group_viewer.html?eventId=${eventId}&group=${newName}`;
-    }
-  }
-
-  function copyShareLink() {
-    const url = window.location.href;
-    navigator.clipboard.writeText(url)
-      .then(() => alert("공유 링크가 복사되었습니다."))
-      .catch(() => alert("복사 실패. 수동으로 복사해주세요."));
-  }
-
-  async function loadEventInfo() {
-    // 로딩 중 메시지 표시
-    const eventInfoElement = document.getElementById("eventInfo");
-    eventInfoElement.innerHTML = "대회 정보를 불러오는 중입니다...";
-    
-    try {
-      const res = await fetch("https://k-tracker-api.fly.dev/races");
-      const events = await res.json();
-      const event = events.find(e => e.id?.toString() === eventId);
-
-      if (event) {
-        const dateTime = event.date || event.dateTime || "";
-        const location = event.location || "장소 정보 없음";
-        eventInfoElement.innerHTML = `
-          <strong>${event.name}</strong><br>${dateTime} | ${location}`;
-      } else {
-        eventInfoElement.innerHTML = "❌ 대회 정보를 찾을 수 없습니다.";
-      }
-    } catch (e) {
-      console.error("대회 정보 불러오기 에러:", e);
-      eventInfoElement.textContent = "❌ 대회 정보를 불러오지 못했습니다.";
-    }
-  }
-
-  async function addRunner() {
-    const bibInput = document.getElementById('bibInput');
-    const bib = bibInput.value.trim();
-    const addStatus = document.getElementById('addStatus');
-    
-    if (!bib) {
-      addStatus.innerHTML = "<span class='text-danger'>배번호를 입력해주세요.</span>";
-      return;
-    }
-    
-    // 로딩 상태 표시
-    addStatus.innerHTML = "<span class='text-info'>선수 정보를 불러오는 중... <i class='fas fa-spinner fa-spin loading'></i></span>";
-    
-    try {
-      console.log(`선수 정보 요청 URL: https://k-tracker-api.fly.dev/api/myresult/${eventId}/${bib}`);
-      
-      const res = await fetch(`https://k-tracker-api.fly.dev/api/myresult/${eventId}/${bib}`);
-      console.log("API 응답 상태:", res.status);
-      
+  async function loadRecord(source, eventId, bibNo) {
+    if (source === "myresult") {
+      const res = await fetch(`https://myresult.co.kr/api/event/${eventId}/player/${bibNo}`);
+      if (!res.ok) throw new Error("기록 불러오기 실패");
       const data = await res.json();
-      console.log("API 응답 데이터:", data);
-      
-      if (data.error) {
-        addStatus.innerHTML = `<span class='text-danger'>오류: ${data.error}</span>`;
-        throw new Error(data.error);
-      }
-
-      const name = data.name?.trim() || "이름 미확인";
-      console.log("선수 이름:", name);
-
-      const runners = JSON.parse(localStorage.getItem(groupKey) || "[]");
-      if (!runners.find(r => r.bib === bib)) {
-        runners.push({ 
-          bib, 
-          name, 
-          records: data.records || []
-        });
-        localStorage.setItem(groupKey, JSON.stringify(runners));
-        bibInput.value = "";
-        loadRunners();
-        updateLastRefreshTime();  // 선수 추가 시에도 새로고침 시간 업데이트
-        addStatus.innerHTML = `<span class='text-success'>${name} 선수(배번호 ${bib})가 추가되었습니다.</span>`;
-      } else {
-        addStatus.innerHTML = "<span class='text-warning'>이미 등록된 배번호입니다.</span>";
-      }
-    } catch (err) {
-      console.error("선수 등록 에러:", err);
-      
-      // 코드 400번대 오류인 경우
-      addStatus.innerHTML = `<span class='text-danger'>선수 정보를 찾을 수 없습니다. 배번호를 다시 확인해주세요.</span>`;
-      
-      // 네트워크 오류 등 다른 오류인 경우
-      if (err.name === 'TypeError' || err.name === 'NetworkError') {
-        addStatus.innerHTML = `<span class='text-danger'>네트워크 오류가 발생했습니다. 인터넷 연결을 확인하고 다시 시도해주세요.</span>`;
-      }
+      return {
+        name: data.name,
+        bib: data.bib,
+        checkpoints: data.checkpoints || []
+      };
+    } else if (source === "smartchip") {
+      const res = await fetch(`/api/smartchip_record?eventId=${eventId}&bibNo=${bibNo}`);
+      if (!res.ok) throw new Error("기록 불러오기 실패");
+      return await res.json(); // smartchip도 name + bib + checkpoints[] 형식으로 반환해야 함
+    } else {
+      throw new Error("지원되지 않는 source입니다.");
     }
   }
 
-  async function loadRunners() {
-    const storedRunners = JSON.parse(localStorage.getItem(groupKey) || "[]");
+  async function loadGroupRecords() {
     const container = document.getElementById("runnerList");
     container.innerHTML = "";
 
-    if (storedRunners.length === 0) {
-      container.innerHTML = "<p>아직 등록된 선수가 없습니다.</p>";
+    const stored = localStorage.getItem(groupKey);
+    if (!stored) {
+      container.innerHTML = "<p>이 그룹에 등록된 선수가 없습니다.</p>";
       return;
     }
 
-    // 모든 러너의 정보를 실시간으로 업데이트
-    const updatedRunners = [];
-    
-    for (const runner of storedRunners) {
+    const athletes = JSON.parse(stored);
+    for (const athlete of athletes) {
       try {
-        // API에서 최신 정보 가져오기
-        const apiUrl = `https://k-tracker-api.fly.dev/api/myresult/${eventId}/${runner.bib}`;
-        console.log(`러너 ${runner.bib} 정보 업데이트 요청:`, apiUrl);
-        
-        const res = await fetch(apiUrl);
-        const data = await res.json();
-        console.log(`러너 ${runner.bib} 응답 데이터:`, data);
-        
-        if (!data.error) {
-          // 성공적으로 정보를 가져왔다면 업데이트
-          updatedRunners.push({
-            bib: runner.bib,
-            name: data.name?.trim() || runner.name || "이름 미확인",
-            records: data.records || runner.records || []
-          });
-        } else {
-          console.warn(`러너 ${runner.bib} 정보 업데이트 중 API 오류:`, data.error);
-          // 에러가 있다면 기존 정보 유지
-          updatedRunners.push(runner);
-        }
+        const data = await loadRecord(source, eventId, athlete.bib);
+        container.innerHTML += formatRecordHTML(data.name, data.bib, data.checkpoints);
       } catch (err) {
-        console.error(`선수 ${runner.bib} 정보 업데이트 에러:`, err);
-        // 에러 발생 시 기존 정보 유지
-        updatedRunners.push(runner);
+        container.innerHTML += `<div class="text-danger">${athlete.name} (${athlete.bib}): ${err.message}</div><hr/>`;
       }
     }
-
-    // 업데이트된 정보를 로컬 스토리지에 저장
-    localStorage.setItem(groupKey, JSON.stringify(updatedRunners));
-    
-    // 화면에 표시
-    updatedRunners.forEach((runner, index) => {
-      const div = document.createElement("div");
-      div.className = "runner-box";
-
-      const resultUrl = `https://myresult.co.kr/${eventId}/${runner.bib}`;
-      const lastCheckpoint = (runner.records || []).slice().reverse().find(r => r.checkpointTime && r.checkpointTime !== "-");
-
-      div.innerHTML = `
-        <button class="remove-btn" onclick="removeRunner(${index})">&times;</button>
-        <a href="${resultUrl}" target="_blank">
-          <h5>▶️ ${runner.name || "이름 없음"}</h5>
-          <p class="runner-meta">🎽 배번호: ${runner.bib}</p>
-          ${lastCheckpoint ? `<p class="runner-meta">📍 ${lastCheckpoint.section} | ⏱ ${lastCheckpoint.checkpointTime}</p>` : ""}
-        </a>
-      `;
-      container.appendChild(div);
-    });
   }
 
-  function removeRunner(index) {
-    const runners = JSON.parse(localStorage.getItem(groupKey) || "[]");
-    const runnerToRemove = runners[index];
-    
-    if (confirm(`${runnerToRemove.name || "이름 없음"} 선수(배번호 ${runnerToRemove.bib})를 삭제하시겠습니까?`)) {
-      runners.splice(index, 1);
-      localStorage.setItem(groupKey, JSON.stringify(runners));
-      loadRunners();
+  function formatRecordHTML(name, bibNo, checkpoints) {
+    const rows = checkpoints.map(cp =>
+      `<li>${cp.name}: ${cp.elapsed || "기록 없음"} (${cp.time || "-"})</li>`
+    ).join("");
+
+    return `
+      <div class="runner-box">
+        <h5>${name} (Bib ${bibNo})</h5>
+        <ul>${rows}</ul>
+      </div>
+    `;
+  }
+
+  document.getElementById("addRunnerBtn").addEventListener("click", async () => {
+    const bibInput = document.getElementById("bibInput");
+    const bib = bibInput.value.trim();
+    if (!bib) return;
+
+    const stored = JSON.parse(localStorage.getItem(groupKey) || "[]");
+    if (!stored.find(r => r.bib === bib)) {
+      try {
+        const data = await loadRecord(source, eventId, bib);
+        stored.push({ bib: data.bib, name: data.name || "이름 없음" });
+        localStorage.setItem(groupKey, JSON.stringify(stored));
+        bibInput.value = "";
+        loadGroupRecords();
+      } catch (e) {
+        alert("기록을 불러오지 못했습니다: " + e.message);
+      }
+    } else {
+      alert("이미 등록된 선수입니다.");
     }
-  }
+  });
 
-  // 백버튼 추가 기능
-  document.getElementById("backToGroup").href = "group_register.html?eventId=" + eventId;
+  document.getElementById("backToGroup").href = `group_register.html?eventId=${eventId}&source=${source}`;
+  window.onload = loadGroupRecords;
 </script>
 </body>
 </html>

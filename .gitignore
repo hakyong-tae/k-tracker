@@ -1,4 +1,7 @@
+# backend stuff
+server/
+Dockerfile
+fly.toml
+package.json
+package-lock.json
 node_modules/
-.env
-.DS_Store
-node_modules
