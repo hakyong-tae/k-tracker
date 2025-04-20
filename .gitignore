@@ -1,7 +1,22 @@
-# backend stuff
+# Global
+**/.DS_Store
+**/.env
+
+# Backend
 server/
 Dockerfile
 fly.toml
 package.json
 package-lock.json
-node_modules/
+
+# Node modules (with render exception)
+**/node_modules/
+!render-mr-api/node_modules/
+
+# Render-MR-API
+!render-mr-api/index.js
+!render-mr-api/package.json
+!render-mr-api/package-lock.json
+
+# Public (모두 무시)
+public/
