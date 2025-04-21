@@ -61,7 +61,8 @@
 
       if (source === "myresult") {
         const res = await fetch("https://render-mr-api.fly.dev/api/proxy/myresult-races");
-        const events = await res.json();
+        const json = await res.json();
+        const events = json.results;
         event = events.find(e => e.id?.toString() === eventId);
       } else if (source === "smartchip") {
         const res = await fetch("/api/smartchip_races");

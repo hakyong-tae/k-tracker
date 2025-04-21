@@ -50,15 +50,15 @@
   const groupKey = `group_${eventId}_${groupId}`;
 
   async function loadRecord(source, eventId, bibNo) {
-    if (source === "myresult") {
-      const res = await fetch(`https://render-mr-api.fly.dev/api/myresult?eventId=${eventId}&bib=${bib}`);
-      if (!res.ok) throw new Error("기록 불러오기 실패");
-      const data = await res.json();
-      return {
-        name: data.name,
-        bib: data.bib,
-        checkpoints: data.checkpoints || []
-      };
+  if (source === "myresult") {
+    const res = await fetch(`https://render-mr-api.fly.dev/api/myresult?eventId=${eventId}&bib=${bibNo}`);
+    if (!res.ok) throw new Error("기록 불러오기 실패");
+    const data = await res.json();
+    return {
+      name: data.name,
+      bib: data.bib,
+      checkpoints: data.checkpoints || []
+    };
     } else if (source === "smartchip") {
       const res = await fetch(`/api/smartchip_record?eventId=${eventId}&bibNo=${bibNo}`);
       if (!res.ok) throw new Error("기록 불러오기 실패");
