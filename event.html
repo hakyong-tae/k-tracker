@@ -53,6 +53,7 @@
       try {
         const res = await fetch("https://render-mr-api.fly.dev/api/proxy/myresult-races");
         const races = await res.json();
+        console.log("🏁 응답 races:", races); // ← 이거 콘솔에 찍히는 값 확인!
 
         const list = document.getElementById("race-list");
         list.innerHTML = "";
