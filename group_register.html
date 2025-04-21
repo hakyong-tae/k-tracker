@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>K-TRACKER | 그룹 등록</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+  <style>
+    body {
+      padding: 2rem;
+      background-color: #f2f2f2;
+    }
+    .group-list-item {
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+    .group-list-item:hover {
+      background-color: #e9ecef;
+    }
+    .group-name-label {
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="mb-4 text-center">👥 그룹 생성 및 선택</h1>
+
+    <div id="eventInfo" class="alert alert-info" role="alert">
+      대회 정보를 불러오는 중입니다...
+    </div>
+
+    <div class="mb-4">
+      <label for="groupName" class="form-label">그룹 이름</label>
+      <input type="text" id="groupName" class="form-control" placeholder="예: cheerteam" />
+      <div class="form-text">새로운 그룹을 생성하거나 이미 존재하는 그룹 이름으로 입장할 수 있습니다.</div>
+    </div>
+
+    <button class="btn btn-success mb-4" onclick="enterGroup()">그룹 입장</button>
+
+    <h5 class="mt-5">내가 등록한 그룹</h5>
+    <ul id="myGroups" class="list-group mb-4"></ul>
+
+    <div class="text-center">
+      <a href="event.html" id="backToEvent" class="btn btn-outline-secondary">⬅️ 대회 목록으로 돌아가기</a>
+    </div>
+  </div>
+
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const eventId = urlParams.get("eventId");
+  const source = urlParams.get("source") || "myresult"; // ✅ 기본값 myresult
+  const groupListKeyPrefix = `group_${eventId}_`;
+
+  document.getElementById("backToEvent").href = `event.html`; // 필요시 source도 붙일 수 있음
+
+  async function loadEventInfo() {
+    try {
+      let event = null;
+
+      if (source === "myresult") {
+        const res = await fetch("https://render-mr-api.fly.dev/api/proxy/myresult-races");
+        const events = await res.json();
+        event = events.find(e => e.id?.toString() === eventId);
+      } else if (source === "smartchip") {
+        const res = await fetch("/api/smartchip_races");
+        const events = await res.json();
+        event = events.find(e => e.id?.toString() === eventId);
+      }
+
+      const infoBox = document.getElementById("eventInfo");
+      if (event) {
+        const date = event.date || "날짜 없음";
+        const location = event.location || "장소 없음";
+        infoBox.innerHTML = `<strong>${event.name}</strong><br>${date} | ${location}`;
+      } else {
+        infoBox.innerHTML = `❌ 대회 정보를 찾을 수 없습니다.`;
+      }
+    } catch (e) {
+      console.error("대회 정보 불러오기 실패:", e);
+      document.getElementById("eventInfo").textContent = "❌ 대회 정보를 불러오지 못했습니다.";
+    }
+  }
+
+  function loadMyGroups() {
+    const groupList = document.getElementById("myGroups");
+    groupList.innerHTML = "";
+
+    for (let key in localStorage) {
+      if (key.startsWith(groupListKeyPrefix)) {
+        const groupName = key.replace(groupListKeyPrefix, "");
+        const li = document.createElement("li");
+        li.className = "list-group-item group-list-item";
+        li.innerHTML = `
+          <div onclick="enterGroupFromList('${groupName}')">
+            ▶️ <span class="group-name-label">${groupName}</span>
+          </div>
+        `;
+        groupList.appendChild(li);
+      }
+    }
+  }
+
+  function enterGroup() {
+    const group = document.getElementById("groupName").value.trim();
+    if (!group || group.length > 16) {
+      alert("그룹명을 확인해주세요 (최대 16자)");
+      return;
+    }
+
+    const key = `group_${eventId}_${group}`;
+    if (!localStorage.getItem(key)) {
+      localStorage.setItem(key, "[]");
+    }
+
+    window.location.href = `group_viewer.html?group=${group}&eventId=${eventId}&source=${source}`;
+  }
+
+  function enterGroupFromList(group) {
+    window.location.href = `group_viewer.html?group=${group}&eventId=${eventId}&source=${source}`;
+  }
+
+  window.onload = () => {
+    loadEventInfo();
+    loadMyGroups();
+  };
+</script>
+</body>
+</html>
