@@ -53,7 +53,7 @@
       try {
         const res = await fetch("https://render-mr-api.fly.dev/api/proxy/myresult-races");
         const response = await res.json();
-        const races = response.results; 
+        const races = response.results; // ✅ 핵심 포인트!
         console.log("🏁 응답 races:", races); // ← 이거 콘솔에 찍히는 값 확인!
 
         const list = document.getElementById("race-list");
@@ -72,7 +72,7 @@
         meta.className = "race-meta";
         meta.innerHTML = `
             <div>📅 <strong>${race.date || '날짜 정보 없음'}</strong></div>
-            <div>📍 ${race.location || '장소 정보 없음'}</div>
+            <div>📍 ${event.location || '장소 정보 없음'}</div>
         `;
 
         card.appendChild(title);

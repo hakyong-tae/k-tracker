@@ -26,7 +26,7 @@
 <body>
   <div class="container">
     <h1 class="mb-4 text-center">📊 그룹 러너 정보</h1>
-
+    <div id="playerInfo" class="mb-4"></div>
     <div class="mb-4">
       <label for="bibInput" class="form-label">🎽 배번호로 선수 등록</label>
       <div class="input-group">
@@ -88,6 +88,28 @@
       }
     }
   }
+  function renderPlayerInfo(data) {
+  const box = document.getElementById("playerInfo");
+  if (!data || !data.name) {
+    box.innerHTML = "❌ 선수 정보를 불러오지 못했습니다.";
+    return;
+  }
+
+  box.innerHTML = `
+    <strong>${data.name}</strong> (${data.gender || "?"})<br>
+    Bib: ${data.num}<br>
+    Gun Time: ${data.result_guntime || "-"}<br>
+    Net Time: ${data.result_nettime || "-"}<br>
+    Pace: ${data.pace_nettime || "-"}<br>
+    팀: ${data.team_name || "-"}
+    <hr>
+    ${data.records?.map(r => {
+      const pointName = r.point?.name || "지점";
+      const time = r.time_point || "-";
+      return `${pointName}: ${time}`;
+    }).join("<br>")}
+  `;
+}
 
   function formatRecordHTML(name, bibNo, checkpoints) {
     const rows = checkpoints.map(cp =>
@@ -111,6 +133,7 @@
     if (!stored.find(r => r.bib === bib)) {
       try {
         const data = await loadRecord(source, eventId, bib);
+        renderPlayerInfo(data); // ✅ 이 줄을 추가
         stored.push({ bib: data.bib, name: data.name || "이름 없음" });
         localStorage.setItem(groupKey, JSON.stringify(stored));
         bibInput.value = "";
