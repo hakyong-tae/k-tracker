@@ -72,7 +72,7 @@
         meta.className = "race-meta";
         meta.innerHTML = `
             <div>📅 <strong>${race.date || '날짜 정보 없음'}</strong></div>
-            <div>📍 ${event.location || '장소 정보 없음'}</div>
+            <div>📍 ${place_addr || '장소 정보 없음'}</div>
         `;
 
         card.appendChild(title);

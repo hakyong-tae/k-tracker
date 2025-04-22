@@ -73,7 +73,7 @@
       const infoBox = document.getElementById("eventInfo");
       if (event) {
         const date = event.date || "날짜 없음";
-        const location = event.location || "장소 없음";
+        const location = race.place_addr || "장소 없음";
         infoBox.innerHTML = `<strong>${event.name}</strong><br>${date} | ${location}`;
       } else {
         infoBox.innerHTML = `❌ 대회 정보를 찾을 수 없습니다.`;
