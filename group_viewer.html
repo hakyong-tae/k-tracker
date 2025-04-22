@@ -50,19 +50,34 @@
   const groupKey = `group_${eventId}_${groupId}`;
 
   async function loadRecord(source, eventId, bibNo) {
-  if (source === "myresult") {
-    const res = await fetch(`https://render-mr-api.fly.dev/api/myresult?eventId=${eventId}&bib=${bibNo}`);
-    if (!res.ok) throw new Error("기록 불러오기 실패");
-    const data = await res.json();
-    return {
-      name: data.name,
-      bib: data.bib,
-      checkpoints: data.checkpoints || []
-    };
+    if (source === "myresult") {
+      const res = await fetch(`https://render-mr-api.fly.dev/api/myresult?eventId=${eventId}&bib=${bibNo}`);
+      if (!res.ok) throw new Error("기록 불러오기 실패");
+      const data = await res.json();
+      
+      return {
+        name: data.name || "이름 없음",
+        bib: data.num || bibNo,
+        gender: data.gender || "?",
+        num: data.num || bibNo,
+        result_guntime: data.result_guntime || "-",
+        result_nettime: data.result_nettime || "-",
+        pace_nettime: data.pace_nettime || "-",
+        team_name: data.team_name || "-",
+        records: data.records?.map(record => ({
+          point: { 
+            name: record.point?.name || "체크포인트",
+            distance: record.point?.distance || "0.00"
+          },
+          time_point: record.time_point || "-"
+        })) || [],
+        rank_course: data.rank_course || "-",
+        rank_gender: data.rank_gender || "-"
+      };
     } else if (source === "smartchip") {
       const res = await fetch(`/api/smartchip_record?eventId=${eventId}&bibNo=${bibNo}`);
       if (!res.ok) throw new Error("기록 불러오기 실패");
-      return await res.json(); // smartchip도 name + bib + checkpoints[] 형식으로 반환해야 함
+      return await res.json();
     } else {
       throw new Error("지원되지 않는 source입니다.");
     }
@@ -82,39 +97,49 @@
     for (const athlete of athletes) {
       try {
         const data = await loadRecord(source, eventId, athlete.bib);
-        container.innerHTML += formatRecordHTML(data.name, data.bib, data.checkpoints);
+        container.innerHTML += formatRecordHTML(data.name, data.bib, data.records);
       } catch (err) {
         container.innerHTML += `<div class="text-danger">${athlete.name} (${athlete.bib}): ${err.message}</div><hr/>`;
       }
     }
   }
+
   function renderPlayerInfo(data) {
-  const box = document.getElementById("playerInfo");
-  if (!data || !data.name) {
-    box.innerHTML = "❌ 선수 정보를 불러오지 못했습니다.";
-    return;
+    const box = document.getElementById("playerInfo");
+    if (!data || !data.name) {
+      box.innerHTML = "❌ 선수 정보를 불러오지 못했습니다.";
+      return;
+    }
+
+    box.innerHTML = `
+      <div class="runner-box">
+        <strong>${data.name}</strong> (${data.gender || "?"})<br>
+        Bib: ${data.num}<br>
+        Gun Time: ${data.result_guntime || "-"}<br>
+        Net Time: ${data.result_nettime || "-"}<br>
+        Pace: ${data.pace_nettime || "-"}/km<br>
+        팀: ${data.team_name || "-"}<br>
+        전체 순위: ${data.rank_course || "-"}위<br>
+        성별 순위: ${data.rank_gender || "-"}위
+        <hr>
+        <strong>체크포인트 기록</strong><br>
+        ${data.records?.map(r => {
+          const pointName = r.point?.name || "지점";
+          const distance = r.point?.distance ? `${r.point.distance}km` : "";
+          const time = r.time_point || "-";
+          return `${pointName} ${distance}: ${time}`;
+        }).join("<br>") || "체크포인트 기록 없음"}
+      </div>
+    `;
   }
 
-  box.innerHTML = `
-    <strong>${data.name}</strong> (${data.gender || "?"})<br>
-    Bib: ${data.num}<br>
-    Gun Time: ${data.result_guntime || "-"}<br>
-    Net Time: ${data.result_nettime || "-"}<br>
-    Pace: ${data.pace_nettime || "-"}<br>
-    팀: ${data.team_name || "-"}
-    <hr>
-    ${data.records?.map(r => {
+  function formatRecordHTML(name, bibNo, records) {
+    const rows = records.map(r => {
       const pointName = r.point?.name || "지점";
+      const distance = r.point?.distance ? `${r.point.distance}km` : "";
       const time = r.time_point || "-";
-      return `${pointName}: ${time}`;
-    }).join("<br>")}
-  `;
-}
-
-  function formatRecordHTML(name, bibNo, checkpoints) {
-    const rows = checkpoints.map(cp =>
-      `<li>${cp.name}: ${cp.elapsed || "기록 없음"} (${cp.time || "-"})</li>`
-    ).join("");
+      return `<li>${pointName} ${distance}: ${time}</li>`;
+    }).join("");
 
     return `
       <div class="runner-box">
@@ -129,11 +154,11 @@
     const bib = bibInput.value.trim();
     if (!bib) return;
 
-    const stored = JSON.parse(localStorage.getItem(groupKey) || "[]");
+    const stored = JSON.parse(localStorage.getItem(groupKey) || "[]";
     if (!stored.find(r => r.bib === bib)) {
       try {
         const data = await loadRecord(source, eventId, bib);
-        renderPlayerInfo(data); // ✅ 이 줄을 추가
+        renderPlayerInfo(data);
         stored.push({ bib: data.bib, name: data.name || "이름 없음" });
         localStorage.setItem(groupKey, JSON.stringify(stored));
         bibInput.value = "";
