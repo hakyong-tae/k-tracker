@@ -61,8 +61,7 @@
 
       if (source === "myresult") {
         const res = await fetch("https://render-mr-api.fly.dev/api/proxy/myresult-races");
-        const json = await res.json();
-        const events = json.results;
+        const events = await res.json();
         event = events.find(e => e.id?.toString() === eventId);
       } else if (source === "smartchip") {
         const res = await fetch("/api/smartchip_races");
@@ -73,7 +72,7 @@
       const infoBox = document.getElementById("eventInfo");
       if (event) {
         const date = event.date || "날짜 없음";
-        const location = race.place_addr || "장소 없음";
+        const location = event.place_addr || "장소 없음";
         infoBox.innerHTML = `<strong>${event.name}</strong><br>${date} | ${location}`;
       } else {
         infoBox.innerHTML = `❌ 대회 정보를 찾을 수 없습니다.`;
