@@ -49,41 +49,42 @@
   </div>
 
   <script>
-    async function loadRaceList() {
-      try {
-        const res = await fetch("https://render-mr-api.fly.dev/api/proxy/myresult-races");
-        const races = await res.json();
-        console.log("🏁 응답 races:", races); // ← 이거 콘솔에 찍히는 값 확인!
+   async function loadRaceList() {
+  try {
+    const res = await fetch("https://render-mr-api.fly.dev/api/proxy/myresult-races");
+    const data = await res.json();
+    const races = data.results; // results 배열을 추출
+    console.log("🏁 응답 races:", races);
 
-        const list = document.getElementById("race-list");
-        list.innerHTML = "";
+    const list = document.getElementById("race-list");
+    list.innerHTML = "";
 
-        races.forEach(race => {
-        const card = document.createElement("div");
-        card.className = "race-card";
+    races.forEach(race => {
+      const card = document.createElement("div");
+      card.className = "race-card";
 
-        const title = document.createElement("a");
-        title.className = "race-title";
-        title.href = `group_register.html?eventId=${race.id}&source=myresult`;
-        title.textContent = race.name;
+      const title = document.createElement("a");
+      title.className = "race-title";
+      title.href = `group_register.html?eventId=${race.id}&source=myresult`;
+      title.textContent = race.name;
 
-        const meta = document.createElement("div");
-        meta.className = "race-meta";
-        meta.innerHTML = `
-            <div>📅 <strong>${race.date || '날짜 정보 없음'}</strong></div>
-            <div>📍 ${race.place_addr || '장소 정보 없음'}</div>
-        `;
+      const meta = document.createElement("div");
+      meta.className = "race-meta";
+      meta.innerHTML = `
+          <div>📅 <strong>${race.date || '날짜 정보 없음'}</strong></div>
+          <div>📍 ${race.place_addr || '장소 정보 없음'}</div>
+      `;
 
-        card.appendChild(title);
-        card.appendChild(meta);
-        list.appendChild(card);
-        });
+      card.appendChild(title);
+      card.appendChild(meta);
+      list.appendChild(card);
+    });
 
-      } catch (err) {
-        document.getElementById("race-list").innerHTML = "❌ 대회 정보를 불러오지 못했습니다.";
-      }
-    }
-
+  } catch (err) {
+    console.error("대회 정보 불러오기 실패:", err);
+    document.getElementById("race-list").innerHTML = "❌ 대회 정보를 불러오지 못했습니다.";
+  }
+}
     document.addEventListener("DOMContentLoaded", () => {
   loadRaceList();
 });

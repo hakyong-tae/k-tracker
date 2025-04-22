@@ -60,28 +60,28 @@
       let event = null;
 
       if (source === "myresult") {
-        const res = await fetch("https://render-mr-api.fly.dev/api/proxy/myresult-races");
-        const events = await res.json();
-        event = events.find(e => e.id?.toString() === eventId);
-      } else if (source === "smartchip") {
-        const res = await fetch("/api/smartchip_races");
-        const events = await res.json();
-        event = events.find(e => e.id?.toString() === eventId);
-      }
-
-      const infoBox = document.getElementById("eventInfo");
-      if (event) {
-        const date = event.date || "날짜 없음";
-        const location = event.place_addr || "장소 없음";
-        infoBox.innerHTML = `<strong>${event.name}</strong><br>${date} | ${location}`;
-      } else {
-        infoBox.innerHTML = `❌ 대회 정보를 찾을 수 없습니다.`;
-      }
-    } catch (e) {
-      console.error("대회 정보 불러오기 실패:", e);
-      document.getElementById("eventInfo").textContent = "❌ 대회 정보를 불러오지 못했습니다.";
+      const res = await fetch("https://render-mr-api.fly.dev/api/proxy/myresult-races");
+      const data = await res.json();
+      event = data.results.find(e => e.id?.toString() === eventId); // results 배열에서 찾기
+    } else if (source === "smartchip") {
+      const res = await fetch("/api/smartchip_races");
+      const data = await res.json();
+      event = data.results.find(e => e.id?.toString() === eventId); // results 배열에서 찾기
     }
+
+    const infoBox = document.getElementById("eventInfo");
+    if (event) {
+      const date = event.date || "날짜 없음";
+      const location = event.place_addr || "장소 없음";
+      infoBox.innerHTML = `<strong>${event.name}</strong><br>${date} | ${location}`;
+    } else {
+      infoBox.innerHTML = `❌ 대회 정보를 찾을 수 없습니다.`;
+    }
+  } catch (e) {
+    console.error("대회 정보 불러오기 실패:", e);
+    document.getElementById("eventInfo").textContent = "❌ 대회 정보를 불러오지 못했습니다.";
   }
+}
 
   function loadMyGroups() {
     const groupList = document.getElementById("myGroups");
