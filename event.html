@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>K-TRACKER | 대회 목록</title>
+  <link rel="icon" href="/assets/k-tracker.ico" type="image/x-icon" />
   <style>
     body { font-family: sans-serif; padding: 2rem; text-align: center; background: #f9f9f9; }
     h1 { font-size: 1.8rem; margin-bottom: 2rem; }
@@ -34,79 +35,110 @@
       line-height: 1.4;
     }
     footer a:hover {
-    color: #ffc107 !important; /* 노란색 hover 효과 */
-    text-decoration: none;
-  }
+      color: #ffc107 !important;
+      text-decoration: none;
+    }
   </style>
-  <!-- FontAwesome 아이콘 CDN -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
-  <h1>🏁 K-TRACKER 대회 목록</h1>
-  <div id="race-list" class="race-list">
-    <p>불러오는 중...</p>
-  </div>
 
-  <script>
-   async function loadRaceList() {
-  try {
-    const res = await fetch("https://render-mr-api.fly.dev/api/proxy/myresult-races");
-    const data = await res.json();
-    const races = data.results; // results 배열을 추출
-    console.log("🏁 응답 races:", races);
+  <h1><img src="/assets/k-tracker.ico" width="24" style="vertical-align: middle; margin-right: 8px;"> K-TRACKER 대회 목록</h1>
+  <h2><a href="https://myresult.co.kr/" target="_blank">MyResult 대회</a></h2>
+  <div id="myresult-list" class="race-list"></div>
 
-    const list = document.getElementById("race-list");
-    list.innerHTML = "";
+  <h2><a href="https://smartchip.co.kr/" target="_blank">SmartChip 대회</a></h2>
+  <div id="smartchip-list" class="race-list"></div>
 
-    races.forEach(race => {
+
+  <p>불러오는 중...</p>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  loadMyResultRaces();
+  loadSmartChipRaces();
+});
+
+async function loadMyResultRaces() {
+  const res = await fetch("https://render-mr-api.fly.dev/api/proxy/myresult-races");
+  const data = await res.json();
+  const races = data.results;
+  const list = document.getElementById("myresult-list"); // ✅ MyResult 전용 리스트
+
+  list.innerHTML = "";
+
+  races.slice(0, 6).forEach(race => {
+    const card = document.createElement("div");
+    card.className = "race-card";
+
+    const title = document.createElement("a");
+    title.className = "race-title";
+    title.href = `group_register.html?eventId=${race.id}&source=myresult`;
+    title.textContent = race.name;
+
+    const meta = document.createElement("div");
+    meta.className = "race-meta";
+    meta.innerHTML = `
+      <div>📅 <strong>${race.date || '날짜 정보 없음'}</strong></div>
+      <div>📍 ${race.place_addr || '장소 정보 없음'}</div>
+      <div><img src="https://myresult.co.kr/favicon.ico" width="14"> [MyResult]</div>
+    `;
+
+    card.appendChild(title);
+    card.appendChild(meta);
+    list.appendChild(card);
+  });
+}
+async function loadSmartChipRaces() {
+  const today = new Date().toISOString().slice(0, 10);
+  const res = await fetch(`https://raw.githubusercontent.com/hakyong-tae/smartchip-crawler/main/output/events_${today}.json`);
+  const data = await res.json();
+  const list = document.getElementById("smartchip-list"); // ✅ SmartChip 전용 리스트
+
+  list.innerHTML = "";
+
+  data
+    .slice(0, 6)
+    .forEach(race => {
       const card = document.createElement("div");
       card.className = "race-card";
 
       const title = document.createElement("a");
       title.className = "race-title";
-      title.href = `group_register.html?eventId=${race.id}&source=myresult`;
+      title.href = `group_register.html?eventId=${race.id}&source=smartchip`;
       title.textContent = race.name;
 
       const meta = document.createElement("div");
       meta.className = "race-meta";
       meta.innerHTML = `
-          <div>📅 <strong>${race.date || '날짜 정보 없음'}</strong></div>
-          <div>📍 ${race.place_addr || '장소 정보 없음'}</div>
+        <div>📅 <strong>${race.date || "정보 없음"}</strong></div>
+        <div>📍 ${race.place || "정보 없음"}</div>
+        <div><img src="https://smartchip.co.kr/favicon.ico" width="14"> [SmartChip]</div>
       `;
 
       card.appendChild(title);
       card.appendChild(meta);
       list.appendChild(card);
     });
-
-  } catch (err) {
-    console.error("대회 정보 불러오기 실패:", err);
-    document.getElementById("race-list").innerHTML = "❌ 대회 정보를 불러오지 못했습니다.";
-  }
 }
-    document.addEventListener("DOMContentLoaded", () => {
-  loadRaceList();
-});
-  </script>
-  <footer class="footer mt-auto py-3 bg-dark text-white text-center">
-    <div class="container small">
-      Made by <strong>hakyong-tae</strong><br />
-      <a href="https://x.com/yong_planet" target="_blank" class="text-white mx-2">
-        <i class="fab fa-x-twitter"></i> X
-      </a>
-      <a href="https://www.instagram.com/hy.tae/" target="_blank" class="text-white mx-2">
-        <i class="fab fa-instagram"></i> Instagram
-      </a>
-      <a href="https://github.com/hakyong-tae" target="_blank" class="text-white mx-2">
-        <i class="fab fa-github"></i> GitHub
-      </a>
-      <a href="mailto:hy.tae@kakao.com" class="text-white mx-2">
-        <i class="fas fa-envelope"></i> Email
-      </a>
-    </div>
-  </footer>
-  
-  
+
+
+</script>
+
+<p style="font-size:12px; color:gray; margin-top:20px;">
+※ 이 대회 목록은 <strong>SmartChip</strong> 및 <strong>MyResult</strong> 기록 제공 사이트에서 가져온 정보를 기반으로 하며, 일부 정보는 제공되지 않을 수 있습니다.
+</p>
+
+<footer class="footer mt-auto py-3 bg-dark text-white text-center">
+  <div class="container small">
+    Made by <strong>hakyong-tae</strong><br />
+    <a href="https://x.com/yong_planet" target="_blank" class="text-white mx-2"><i class="fab fa-x-twitter"></i> X</a>
+    <a href="https://www.instagram.com/hy.tae/" target="_blank" class="text-white mx-2"><i class="fab fa-instagram"></i> Instagram</a>
+    <a href="https://github.com/hakyong-tae" target="_blank" class="text-white mx-2"><i class="fab fa-github"></i> GitHub</a>
+    <a href="mailto:hy.tae@kakao.com" class="text-white mx-2"><i class="fas fa-envelope"></i> Email</a>
+  </div>
+</footer>
+
 </body>
 </html>

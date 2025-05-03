@@ -4,32 +4,51 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>K-TRACKER | 그룹 기록 조회</title>
+  <link rel="icon" href="/assets/k-tracker.ico" type="image/x-icon" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
     body { padding: 2rem; background-color: #f2f2f2; }
-    .runner-box { background: #fff; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; box-shadow: 0 0 4px rgba(0,0,0,0.1); }
+    .runner-box { background: #fff; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; box-shadow: 0 0 4px rgba(0,0,0,0.1); cursor: pointer; }
     #playerInfo { margin-bottom: 2rem; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2 id="groupHeader" class="text-center mb-4">📊 그룹 정보 로딩 중...</h2>
-    <div class="d-flex justify-content-between align-items-center mb-3">
-      <div id="lastUpdated" class="text-muted small">⏱️ 마지막 갱신: -</div>
-      <button onclick="maybeRefresh()" class="btn btn-outline-primary btn-sm">🔄 새로고침</button>
-    </div>
+<div class="container">
+  <h2 id="groupHeader" class="text-center mb-4">📊 그룹 정보 로딩 중...</h2>
+  <p id="raceLink" class="text-center mb-4"></p>
 
-    <div class="input-group mb-3">
-      <input id="bibInput" type="text" class="form-control" placeholder="선수 배번호 입력" />
-      <button id="addRunnerBtn" class="btn btn-success">+ 등록</button>
-    </div>
-
-    <div id="playerInfo"></div>
-    <div id="runnerList"></div>
-    <div class="mt-5 text-center">
-      <a href="#" id="backToGroup" class="btn btn-outline-secondary">⬅️ 그룹 선택으로</a>
-    </div>
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <div id="lastUpdated" class="text-muted small">⏱️ 마지막 갱신: -</div>
+    <button onclick="maybeRefresh()" class="btn btn-outline-primary btn-sm">🔄 새로고침</button>
   </div>
+
+  <div class="input-group mb-3">
+    <input id="bibInput" type="text" class="form-control" placeholder="선수 배번호 입력" />
+    <button id="addRunnerBtn" class="btn btn-success">+ 등록</button>
+  </div>
+
+  <div id="playerInfo"></div>
+  <div id="runnerList"></div>
+
+  <div class="alert alert-secondary small mt-5" role="alert">
+    ※ 이 대회 목록은 <strong>SmartChip</strong> 및 <strong>MyResult</strong> 기록 제공 사이트의 데이터를 기반으로 하며, 일부 정보는 제공되지 않을 수 있습니다.
+  </div>
+
+  <div class="mt-5 text-center">
+    <a href="#" id="backToGroup" class="btn btn-outline-secondary">⬅️ 그룹 선택으로</a>
+  </div>
+</div>
+
+<footer class="text-center mt-5 py-4" style="background-color: #e9ecef; color: #212529;">
+  <div class="container small">
+    <strong>K-TRACKER</strong> © hakyong-tae<br>
+    <a href="https://x.com/yong_planet" target="_blank"><i class="fab fa-x-twitter"></i> X</a>
+    <a href="https://www.instagram.com/hy.tae/" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+    <a href="https://github.com/hakyong-tae" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+    <a href="mailto:hy.tae@kakao.com"><i class="fas fa-envelope"></i> Email</a>
+  </div>
+</footer>
 
 <script>
 const urlParams = new URLSearchParams(window.location.search);
@@ -37,28 +56,65 @@ const eventId = urlParams.get("eventId");
 const groupId = urlParams.get("group");
 const source = urlParams.get("source") || "myresult";
 const groupKey = `group_${eventId}_${groupId}`;
-let eventName = "";
+let eventName = null;
 let lastFetchTime = 0;
 
-async function loadRecord(source, eventId, bibNo) {
-  if (source === "myresult") {
-    const res = await fetch(`https://render-mr-api.fly.dev/api/myresult?eventId=${eventId}&bib=${bibNo}`);
-    if (!res.ok) throw new Error("선수 정보를 찾을 수 없습니다.");
-    const data = await res.json();
-    if (!data || !data.num) throw new Error("해당 배번호의 선수가 없습니다.");
-
-    eventName = data.event?.name || "";
-
-    return {
-      name: data.name || "이름 없음",
-      bib: data.num || bibNo,
-      records: (data.records || []).map(r => ({
-        point: r.point || {},
-        time_point: r.time_point || "-"
-      }))
-    };
+function updateGroupHeader() {
+  let nameDisplay = "(로딩 중...)";
+  if (eventName === "(대회 정보 로드 실패)") {
+    nameDisplay = eventName;
+  } else if (eventName) {
+    nameDisplay = eventName;
   }
-  throw new Error("지원되지 않는 source입니다.");
+  document.getElementById("groupHeader").textContent = `📊 ${nameDisplay} - ${groupId}`;
+}
+
+async function loadEventInfo() {
+  const raceLink = document.getElementById("raceLink");
+
+  if (source === "myresult") {
+    raceLink.innerHTML = `<a href="https://myresult.co.kr/${eventId}" target="_blank">[MyResult 대회 페이지 바로가기]</a>`;
+    try {
+      const res = await fetch("https://render-mr-api.fly.dev/api/myresult_races");
+      if (res.ok) {
+        const data = await res.json();
+        const race = data.results.find(e => e.id?.toString() === eventId);
+        if (race) {
+          eventName = race.name;
+        } else {
+          eventName = "(대회 정보 로드 실패)";
+        }
+      }
+    } catch (e) {
+      eventName = "(대회 정보 로드 실패)";
+    }
+  } else if (source === "smartchip") {
+  raceLink.innerHTML = `<a href="https://smartchip.co.kr/Search_Ballyno.html?usedata=${eventId}" target="_blank">[SmartChip 대회 페이지 바로가기]</a>`;
+  try {
+    const today = new Date().toISOString().slice(0, 10);
+    const res = await fetch(`https://raw.githubusercontent.com/hakyong-tae/smartchip-crawler/main/output/events_${today}.json`);
+    const data = await res.json();
+    const race = data.find(e => e.id?.toString() === eventId);
+    if (race) {
+      eventName = race.name;
+    } else {
+      eventName = "(대회 정보 로드 실패)";
+    }
+  } catch (e) {
+    eventName = "(대회 정보 로드 실패)";
+  }
+}
+
+
+  updateGroupHeader();
+}
+
+function goToOfficialRecord(bibNo) {
+  if (source === "myresult") {
+    window.open(`https://myresult.co.kr/${eventId}/${bibNo}`, "_blank");
+  } else if (source === "smartchip") {
+    window.open(`https://smartchip.co.kr/record/member?usedata=${eventId}&bib=${bibNo}`, "_blank");
+  }
 }
 
 function renderPlayerInfo(data) {
@@ -69,7 +125,7 @@ function renderPlayerInfo(data) {
   }
 
   box.innerHTML = `
-    <div class="runner-box">
+    <div class="runner-box" onclick="goToOfficialRecord('${data.bib}')">
       <strong>${data.name}</strong> (Bib ${data.bib})
       <hr>
       <strong>체크포인트 기록</strong><br>
@@ -79,33 +135,57 @@ function renderPlayerInfo(data) {
 }
 
 function formatRecordHTML(name, bibNo, records) {
-  const rows = records.map(r => {
-    const pointName = r.point?.name || "지점";
-    const distance = r.point?.distance ? `${r.point.distance}km` : "";
-    const time = r.time_point || "-";
-    return `<li>${pointName} ${distance}: ${time}</li>`;
-  }).join("");
-
+  const rows = records.map(r => `<li>${r.point?.name || "지점"}: ${r.time_point}</li>`).join("");
   return `
-    <div class="runner-box">
+    <div class="runner-box" onclick="goToOfficialRecord('${bibNo}')">
       <div class="d-flex justify-content-between align-items-center">
         <h5>${name} (Bib ${bibNo})</h5>
-        <button onclick="removeRunner('${bibNo}')" class="btn btn-sm btn-outline-danger">🗑️</button>
+        <button onclick="event.stopPropagation(); removeRunner('${bibNo}')" class="btn btn-sm btn-outline-danger">🗑️</button>
       </div>
       <ul>${rows}</ul>
     </div>
   `;
 }
 
-function updateTimestamp() {
-  const now = new Date();
-  const time = now.toLocaleTimeString();
-  document.getElementById("lastUpdated").textContent = `⏱️ 마지막 갱신: ${time}`;
+async function loadRecord(source, eventId, bibNo) {
+  if (source === "myresult") {
+    const res = await fetch(`https://render-mr-api.fly.dev/api/myresult?eventId=${eventId}&bib=${bibNo}`);
+    if (!res.ok) throw new Error("선수 정보를 찾을 수 없습니다.");
+    const data = await res.json();
+    if (!data || !data.num) throw new Error("해당 배번호의 선수가 없습니다.");
+
+    eventName = data.event?.name || eventName;
+    updateGroupHeader();
+
+    return {
+      name: data.name || "이름 없음",
+      bib: data.num || bibNo,
+      records: (data.records || []).map(r => ({
+        point: r.point || {},
+        time_point: r.time_point || "-"
+      }))
+    };
+  } else if (source === "smartchip") {
+    const res = await fetch(`https://sc-api-ds-clean.fly.dev/runner?usedata=${eventId}&bib=${bibNo}`);
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+
+    return {
+      name: data["이름"] || "이름 없음",
+      bib: data["배번호"] || bibNo,
+      records: (data["기록"] || []).map(r => ({
+        point: { name: r["지점"] },
+        time_point: r["시간"]
+      }))
+    };
+  }
 }
 
 async function loadGroupRecords() {
   const container = document.getElementById("runnerList");
   container.innerHTML = "";
+
+  if (!eventName) await loadEventInfo();
 
   const stored = localStorage.getItem(groupKey);
   if (!stored) {
@@ -122,8 +202,14 @@ async function loadGroupRecords() {
       container.innerHTML += `<div class="text-danger">${athlete.name} (${athlete.bib}): ${err.message}</div><hr/>`;
     }
   }
+
   updateTimestamp();
-  document.getElementById("groupHeader").textContent = `📊 ${eventName} - ${groupId}`;
+}
+
+function updateTimestamp() {
+  const now = new Date();
+  const time = now.toLocaleTimeString();
+  document.getElementById("lastUpdated").textContent = `⏱️ 마지막 갱신: ${time}`;
 }
 
 function removeRunner(bib) {
@@ -171,7 +257,12 @@ document.getElementById("addRunnerBtn").addEventListener("click", async () => {
 });
 
 document.getElementById("backToGroup").href = `group_register.html?eventId=${eventId}&source=${source}`;
-window.onload = loadGroupRecords;
+
+window.onload = async () => {
+  await loadEventInfo();
+  updateGroupHeader();
+  await loadGroupRecords();
+};
 </script>
 </body>
 </html>
