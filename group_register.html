@@ -67,9 +67,9 @@ async function loadEventInfo() {
       const res = await fetch("https://render-mr-api.fly.dev/api/proxy/myresult-races");
       const data = await res.json();
       event = data.results.find(e => e.id?.toString() === eventId);
-    }  else if (source === "smartchip") {
+    } else if (source === "smartchip") {
   const today = new Date().toISOString().slice(0, 10);
-  const res = await fetch(`https://raw.githubusercontent.com/hakyong-tae/smartchip-crawler/main/output/events_${today}.json`);
+  const res = await fetch(`https://cdn.jsdelivr.net/gh/hakyong-tae/smartchip-crawler@main/output/events_${today}.json`);
   const data = await res.json();
   event = data.find(e => e.id?.toString() === eventId);
 }
@@ -88,11 +88,11 @@ async function loadEventInfo() {
         link = `<a href="https://myresult.co.kr/${eventId}" target="_blank">[대회 페이지 열기]</a>`;
         infoBox.innerHTML = `<strong>${event.name}</strong><br>${date} | ${location}<br>${link}`;
       } else if (source === "smartchip") {
-        date = event["대회일자"] || "날짜 없음";
-        location = event["대회장소"] || "장소 없음";
-        link = `<a href="https://smartchip.co.kr/Search_Ballyno.html?usedata=${eventId}" target="_blank">[대회 페이지 열기]</a>`;
-        infoBox.innerHTML = `<strong>${event["대회명"]}</strong><br>${date} | ${location}<br>${link}`;
-      }
+  date = event.date || "날짜 없음";
+  location = event.place || "장소 없음";
+  link = `<a href="https://smartchip.co.kr/Search_Ballyno.html?usedata=${eventId}" target="_blank">[대회 페이지 열기]</a>`;
+  infoBox.innerHTML = `<strong>${event.name}</strong><br>${date} | ${location}<br>${link}`;
+}
     } else {
       infoBox.innerHTML = `❌ 대회 정보를 찾을 수 없습니다.`;
     }

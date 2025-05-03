@@ -92,7 +92,7 @@ async function loadEventInfo() {
   raceLink.innerHTML = `<a href="https://smartchip.co.kr/Search_Ballyno.html?usedata=${eventId}" target="_blank">[SmartChip 대회 페이지 바로가기]</a>`;
   try {
     const today = new Date().toISOString().slice(0, 10);
-    const res = await fetch(`https://raw.githubusercontent.com/hakyong-tae/smartchip-crawler/main/output/events_${today}.json`);
+    const res = await fetch(`https://cdn.jsdelivr.net/gh/hakyong-tae/smartchip-crawler@main/output/events_${today}.json`);
     const data = await res.json();
     const race = data.find(e => e.id?.toString() === eventId);
     if (race) {
@@ -104,6 +104,7 @@ async function loadEventInfo() {
     eventName = "(대회 정보 로드 실패)";
   }
 }
+
 
 
   updateGroupHeader();
