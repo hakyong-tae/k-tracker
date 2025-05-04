@@ -49,16 +49,14 @@
 </head>
 <body>
 
-  <h1><img src="/assets/k-tracker.ico" width="24" style="vertical-align: middle; margin-right: 8px;"> K-TRACKER 대회 목록</h1>
-  <h2><a href="https://myresult.co.kr/" target="_blank">MyResult 대회</a></h2>
-  <div id="myresult-list" class="race-list"></div>
+<h1><img src="/assets/k-tracker.ico" width="24" style="vertical-align: middle; margin-right: 8px;"> K-TRACKER 대회 목록</h1>
+<h2><a href="https://myresult.co.kr/" target="_blank">MyResult 대회</a></h2>
+<div id="myresult-list" class="race-list"></div>
 
-  <h2><a href="https://smartchip.co.kr/" target="_blank">SmartChip 대회</a></h2>
-  <div id="smartchip-list" class="race-list"></div>
+<h2><a href="https://smartchip.co.kr/" target="_blank">SmartChip 대회</a></h2>
+<div id="smartchip-list" class="race-list"></div>
 
-
-  <p>불러오는 중...</p>
-</div>
+<p>불러오는 중...</p>
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
@@ -66,11 +64,18 @@ document.addEventListener("DOMContentLoaded", () => {
   loadSmartChipRaces();
 });
 
+// 한국 시간 (KST) 기준 오늘 날짜 구하기
+function getTodayKST() {
+  const now = new Date();
+  now.setHours(now.getHours() + 9); // UTC +9시간 = KST
+  return now.toISOString().slice(0, 10);
+}
+
 async function loadMyResultRaces() {
   const res = await fetch("https://render-mr-api.fly.dev/api/proxy/myresult-races");
   const data = await res.json();
   const races = data.results;
-  const list = document.getElementById("myresult-list"); // ✅ MyResult 전용 리스트
+  const list = document.getElementById("myresult-list");
 
   list.innerHTML = "";
 
@@ -96,40 +101,42 @@ async function loadMyResultRaces() {
     list.appendChild(card);
   });
 }
+
 async function loadSmartChipRaces() {
-  const today = new Date().toISOString().slice(0, 10);
+  const today = getTodayKST(); // ✅ 한국 시간 기준으로 날짜 계산
   const res = await fetch(`https://cdn.jsdelivr.net/gh/hakyong-tae/smartchip-crawler@main/output/events_${today}.json`);
   const data = await res.json();
   const list = document.getElementById("smartchip-list");
 
   list.innerHTML = "";
 
-  data
-    .slice(0, 6)
-    .forEach(race => {
-      const card = document.createElement("div");
-      card.className = "race-card";
+  if (data.length === 0) {
+    list.innerHTML = "<p>오늘 등록된 SmartChip 대회가 없습니다.</p>";
+    return;
+  }
 
-      const title = document.createElement("a");
-      title.className = "race-title";
-      title.href = `group_register.html?eventId=${race.id}&source=smartchip`;
-      title.textContent = race.name;
+  data.slice(0, 6).forEach(race => {
+    const card = document.createElement("div");
+    card.className = "race-card";
 
-      const meta = document.createElement("div");
-      meta.className = "race-meta";
-      meta.innerHTML = `
-        <div>📅 <strong>${race.date || "정보 없음"}</strong></div>
-        <div>📍 ${race.place || "정보 없음"}</div>
-<div><img src="https://smartchip.co.kr/favicon.ico" width="14"> [SmartChip]</div>
-      `;
+    const title = document.createElement("a");
+    title.className = "race-title";
+    title.href = `group_register.html?eventId=${race.id}&source=smartchip`;
+    title.textContent = race.name;
 
-      card.appendChild(title);
-      card.appendChild(meta);
-      list.appendChild(card);
-    });
+    const meta = document.createElement("div");
+    meta.className = "race-meta";
+    meta.innerHTML = `
+      <div>📅 <strong>${race.date || "정보 없음"}</strong></div>
+      <div>📍 ${race.place || "정보 없음"}</div>
+      <div><img src="https://smartchip.co.kr/favicon.ico" width="14"> [SmartChip]</div>
+    `;
+
+    card.appendChild(title);
+    card.appendChild(meta);
+    list.appendChild(card);
+  });
 }
-
-
 </script>
 
 <p style="font-size:12px; color:gray; margin-top:20px;">
