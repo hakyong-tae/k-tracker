@@ -2,24 +2,19 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>K-TRACKER | 그룹 실시간 기록 보기</title>
   <link rel="icon" href="/assets/k-tracker.ico" type="image/x-icon" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
-    body { padding: 2rem; background-color: #f2f2f2; }
-    .runner-box { background: #fff; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; box-shadow: 0 0 4px rgba(0,0,0,0.1); cursor: pointer; }
+    body { padding: 2rem; background-color: #f8f9fa; }
+    .runner-box { background: white; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
     #playerInfo { margin-bottom: 2rem; }
   </style>
-  <meta name="description" content="등록된 그룹에서 실시간으로 마라톤 참가자의 기록을 확인하고 응원할 수 있습니다.">
-  <meta property="og:title" content="K-TRACKER - 그룹 실시간 기록 보기">
-  <meta property="og:description" content="실시간으로 친구들의 기록을 확인하고 응원하세요.">
-  <meta property="og:url" content="https://k-tracker.onrender.com/group_viewer.html">
-  <meta property="og:image" content="https://k-tracker.onrender.com/images/og-viewer.jpg">
-  
 </head>
 <body>
+
 <div class="container">
   <h2 id="groupHeader" class="text-center mb-4">📊 그룹 정보 로딩 중...</h2>
   <p id="raceLink" class="text-center mb-4"></p>
@@ -37,22 +32,18 @@
   <div id="playerInfo"></div>
   <div id="runnerList"></div>
 
-  <div class="alert alert-secondary small mt-5" role="alert">
-    ※ 이 대회 목록은 <strong>SmartChip</strong> 및 <strong>MyResult</strong> 기록 제공 사이트의 데이터를 기반으로 하며, 일부 정보는 제공되지 않을 수 있습니다.
-  </div>
-
+  <div class="alert alert-secondary small mt-5">※ 기록은 SmartChip과 MyResult의 데이터를 기반으로 제공됩니다.</div>
   <div class="mt-5 text-center">
     <a href="#" id="backToGroup" class="btn btn-outline-secondary">⬅️ 그룹 선택으로</a>
   </div>
 </div>
 
-<footer class="text-center mt-5 py-4" style="background-color: #e9ecef; color: #212529;">
+<footer class="text-center mt-5 py-4 bg-light">
   <div class="container small">
-    <strong>K-TRACKER</strong> © hakyong-tae<br>
+    <strong>K-TRACKER</strong> © hakyong-tae |
     <a href="https://x.com/yong_planet" target="_blank"><i class="fab fa-x-twitter"></i> X</a>
     <a href="https://www.instagram.com/hy.tae/" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
     <a href="https://github.com/hakyong-tae" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-    <a href="mailto:hy.tae@kakao.com"><i class="fas fa-envelope"></i> Email</a>
   </div>
 </footer>
 
@@ -66,52 +57,34 @@ let eventName = null;
 let lastFetchTime = 0;
 
 function updateGroupHeader() {
-  let nameDisplay = "(로딩 중...)";
-  if (eventName === "(대회 정보 로드 실패)") {
-    nameDisplay = eventName;
-  } else if (eventName) {
-    nameDisplay = eventName;
-  }
-  document.getElementById("groupHeader").textContent = `📊 ${nameDisplay} - ${groupId}`;
+  document.getElementById("groupHeader").textContent = `📊 ${eventName || "대회 정보 로드 중..."} - ${groupId}`;
 }
 
 async function loadEventInfo() {
   const raceLink = document.getElementById("raceLink");
 
   if (source === "myresult") {
-    raceLink.innerHTML = `<a href="https://myresult.co.kr/${eventId}" target="_blank">[MyResult 대회 페이지 바로가기]</a>`;
+    raceLink.innerHTML = `<a href="https://myresult.co.kr/${eventId}" target="_blank">[MyResult 대회 페이지]</a>`;
     try {
       const res = await fetch("https://render-mr-api.fly.dev/api/myresult_races");
-      if (res.ok) {
-        const data = await res.json();
-        const race = data.results.find(e => e.id?.toString() === eventId);
-        if (race) {
-          eventName = race.name;
-        } else {
-          eventName = "(대회 정보 로드 실패)";
-        }
-      }
-    } catch (e) {
+      const data = await res.json();
+      const race = data.results.find(e => e.id?.toString() === eventId);
+      eventName = race ? race.name : "(대회 정보 없음)";
+    } catch {
       eventName = "(대회 정보 로드 실패)";
     }
-  } else if (source === "smartchip") {
-  raceLink.innerHTML = `<a href="https://smartchip.co.kr/Search_Ballyno.html?usedata=${eventId}" target="_blank">[SmartChip 대회 페이지 바로가기]</a>`;
-  try {
-    const today = new Date().toISOString().slice(0, 10);
-    const res = await fetch(`https://cdn.jsdelivr.net/gh/hakyong-tae/smartchip-crawler@main/output/events_${today}.json`);
-    const data = await res.json();
-    const race = data.find(e => e.usedata?.toString() === eventId);
-    if (race) {
-      eventName = race["대회명"] || race.name || "(대회명 없음)";
-    } else {
+  } else {
+    raceLink.innerHTML = `<a href="https://smartchip.co.kr/Search_Ballyno.html?usedata=${eventId}" target="_blank">[SmartChip 대회 페이지]</a>`;
+    try {
+      const today = new Date().toISOString().slice(0, 10);
+      const res = await fetch(`https://cdn.jsdelivr.net/gh/hakyong-tae/smartchip-crawler@main/output/events_${today}.json`);
+      const data = await res.json();
+      const race = data.find(e => e.usedata?.toString() === eventId);
+      eventName = race ? race["대회명"] || race.name : "(대회 정보 없음)";
+    } catch {
       eventName = "(대회 정보 로드 실패)";
-    } 
-  } catch (e) {
-    eventName = "(대회 정보 로드 실패)";
+    }
   }
-}
-
-
 
   updateGroupHeader();
 }
@@ -119,7 +92,7 @@ async function loadEventInfo() {
 function goToOfficialRecord(bibNo) {
   if (source === "myresult") {
     window.open(`https://myresult.co.kr/${eventId}/${bibNo}`, "_blank");
-  } else if (source === "smartchip") {
+  } else {
     window.open(`https://smartchip.co.kr/record/member?usedata=${eventId}&bib=${bibNo}`, "_blank");
   }
 }
@@ -133,56 +106,62 @@ function renderPlayerInfo(data) {
 
   box.innerHTML = `
     <div class="runner-box" onclick="goToOfficialRecord('${data.bib}')">
-      <strong>${data.name}</strong> (Bib ${data.bib})
+      <strong>${data.name}</strong> (Bib ${data.bib})<br>
+      총기록: ${data.total_time || "-"}<br>
+      최고 페이스: ${data.pace || "-"}<br>
       <hr>
-      <strong>체크포인트 기록</strong><br>
-      ${data.records.map(r => `${r.point.name || "지점"}: ${r.time_point}`).join("<br>")}
+      <strong>구간 기록</strong><br>
+      ${data.splits.map(r => `${r.point}: ${r.time} (${r.pace})`).join("<br>")}
     </div>
   `;
 }
 
-function formatRecordHTML(name, bibNo, records) {
-  const rows = records.map(r => `<li>${r.point?.name || "지점"}: ${r.time_point}</li>`).join("");
+function formatRecordHTML(name, bib, records) {
   return `
-    <div class="runner-box" onclick="goToOfficialRecord('${bibNo}')">
+    <div class="runner-box" onclick="goToOfficialRecord('${bib}')">
       <div class="d-flex justify-content-between align-items-center">
-        <h5>${name} (Bib ${bibNo})</h5>
-        <button onclick="event.stopPropagation(); removeRunner('${bibNo}')" class="btn btn-sm btn-outline-danger">🗑️</button>
+        <h5>${name} (Bib ${bib})</h5>
+        <button onclick="event.stopPropagation(); removeRunner('${bib}')" class="btn btn-sm btn-outline-danger">🗑️</button>
       </div>
-      <ul>${rows}</ul>
+      <ul>${records.map(r => `<li>${r.point}: ${r.time} (${r.pace})</li>`).join("")}</ul>
     </div>
   `;
 }
 
-async function loadRecord(source, eventId, bibNo) {
+async function loadRecord(source, eventId, bib) {
   if (source === "myresult") {
-    const res = await fetch(`https://render-mr-api.fly.dev/api/myresult?eventId=${eventId}&bib=${bibNo}`);
-    if (!res.ok) throw new Error("선수 정보를 찾을 수 없습니다.");
+    const res = await fetch(`https://render-mr-api.fly.dev/api/myresult?eventId=${eventId}&bib=${bib}`);
     const data = await res.json();
-    if (!data || !data.num) throw new Error("해당 배번호의 선수가 없습니다.");
+    if (!data || !data.num) throw new Error("해당 배번호 선수 없음");
 
     eventName = data.event?.name || eventName;
     updateGroupHeader();
 
     return {
       name: data.name || "이름 없음",
-      bib: data.num || bibNo,
-      records: (data.records || []).map(r => ({
-        point: r.point || {},
-        time_point: r.time_point || "-"
+      bib: data.num,
+      total_time: data.total_time || "-",
+      pace: data.pace || "-",
+      splits: (data.records || []).map(r => ({
+        point: r.point?.name || "지점",
+        time: r.time_point,
+        pace: r.pace || "-"
       }))
     };
-  } else if (source === "smartchip") {
-    const res = await fetch(`https://your-smartchip-proxy-domain/smartchip_proxy?usedata=${eventId}&bib=${bibNo}`);
+  } else {
+    const res = await fetch(`https://smartchip-proxy.fly.dev/api/runner/${eventId}/${bib}`);
     const data = await res.json();
     if (data.error) throw new Error(data.error);
 
     return {
-      name: data["이름"] || "이름 없음",
-      bib: data["배번호"] || bibNo,
-      records: (data["기록"] || []).map(r => ({
-        point: { name: r["지점"] },
-        time_point: r["시간"]
+      name: data.name || "이름 없음",
+      bib: data.bib,
+      total_time: data.total_time || "-",
+      pace: data.pace || "-",
+      splits: (data.splits || []).map(r => ({
+        point: r.point,
+        time: r.time,
+        pace: r.pace
       }))
     };
   }
@@ -196,7 +175,7 @@ async function loadGroupRecords() {
 
   const stored = localStorage.getItem(groupKey);
   if (!stored) {
-    container.innerHTML = "<p>이 그룹에 등록된 선수가 없습니다.</p>";
+    container.innerHTML = "<p>등록된 선수가 없습니다.</p>";
     return;
   }
 
@@ -204,9 +183,9 @@ async function loadGroupRecords() {
   for (const athlete of athletes) {
     try {
       const data = await loadRecord(source, eventId, athlete.bib);
-      container.innerHTML += formatRecordHTML(data.name, data.bib, data.records);
-    } catch (err) {
-      container.innerHTML += `<div class="text-danger">${athlete.name} (${athlete.bib}): ${err.message}</div><hr/>`;
+      container.innerHTML += formatRecordHTML(data.name, data.bib, data.splits);
+    } catch (e) {
+      container.innerHTML += `<div class="text-danger">${athlete.name} (${athlete.bib}): ${e.message}</div><hr>`;
     }
   }
 
@@ -215,8 +194,7 @@ async function loadGroupRecords() {
 
 function updateTimestamp() {
   const now = new Date();
-  const time = now.toLocaleTimeString();
-  document.getElementById("lastUpdated").textContent = `⏱️ 마지막 갱신: ${time}`;
+  document.getElementById("lastUpdated").textContent = `⏱️ 마지막 갱신: ${now.toLocaleTimeString()}`;
 }
 
 function removeRunner(bib) {
@@ -232,7 +210,7 @@ function maybeRefresh() {
     lastFetchTime = now;
     loadGroupRecords();
   } else {
-    alert("1분 후에 다시 시도해주세요");
+    alert("1분 후에 다시 시도하세요.");
   }
 }
 
@@ -242,8 +220,7 @@ setInterval(() => {
 }, 5 * 60 * 1000);
 
 document.getElementById("addRunnerBtn").addEventListener("click", async () => {
-  const bibInput = document.getElementById("bibInput");
-  const bib = bibInput.value.trim();
+  const bib = document.getElementById("bibInput").value.trim();
   if (!bib) return;
 
   const stored = JSON.parse(localStorage.getItem(groupKey) || "[]");
@@ -251,9 +228,9 @@ document.getElementById("addRunnerBtn").addEventListener("click", async () => {
     try {
       const data = await loadRecord(source, eventId, bib);
       renderPlayerInfo(data);
-      stored.push({ bib: data.bib, name: data.name || "이름 없음" });
+      stored.push({ bib: data.bib, name: data.name });
       localStorage.setItem(groupKey, JSON.stringify(stored));
-      bibInput.value = "";
+      document.getElementById("bibInput").value = "";
       loadGroupRecords();
     } catch (e) {
       alert("등록 실패: " + e.message);
@@ -267,7 +244,6 @@ document.getElementById("backToGroup").href = `group_register.html?eventId=${eve
 
 window.onload = async () => {
   await loadEventInfo();
-  updateGroupHeader();
   await loadGroupRecords();
 };
 </script>
