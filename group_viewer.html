@@ -100,7 +100,7 @@ async function loadEventInfo() {
     const today = new Date().toISOString().slice(0, 10);
     const res = await fetch(`https://cdn.jsdelivr.net/gh/hakyong-tae/smartchip-crawler@main/output/events_${today}.json`);
     const data = await res.json();
-    const race = data.find(e => e.id?.toString() === eventId);
+    const race = data.find(e => e.usedata?.toString() === eventId);
     if (race) {
       eventName = race.name;
     } else {
