@@ -86,13 +86,13 @@ async function loadMyResultRaces() {
     const title = document.createElement("a");
     title.className = "race-title";
     title.href = `group_register.html?eventId=${race.id}&source=myresult`;
-    title.textContent = race.name;
+    title.textContent = race["대회명"] || "정보 없음";
 
     const meta = document.createElement("div");
     meta.className = "race-meta";
     meta.innerHTML = `
-      <div>📅 <strong>${race.date || '날짜 정보 없음'}</strong></div>
-      <div>📍 ${race.place_addr || '장소 정보 없음'}</div>
+      <div>📅 <strong>${race["대회일자"] || "정보 없음"}</strong></div>
+      <div>📍 ${race["대회장소"] || "정보 없음"}</div>
       <div><img src="https://myresult.co.kr/favicon.ico" width="14"> [MyResult]</div>
     `;
 
