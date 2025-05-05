@@ -120,7 +120,7 @@ async function loadSmartChipRaces() {
 
     const title = document.createElement("a");
     title.className = "race-title";
-    title.href = `group_register.html?eventId=${race.id}&source=smartchip`;
+    title.href = `group_register.html?eventId=${race.usedata}&source=smartchip`;
     title.textContent = race["대회명"] || "정보 없음";
 
     const meta = document.createElement("div");
