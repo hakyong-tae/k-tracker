@@ -101,17 +101,12 @@ async function loadMyResultRaces() {
     list.appendChild(card);
   });
 }
-
 async function loadSmartChipRaces() {
-  const now = new Date();
-  const kst = new Date(now.getTime() + (9 * 60 * 60 * 1000));
-  const today = kst.toISOString().slice(0, 10);
-
+  const today = getTodayKST();
   const res = await fetch(`https://cdn.jsdelivr.net/gh/hakyong-tae/smartchip-crawler@main/output/events_${today}.json`);
   const data = await res.json();
 
   const list = document.getElementById("smartchip-list");
-
   list.innerHTML = "";
 
   if (data.length === 0) {
@@ -141,6 +136,7 @@ async function loadSmartChipRaces() {
     list.appendChild(card);
   });
 }
+
 </script>
 
 <p style="font-size:12px; color:gray; margin-top:20px;">
