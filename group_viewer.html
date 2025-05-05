@@ -173,7 +173,7 @@ async function loadRecord(source, eventId, bibNo) {
       }))
     };
   } else if (source === "smartchip") {
-    const res = await fetch(`https://sc-api-ds-clean.fly.dev/runner?usedata=${eventId}&bib=${bibNo}`);
+    const res = await fetch(`https://your-smartchip-proxy-domain/smartchip_proxy?usedata=${eventId}&bib=${bibNo}`);
     const data = await res.json();
     if (data.error) throw new Error(data.error);
 
