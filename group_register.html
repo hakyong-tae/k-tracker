@@ -96,7 +96,7 @@ async function loadEventInfo() {
   date = event.date || "날짜 없음";
   location = event.place || "장소 없음";
   link = `<a href="https://smartchip.co.kr/Search_Ballyno.html?usedata=${eventId}" target="_blank">[대회 페이지 열기]</a>`;
-  infoBox.innerHTML = `<strong>${event.name}</strong><br>${date} | ${location}<br>${link}`;
+  infoBox.innerHTML = `<strong>${event["대회명"] || event.name || "대회명 없음"}</strong><br>${date} | ${location}<br>${link}`;
 }
     } else {
       infoBox.innerHTML = `❌ 대회 정보를 찾을 수 없습니다.`;

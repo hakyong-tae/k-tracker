@@ -102,10 +102,10 @@ async function loadEventInfo() {
     const data = await res.json();
     const race = data.find(e => e.usedata?.toString() === eventId);
     if (race) {
-      eventName = race.name;
+      eventName = race["대회명"] || race.name || "(대회명 없음)";
     } else {
       eventName = "(대회 정보 로드 실패)";
-    }
+    } 
   } catch (e) {
     eventName = "(대회 정보 로드 실패)";
   }
