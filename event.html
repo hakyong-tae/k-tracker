@@ -114,7 +114,7 @@ async function loadSmartChipRaces() {
     return;
   }
 
-  data.slice(0, 6).forEach(race => {
+  data.slice().reverse().slice(0, 6).forEach(race => {
     const card = document.createElement("div");
     card.className = "race-card";
 
