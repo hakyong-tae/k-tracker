@@ -91,7 +91,7 @@ async function loadEventInfo() {
         title = event.title;
         date = event.date || "날짜 없음";
         location = "장소 정보 없음";
-        link = `<a href="https://time.spct.kr/main_sub.php?EVENT_NO=${eventId}" target="_blank">[대회 페이지 열기]</a>`;
+        link = `<a href="https://time.spct.kr/m1.php?TargetYear=2025&EVENT_NO=${eventId}&currentPage=1" target="_blank">[대회 페이지 열기]</a>`;
       }
 
       infoBox.innerHTML = `<strong>${title}</strong><br>${date} | ${location}<br>${link}`;
