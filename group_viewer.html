@@ -88,20 +88,24 @@ async function loadEventInfo() {
 }
 
 function goToOfficialRecord(bibNo) {
+  const padded = source === "spct" ? bibNo.padStart(6, "0") : bibNo;
+
   if (source === "myresult") {
     window.open(`https://myresult.co.kr/${eventId}/${bibNo}`, "_blank");
   } else if (source === "smartchip") {
     window.open(`https://smartchip.co.kr/record/member?usedata=${eventId}&bib=${bibNo}`, "_blank");
   } else if (source === "spct") {
-    window.open(`https://time.spct.kr/m2.php?EVENT_NO=${eventId}&TargetYear=2025&currentPage=1&BIB_NO=${bibNo}`, "_blank");
+    window.open(`https://time.spct.kr/m2.php?EVENT_NO=${eventId}&TargetYear=2025&currentPage=1&BIB_NO=${padded}`, "_blank");
   }
 }
+
 
 async function loadRecord(source, eventId, bib) {
   if (source === "myresult") {
     const res = await fetch(`https://render-mr-api.fly.dev/api/myresult?eventId=${eventId}&bib=${bib}`);
     const data = await res.json();
     if (!data || !data.num) throw new Error("해당 배번호 선수 없음");
+
     return {
       name: data.name || "이름 없음",
       bib: data.num,
@@ -117,6 +121,7 @@ async function loadRecord(source, eventId, bib) {
     const res = await fetch(`https://smartchip-proxy.fly.dev/api/runner/${eventId}/${bib}`);
     const data = await res.json();
     if (data.error) throw new Error(data.error);
+
     return {
       name: data.name || "이름 없음",
       bib: data.bib,
@@ -129,9 +134,11 @@ async function loadRecord(source, eventId, bib) {
       }))
     };
   } else if (source === "spct") {
-    const res = await fetch(`https://spct-api.fly.dev/player_record?event_no=${eventId}&bib_no=${bib}`);
+    const padded = bib.padStart(6, "0");  // ← 여기 핵심
+    const res = await fetch(`https://spct-api.fly.dev/player_record?event_no=${eventId}&bib_no=${padded}`);
     const data = await res.json();
     if (!data || !data.name) throw new Error("해당 배번호 선수 없음");
+
     return {
       name: data.name,
       bib: data.bib_no,
@@ -145,6 +152,7 @@ async function loadRecord(source, eventId, bib) {
     };
   }
 }
+
 
 function renderPlayerInfo(data) {
   const box = document.getElementById("playerInfo");
