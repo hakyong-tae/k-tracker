@@ -5,56 +5,43 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>K-TRACKER | 그룹 등록 및 참가</title>
   <link rel="icon" href="/assets/k-tracker.ico" type="image/x-icon" />
-
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <meta name="description" content="마라톤 대회에 그룹을 생성하거나 참가하여 친구들과 함께 실시간 기록을 응원해보세요.">
+  <meta property="og:title" content="K-TRACKER - 그룹 만들기 및 참가">
+  <meta property="og:description" content="마라톤 그룹 생성 및 참가, 실시간 기록 응원 기능 제공.">
+  <meta property="og:url" content="https://k-tracker.onrender.com/group_register.html">
+  <meta property="og:image" content="https://k-tracker.onrender.com/images/og-group.jpg">
   <style>
-    body {
-      padding: 2rem;
-      background-color: #f2f2f2;
-    }
-    .group-list-item {
-      cursor: pointer;
-      transition: background-color 0.2s ease;
-    }
-    .group-list-item:hover {
-      background-color: #e9ecef;
-    }
-    .group-name-label {
-      font-weight: bold;
-      font-size: 1.1rem;
-    }
+    body { padding: 2rem; background-color: #f2f2f2; }
+    .group-list-item { cursor: pointer; transition: background-color 0.2s ease; }
+    .group-list-item:hover { background-color: #e9ecef; }
+    .group-name-label { font-weight: bold; font-size: 1.1rem; }
   </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <meta name="description" content="마라톤 대회에 그룹을 생성하거나 참가하여 친구들과 함께 실시간 기록을 응원해보세요.">
-    <meta property="og:title" content="K-TRACKER - 그룹 만들기 및 참가">
-    <meta property="og:description" content="마라톤 그룹 생성 및 참가, 실시간 기록 응원 기능 제공.">
-    <meta property="og:url" content="https://k-tracker.onrender.com/group_register.html">
-    <meta property="og:image" content="https://k-tracker.onrender.com/images/og-group.jpg">
-    
 </head>
 <body>
-  <div class="container">
-    <h1 class="mb-4 text-center">👥 그룹 생성 및 선택</h1>
+<div class="container">
+  <h1 class="mb-4 text-center">👥 그룹 생성 및 선택</h1>
 
-    <div id="eventInfo" class="alert alert-info" role="alert">
-      대회 정보를 불러오는 중입니다...
-    </div>
-
-    <div class="mb-4">
-      <label for="groupName" class="form-label">그룹 이름</label>
-      <input type="text" id="groupName" class="form-control" placeholder="예: cheerteam" />
-      <div class="form-text">새로운 그룹을 생성하거나 이미 존재하는 그룹 이름으로 입장할 수 있습니다.</div>
-    </div>
-
-    <button class="btn btn-success mb-4" onclick="enterGroup()">그룹 입장</button>
-
-    <h5 class="mt-5">내가 등록한 그룹</h5>
-    <ul id="myGroups" class="list-group mb-4"></ul>
-
-    <div class="text-center">
-      <a href="event.html" id="backToEvent" class="btn btn-outline-secondary">⬅️ 대회 목록으로 돌아가기</a>
-    </div>
+  <div id="eventInfo" class="alert alert-info" role="alert">
+    대회 정보를 불러오는 중입니다...
   </div>
+
+  <div class="mb-4">
+    <label for="groupName" class="form-label">그룹 이름</label>
+    <input type="text" id="groupName" class="form-control" placeholder="예: cheerteam" />
+    <div class="form-text">새로운 그룹을 생성하거나 이미 존재하는 그룹 이름으로 입장할 수 있습니다.</div>
+  </div>
+
+  <button class="btn btn-success mb-4" onclick="enterGroup()">그룹 입장</button>
+
+  <h5 class="mt-5">내가 등록한 그룹</h5>
+  <ul id="myGroups" class="list-group mb-4"></ul>
+
+  <div class="text-center">
+    <a href="event.html" id="backToEvent" class="btn btn-outline-secondary">⬅️ 대회 목록으로 돌아가기</a>
+  </div>
+</div>
 
 <script>
 const urlParams = new URLSearchParams(window.location.search);
@@ -73,31 +60,42 @@ async function loadEventInfo() {
       const data = await res.json();
       event = data.results.find(e => e.id?.toString() === eventId);
     } else if (source === "smartchip") {
-  const today = new Date().toISOString().slice(0, 10);
-  const res = await fetch(`https://cdn.jsdelivr.net/gh/hakyong-tae/smartchip-crawler@main/output/events_${today}.json`);
-  const data = await res.json();
-  event = data.find(e => e.usedata?.toString() === eventId);
-}
-
+      const today = new Date().toISOString().slice(0, 10);
+      const res = await fetch(`https://cdn.jsdelivr.net/gh/hakyong-tae/smartchip-crawler@main/output/events_${today}.json`);
+      const data = await res.json();
+      event = data.find(e => e.usedata?.toString() === eventId);
+    } else if (source === "spct") {
+      const res = await fetch("https://spct-api.fly.dev/races");
+      const data = await res.json();
+      event = data.find(e => e.event_no?.toString() === eventId);
+    }
 
     const infoBox = document.getElementById("eventInfo");
 
     if (event) {
-      let date = "";
-      let location = "";
+      let title = "대회명 없음";
+      let date = "날짜 없음";
+      let location = "장소 정보 없음";
       let link = "";
 
       if (source === "myresult") {
+        title = event.name;
         date = event.date || "날짜 없음";
-        location = event.place_addr || "장소 없음";
+        location = event.place_addr || "장소 정보 없음";
         link = `<a href="https://myresult.co.kr/${eventId}" target="_blank">[대회 페이지 열기]</a>`;
-        infoBox.innerHTML = `<strong>${event.name}</strong><br>${date} | ${location}<br>${link}`;
       } else if (source === "smartchip") {
-  date = event.date || "날짜 없음";
-  location = event.place || "장소 없음";
-  link = `<a href="https://smartchip.co.kr/Search_Ballyno.html?usedata=${eventId}" target="_blank">[대회 페이지 열기]</a>`;
-  infoBox.innerHTML = `<strong>${event["대회명"] || event.name || "대회명 없음"}</strong><br>${date} | ${location}<br>${link}`;
-}
+        title = event["대회명"] || "대회명 없음";
+        date = event.date || event["대회일자"] || "날짜 없음";
+        location = event.place || event["대회장소"] || "장소 정보 없음";
+        link = `<a href="https://smartchip.co.kr/Search_Ballyno.html?usedata=${eventId}" target="_blank">[대회 페이지 열기]</a>`;
+      } else if (source === "spct") {
+        title = event.title;
+        date = event.date || "날짜 없음";
+        location = "장소 정보 없음";
+        link = `<a href="https://time.spct.kr/main_sub.php?EVENT_NO=${eventId}" target="_blank">[대회 페이지 열기]</a>`;
+      }
+
+      infoBox.innerHTML = `<strong>${title}</strong><br>${date} | ${location}<br>${link}`;
     } else {
       infoBox.innerHTML = `❌ 대회 정보를 찾을 수 없습니다.`;
     }
@@ -110,7 +108,6 @@ async function loadEventInfo() {
 function loadMyGroups() {
   const groupList = document.getElementById("myGroups");
   groupList.innerHTML = "";
-
   for (let key in localStorage) {
     if (key.startsWith(groupListKeyPrefix)) {
       const groupName = key.replace(groupListKeyPrefix, "");
@@ -150,13 +147,10 @@ window.onload = () => {
   loadMyGroups();
 };
 </script>
-</script>
-
 
 <div class="alert alert-secondary small mt-4 text-center" role="alert">
-  ※ 이 대회 목록은 <strong>SmartChip</strong> 및 <strong>MyResult</strong> 기록 제공 사이트의 데이터를 기반으로 하며, 일부 정보는 제공되지 않을 수 있습니다.
+  ※ 이 대회 목록은 <strong>SmartChip</strong>, <strong>MyResult</strong>, <strong>SPCT</strong> 기록 제공 사이트의 데이터를 기반으로 하며, 일부 정보는 제공되지 않을 수 있습니다.
 </div>
-
 
 <footer class="text-center mt-5 py-4" style="background-color: #e9ecef; color: #212529;">
   <div class="container small">
@@ -166,6 +160,6 @@ window.onload = () => {
     <a href="https://github.com/hakyong-tae" target="_blank"><i class="fab fa-github"></i> GitHub</a>
     <a href="mailto:hy.tae@kakao.com"><i class="fas fa-envelope"></i> Email</a>
   </div>
-</footer> 
+</footer>
 </body>
 </html>
