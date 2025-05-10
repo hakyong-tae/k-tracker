@@ -138,7 +138,14 @@ async function loadSpctRaces() {
   const list = document.getElementById("spct-list");
 
   list.innerHTML = "";
-  data.slice().reverse().slice(0, 6).forEach(race => {
+
+  // 날짜 기준 정렬
+  const sorted = data
+    .filter(r => r.date) // 유효한 날짜만
+    .sort((a, b) => new Date(b.date) - new Date(a.date)) // 최신순 정렬
+    .slice(0, 6); // 상위 6개만
+
+  sorted.forEach(race => {
     const card = document.createElement("div");
     card.className = "race-card";
 
@@ -160,6 +167,7 @@ async function loadSpctRaces() {
     list.appendChild(card);
   });
 }
+
 </script>
 
 <p style="font-size:12px; color:gray; margin-top:20px;">
