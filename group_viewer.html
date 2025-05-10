@@ -77,12 +77,13 @@ async function loadEventInfo() {
     const race = data.find(e => e.usedata?.toString() === eventId);
     eventName = race ? race["대회명"] || race.name : "(대회 정보 없음)";
   } else if (source === "spct") {
-    raceLink.innerHTML = `<a href="https://time.spct.kr/main_sub.php?EVENT_NO=${eventId}" target="_blank">[SPCT 대회 페이지]</a>`;
-    const res = await fetch("https://spct-api.fly.dev/races");
-    const data = await res.json();
-    const race = data.find(e => e.event_no?.toString() === eventId);
-    eventName = race ? race.title : "(대회 정보 없음)";
-  }
+  const year = eventId.slice(0, 4); // EVENT_NO에서 연도 추출
+  raceLink.innerHTML = `<a href="https://time.spct.kr/m1.php?TargetYear=${year}&EVENT_NO=${eventId}&currentPage=1" target="_blank">[SPCT 대회 페이지]</a>`;
+  const res = await fetch("https://spct-api.fly.dev/races");
+  const data = await res.json();
+  const race = data.find(e => e.event_no?.toString() === eventId);
+  eventName = race ? race.title : "(대회 정보 없음)";
+}
 
   updateGroupHeader();
 }
