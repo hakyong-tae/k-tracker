@@ -3,50 +3,91 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-7X8ZH2HK9T"></script>
-  <!-- Google Search Console 인증용 메타태그 -->
-<meta name="google-site-verification" content="Y_2PKIFpJh8ryGb5p66tSutnjjTCTZ_Op2dR6HdA6y8" />
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1850300723733646"
-     crossorigin="anonymous"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-7X8ZH2HK9T');
-</script>
   <title>K-TRACKER | 그룹 등록 및 참가</title>
   <link rel="icon" href="/assets/k-tracker.ico" type="image/x-icon" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
   <style>
-    body { padding: 2rem; background-color: #f2f2f2; }
-    .group-list-item { cursor: pointer; transition: background-color 0.2s ease; }
-    .group-list-item:hover { background-color: #e9ecef; }
-    .group-name-label { font-weight: bold; font-size: 1.1rem; }
+    body {
+      font-family: 'Inter', 'Noto Sans KR', sans-serif;
+      background-color: #f8f9fa;
+      padding-top: 6rem;
+    }
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: white;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      padding: 1rem 0;
+      z-index: 1000;
+      text-align: center;
+    }
+    .form-container {
+      max-width: 500px;
+      margin: 2rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+    .form-text {
+      font-size: 0.9rem;
+      color: #666;
+    }
+    footer {
+      margin-top: 4rem;
+      font-size: 0.9rem;
+      color: #666;
+      text-align: center;
+    }
+    .social a {
+      margin: 0 0.5rem;
+      color: #444;
+      text-decoration: none;
+    }
   </style>
 </head>
 <body>
-<div class="container">
-  <h1 class="mb-4 text-center">👥 그룹 생성 및 선택</h1>
-  <div id="eventInfo" class="alert alert-info" role="alert">행사 정보를 불러오는 중...</div>
 
-  <div class="mb-4">
-    <label for="groupName" class="form-label">그룹 이름</label>
-    <input type="text" id="groupName" class="form-control" placeholder="예: cheerteam" />
-    <div class="form-text">새로운 그룹을 생성하거\uub098 이미 존재하는 그룹 이름으로 입장가능\uud83d�</div>
+<header>
+  <h1 class="fw-bold">👥 그룹 등록 및 참가</h1>
+</header>
+
+<main class="container">
+  <div class="form-container">
+    <div id="eventInfo" class="alert alert-info">대회 정보를 불러오는 중입니다...</div>
+
+    <div class="mb-3">
+      <label for="groupName" class="form-label">그룹 이름</label>
+      <input type="text" id="groupName" class="form-control" placeholder="예: cheerteam" />
+      <div class="form-text">새로운 그룹을 생성하거나 이미 존재하는 그룹 이름으로 입장할 수 있습니다.</div>
+    </div>
+
+    <button class="btn btn-success w-100" onclick="enterGroup()">그룹 입장</button>
   </div>
 
-  <button class="btn btn-success mb-4" onclick="enterGroup()">그룹 입장</button>
+  <div class="mt-4">
+    <h5>내가 등록한 그룹</h5>
+    <ul id="myGroups" class="list-group mb-4"></ul>
 
-  <h5 class="mt-5">내가 등록한 그룹</h5>
-  <ul id="myGroups" class="list-group mb-4"></ul>
-
-  <div class="text-center">
-    <a href="event.html" id="backToEvent" class="btn btn-outline-secondary">⬅️ 대회 목록으로</a>
+    <div class="text-center">
+      <a href="event.html" id="backToEvent" class="btn btn-outline-secondary">⬅️ 대회 목록으로 돌아가기</a>
+    </div>
   </div>
-</div>
+</main>
+
+<footer>
+  <p><strong>K-TRACKER</strong> © hakyong-tae</p>
+  <p>
+    <a href="https://x.com/yong_planet" target="_blank"><i class="fab fa-x-twitter"></i> X</a>
+    <a href="https://www.instagram.com/hy.tae/" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+    <a href="https://github.com/hakyong-tae" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+    <a href="mailto:hy.tae@kakao.com"><i class="fas fa-envelope"></i> Email</a>
+  </p>
+</footer>
 
 <script>
 const urlParams = new URLSearchParams(window.location.search);
@@ -54,20 +95,12 @@ const eventId = urlParams.get("eventId");
 const source = urlParams.get("source") || "myresult";
 const groupListKeyPrefix = `group_${eventId}_`;
 
-document.getElementById("backToEvent").href = `event.html`;
-
-function safeInitGroup(key) {
-  try {
-    const existing = JSON.parse(localStorage.getItem(key) || "null");
-    if (!Array.isArray(existing)) throw new Error();
-  } catch {
-    localStorage.setItem(key, "[]");
-  }
-}
+document.getElementById("backToEvent").href = `event.html`; // 필요시 source도 붙일 수 있음
 
 async function loadEventInfo() {
   try {
     let event = null;
+
     if (source === "myresult") {
       const res = await fetch("https://render-mr-api.fly.dev/api/proxy/myresult-races");
       const data = await res.json();
@@ -84,30 +117,12 @@ async function loadEventInfo() {
     }
 
     const infoBox = document.getElementById("eventInfo");
+
     if (event) {
-      let title = "대회명 없음";
-      let date = "날짜 없음";
-      let location = "장소 정보 없음";
-      let link = "";
-
-      if (source === "myresult") {
-        title = event.name;
-        date = event.date || "날짜 없음";
-        location = event.place_addr || "장소 정보 없음";
-        link = `<a href="https://myresult.co.kr/${eventId}" target="_blank">[대회 페이지 열기]</a>`;
-      } else if (source === "smartchip") {
-        title = event["대회명"] || "대회명 없음";
-        date = event.date || event["대회일자"] || "날짜 없음";
-        location = event.place || event["대회장소"] || "장소 정보 없음";
-        link = `<a href="https://smartchip.co.kr/Search_Ballyno.html?usedata=${eventId}" target="_blank">[대회 페이지 열기]</a>`;
-      } else if (source === "spct") {
-        title = event.title;
-        date = event.date || "날짜 없음";
-        location = "장소 정보 없음";
-        link = `<a href="https://time.spct.kr/m1.php?TargetYear=2025&EVENT_NO=${eventId}&currentPage=1" target="_blank">[대회 페이지 열기]</a>`;
-      }
-
-      infoBox.innerHTML = `<strong>${title}</strong><br>${date} | ${location}<br>${link}`;
+      let title = event.title || event.name || event["대회명"] || "대회명 없음";
+      let date = event.date || event["대회일자"] || "날짜 없음";
+      let location = event.place || event.place_addr || event["대회장소"] || "장소 정보 없음";
+      infoBox.innerHTML = `<strong>${title}</strong><br>${date} | ${location}`;
     } else {
       infoBox.innerHTML = `❌ 대회 정보를 찾을 수 없습니다.`;
     }
@@ -125,7 +140,11 @@ function loadMyGroups() {
       const groupName = key.replace(groupListKeyPrefix, "");
       const li = document.createElement("li");
       li.className = "list-group-item group-list-item";
-      li.innerHTML = `<div onclick="enterGroupFromList('${groupName}')">▶️ <span class="group-name-label">${groupName}</span></div>`;
+      li.innerHTML = `
+        <div onclick="enterGroupFromList('${groupName}')">
+          ▶️ <span class="fw-bold">${groupName}</span>
+        </div>
+      `;
       groupList.appendChild(li);
     }
   }
@@ -137,9 +156,10 @@ function enterGroup() {
     alert("그룹명을 확인해주세요 (최대 16자)");
     return;
   }
-
   const key = `group_${eventId}_${group}`;
-  safeInitGroup(key);
+  if (!localStorage.getItem(key)) {
+    localStorage.setItem(key, "[]");
+  }
   window.location.href = `group_viewer.html?group=${group}&eventId=${eventId}&source=${source}`;
 }
 
@@ -152,19 +172,5 @@ window.onload = () => {
   loadMyGroups();
 };
 </script>
-
-<div class="alert alert-secondary small mt-4 text-center" role="alert">
-  ※ 이 대회 목록은 <strong>SmartChip</strong>, <strong>MyResult</strong>, <strong>SPCT</strong> 기록 제공 사이트의 데이터를 기반으로 하며, 일부 정보는 제공되지 않을 수 있습니다.
-</div>
-
-<footer class="text-center mt-5 py-4" style="background-color: #e9ecef; color: #212529;">
-  <div class="container small">
-    <strong>K-TRACKER</strong> © hakyong-tae<br>
-    <a href="https://x.com/yong_planet" target="_blank"><i class="fab fa-x-twitter"></i> X</a>
-    <a href="https://www.instagram.com/hy.tae/" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
-    <a href="https://github.com/hakyong-tae" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-    <a href="mailto:hy.tae@kakao.com"><i class="fas fa-envelope"></i> Email</a>
-  </div>
-</footer>
 </body>
 </html>
