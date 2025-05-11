@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>K-TRACKER - 마라톤 실시간 기록 & 그룹 응원 플랫폼</title>
+  <title>K-TRACKER | 대회 목록</title>
 
-  <!-- Google Analytics (공통 레이아웃 분리 시 중복 삽입 방지 고려 필요) -->
+  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-7X8ZH2HK9T"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -14,28 +14,25 @@
     gtag('config', 'G-7X8ZH2HK9T');
   </script>
 
-  <!-- Search Console Verification -->
+  <!-- SEO -->
+  <meta name="description" content="K-TRACKER - 마라톤 실시간 대회 목록">
   <meta name="google-site-verification" content="Y_2PKIFpJh8ryGb5p66tSutnjjTCTZ_Op2dR6HdA6y8" />
 
-  <!-- SEO Meta Tags -->
-  <meta name="description" content="K-TRACKER는 마라톤 실시간 기록을 확인하고, 그룹을 만들어 친구들과 함께 응원할 수 있는 플랫폼입니다. myresult.co.kr, SmartChip 대회를 지원합니다.">
-  <meta property="og:title" content="K-TRACKER - 마라톤 실시간 기록 & 그룹 응원 플랫폼">
-  <meta property="og:description" content="실시간 기록 확인 및 그룹 응원, 다양한 대회를 지원하는 마라톤 기록 플랫폼.">
-  <meta property="og:url" content="https://k-tracker.onrender.com/">
-  <meta property="og:image" content="https://k-tracker.onrender.com/images/og-image.jpg">
+  <!-- AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1850300723733646" crossorigin="anonymous"></script>
+  <meta name="google-adsense-account" content="ca-pub-1850300723733646">
 
-  <!-- Favicon -->
-  <link rel="icon" href="/assets/k-tracker.ico" type="image/x-icon" />
-
-  <!-- Font & Styles -->
+  <link rel="icon" href="/assets/k-tracker.ico" type="image/x-icon">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
   <style>
     body {
       font-family: 'Inter', 'Noto Sans KR', sans-serif;
-      background-color: #f8f9fa;
-      text-align: center;
+      background: #f8f9fa;
       padding-top: 6rem;
+      text-align: center;
     }
     header {
       position: fixed;
@@ -43,49 +40,153 @@
       width: 100%;
       background: white;
       box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-      padding: 1rem 0;
+      padding: 1rem;
       z-index: 1000;
     }
-    .btn-primary {
-      font-size: 1.2rem;
-      padding: 1rem 2.5rem;
-      margin-top: 2rem;
+    .race-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+      max-width: 1000px;
+      margin: 2rem auto;
+    }
+    .race-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 1rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      text-align: left;
+    }
+    .race-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #007bff;
+      text-decoration: none;
+    }
+    .race-meta {
+      font-size: 0.95rem;
+      color: #555;
+      margin-top: 0.5rem;
     }
     footer {
-      margin-top: 6rem;
-      font-size: 0.9rem;
+      margin-top: 4rem;
+      font-size: 0.85rem;
       color: #666;
     }
     .social a {
-      display: inline-block;
-      margin: 0.3rem 0.5rem;
-      color: #555;
+      margin: 0 0.5rem;
+      color: #444;
       text-decoration: none;
-      font-size: 0.95rem;
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1 class="fw-bold">🏃 K-TRACKER</h1>
-    <p class="mb-0">실시간 러너 기록 추적 및 응원 플랫폼</p>
-  </header>
+<header>
+  <h1 class="fw-bold">📋 K-TRACKER 대회 목록</h1>
+</header>
 
-  <main class="container">
-    <button class="btn btn-primary" onclick="location.href='event.html'">📋 대회 목록 보기</button>
-  </main>
+<main>
+  <section>
+    <h2><a href="https://myresult.co.kr/" target="_blank">MyResult 대회</a></h2>
+    <div id="myresult-list" class="race-list"></div>
+  </section>
 
-  <footer>
-    <p class="mb-1">* 문의는 인스타그램 DM으로 주세요. 추후 구글 로그인 기능이 추가될 예정입니다.</p>
-    <p>만든 사람: <strong>Hak-yong Tae</strong></p>
-    <div class="social">
-      <a href="mailto:hy.tae@kakao.com">✉️ hy.tae@kakao.com</a>
-      <a href="https://x.com/yong_planet" target="_blank">🐦 Twitter</a>
-      <a href="https://www.instagram.com/hy.tae/" target="_blank">📸 Instagram</a>
-      <a href="https://github.com/hakyong-tae" target="_blank">💻 GitHub</a>
-    </div>
-  </footer>
+  <section>
+    <h2><a href="https://smartchip.co.kr/" target="_blank">SmartChip 대회</a></h2>
+    <div id="smartchip-list" class="race-list"></div>
+  </section>
+
+  <section>
+    <h2><a href="https://time.spct.kr/" target="_blank">SPCT 대회</a></h2>
+    <div id="spct-list" class="race-list"></div>
+  </section>
+</main>
+
+<footer>
+  <p>※ 본 목록은 SmartChip, MyResult, SPCT 기록 제공 사이트의 정보를 기반으로 합니다.</p>
+  <p><strong>Hak-yong Tae</strong> 제작 | 
+    <a href="mailto:hy.tae@kakao.com">✉️</a>
+    <a href="https://x.com/yong_planet" target="_blank">🐦</a>
+    <a href="https://www.instagram.com/hy.tae/" target="_blank">📸</a>
+    <a href="https://github.com/hakyong-tae" target="_blank">💻</a>
+  </p>
+</footer>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  loadMyResultRaces();
+  loadSmartChipRaces();
+  loadSpctRaces();
+});
+
+function getTodayKST() {
+  const now = new Date();
+  now.setHours(now.getHours() + 9);
+  return now.toISOString().slice(0, 10);
+}
+
+async function loadMyResultRaces() {
+  const res = await fetch("https://render-mr-api.fly.dev/api/proxy/myresult-races");
+  const data = await res.json();
+  const list = document.getElementById("myresult-list");
+  list.innerHTML = "";
+  data.results.slice(0, 6).forEach(race => {
+    const div = document.createElement("div");
+    div.className = "race-card";
+    div.innerHTML = `
+      <a class="race-title" href="group_register.html?eventId=${race.id}&source=myresult">${race.name}</a>
+      <div class="race-meta">
+        🗓️ ${race.date || '날짜 없음'}<br>
+        📍 ${race.place_addr || '장소 없음'}<br>
+        <img src="https://myresult.co.kr/favicon.ico" width="14"> MyResult
+      </div>
+    `;
+    list.appendChild(div);
+  });
+}
+
+async function loadSmartChipRaces() {
+  const today = getTodayKST();
+  const res = await fetch(`https://cdn.jsdelivr.net/gh/hakyong-tae/smartchip-crawler@main/output/events_${today}.json`);
+  const data = await res.json();
+  const list = document.getElementById("smartchip-list");
+  list.innerHTML = "";
+  data.slice().reverse().slice(0, 6).forEach(race => {
+    const div = document.createElement("div");
+    div.className = "race-card";
+    div.innerHTML = `
+      <a class="race-title" href="group_register.html?eventId=${race.usedata}&source=smartchip">${race["대회명"] || '정보 없음'}</a>
+      <div class="race-meta">
+        🗓️ ${race["대회일자"] || '날짜 없음'}<br>
+        📍 ${race["대회장소"] || '장소 없음'}<br>
+        <img src="https://smartchip.co.kr/favicon.ico" width="14"> SmartChip
+      </div>
+    `;
+    list.appendChild(div);
+  });
+}
+
+async function loadSpctRaces() {
+  const res = await fetch("https://spct-api.fly.dev/races");
+  const data = await res.json();
+  const list = document.getElementById("spct-list");
+  list.innerHTML = "";
+  data.filter(r => r.date).sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 6).forEach(race => {
+    const div = document.createElement("div");
+    div.className = "race-card";
+    div.innerHTML = `
+      <a class="race-title" href="group_register.html?eventId=${race.event_no}&source=spct">${race.title}</a>
+      <div class="race-meta">
+        🗓️ ${race.date}<br>
+        📍 장소 정보 없음<br>
+        <img src="https://time.spct.kr/img/spct_icon2.ico" width="14"> SPCT
+      </div>
+    `;
+    list.appendChild(div);
+  });
+}
+</script>
 
 </body>
 </html>
