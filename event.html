@@ -98,7 +98,7 @@
   </section>
 
   <section>
-    <h2><a href="https://time.spct.kr/" target="_blank">SPCT 대회</a></h2>
+    <h2><a href="https://time.spct.kr/main.php" target="_blank">SPCT 대회</a></h2>
     <div id="spct-list" class="race-list"></div>
   </section>
 </main>
@@ -168,7 +168,7 @@ async function loadSmartChipRaces() {
 }
 
 async function loadSpctRaces() {
-  const res = await fetch("https://spct-api.fly.dev/races");
+  const res = await fetch("https://raw.githubusercontent.com/hakyong-tae/spct-proxy/main/spct_races_parsed.json");
   const data = await res.json();
   const list = document.getElementById("spct-list");
   list.innerHTML = "";
