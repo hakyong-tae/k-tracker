@@ -114,7 +114,7 @@ async function loadEventInfo() {
     eventName = race ? race["대회명"] || race.name : "(대회 정보 없음)";
   } else if (source === "spct") {
     raceLink.innerHTML = `<a href="https://time.spct.kr/m1.php?TargetYear=2025&EVENT_NO=${eventId}&currentPage=1" target="_blank">[SPCT 대회 페이지]</a>`;
-    const res = await fetch("https://spct-api.fly.dev/races");
+    const res = await fetch("https://raw.githubusercontent.com/hakyong-tae/spct-proxy/main/spct_races_parsed.json");
     const data = await res.json();
     const race = data.find(e => e.event_no?.toString() === eventId);
     eventName = race ? race.title : "(대회 정보 없음)";
