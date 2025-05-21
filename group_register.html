@@ -111,8 +111,9 @@ async function loadEventInfo() {
       const data = await res.json();
       event = data.find(e => e.usedata?.toString() === eventId);
     } else if (source === "spct") {
-      const res = await fetch("https://spct-api.fly.dev/races");
+      const res = await fetch("https://raw.githubusercontent.com/hakyong-tae/spct-proxy/main/spct_races_parsed.json");
       const data = await res.json();
+      console.log("SPCT 이벤트 목록:", data.map(d => d.event_no));  // 🔍 디버그
       event = data.find(e => e.event_no?.toString() === eventId);
     }
 
@@ -121,7 +122,7 @@ async function loadEventInfo() {
     if (event) {
       let title = event.title || event.name || event["대회명"] || "대회명 없음";
       let date = event.date || event["대회일자"] || "날짜 없음";
-      let location = event.place || event.place_addr || event["대회장소"] || "장소 정보 없음";
+      let location = source === "spct" ? "[SPCT] 대회" : (event.place || event.place_addr || event["대회장소"] || "장소 정보 없음");
       infoBox.innerHTML = `<strong>${title}</strong><br>${date} | ${location}`;
     } else {
       infoBox.innerHTML = `❌ 대회 정보를 찾을 수 없습니다.`;
