@@ -165,7 +165,7 @@ function formatRecordHTML(name, bib, records) {
 
 async function loadRecord(source, eventId, bib) {
   if (source === "myresult") {
-    const res = await fetch(`https://render-mr-api.fly.dev/api/myresult?eventId=${eventId}&bib=${bib}`);
+    const res = await fetch(`https://render-mr-api.fly.dev/api/proxy/myresult-record?eventId=${eventId}&bibNo=${bibNo}`);
     const data = await res.json();
     if (!data || !data.num) throw new Error("해당 배번호 선수 없음");
     eventName = data.event?.name || eventName;
