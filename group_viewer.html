@@ -101,7 +101,7 @@ async function loadEventInfo() {
   const raceLink = document.getElementById("raceLink");
   if (source === "myresult") {
     raceLink.innerHTML = `<a href="https://myresult.co.kr/${eventId}" target="_blank">[MyResult 대회 페이지]</a>`;
-    const res = await fetch("https://render-mr-api.fly.dev/api/myresult_races");
+    const res = await fetch("https://render-mr-api.fly.dev/api/proxy/myresult-races");
     const data = await res.json();
     const race = data.results.find(e => e.id?.toString() === eventId);
     eventName = race ? race.name : "(대회 정보 없음)";
