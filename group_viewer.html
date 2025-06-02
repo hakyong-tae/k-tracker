@@ -107,10 +107,9 @@ async function loadEventInfo() {
     eventName = race ? race.name : "(대회 정보 없음)";
   } else if (source === "smartchip") {
     raceLink.innerHTML = `<a href="https://smartchip.co.kr/Search_Ballyno.html?usedata=${eventId}" target="_blank">[SmartChip 대회 페이지]</a>`;
-    const today = new Date().toISOString().slice(0, 10);
-    const res = await fetch(`https://cdn.jsdelivr.net/gh/hakyong-tae/smartchip-crawler@main/output/events_${today}.json`);
+    const res = await fetch("https://smartchip-proxy.fly.dev/api/smartchip-featured");
     const data = await res.json();
-    const race = data.find(e => e.usedata?.toString() === eventId);
+    const race = data.results.find(e => e.usedata?.toString() === eventId);
     eventName = race ? race["대회명"] || race.name : "(대회 정보 없음)";
   } else if (source === "spct") {
     raceLink.innerHTML = `<a href="https://time.spct.kr/m1.php?TargetYear=2025&EVENT_NO=${eventId}&currentPage=1" target="_blank">[SPCT 대회 페이지]</a>`;
