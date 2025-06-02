@@ -147,25 +147,24 @@ async function loadMyResultRaces() {
 }
 
 async function loadSmartChipRaces() {
-  const today = getTodayKST();
-  const res = await fetch(`https://cdn.jsdelivr.net/gh/hakyong-tae/smartchip-crawler@main/output/events_${today}.json`);
+  const res = await fetch("https://smartchip-proxy.fly.dev/api/smartchip-featured");
   const data = await res.json();
   const list = document.getElementById("smartchip-list");
   list.innerHTML = "";
-  data.slice().reverse().slice(0, 6).forEach(race => {
+  data.results.slice(0, 6).forEach(race => {
     const div = document.createElement("div");
     div.className = "race-card";
     div.innerHTML = `
-      <a class="race-title" href="group_register.html?eventId=${race.usedata}&source=smartchip">${race["대회명"] || '정보 없음'}</a>
+      <a class="race-title" href="group_register.html?eventId=${race.usedata}&source=smartchip">${race.name}</a>
       <div class="race-meta">
-        🗓️ ${race["대회일자"] || '날짜 없음'}<br>
-        📍 ${race["대회장소"] || '장소 없음'}<br>
+        📍 장소 정보 없음<br>
         <img src="https://smartchip.co.kr/favicon.ico" width="14"> SmartChip
       </div>
     `;
     list.appendChild(div);
   });
 }
+
 
 async function loadSpctRaces() {
   const res = await fetch("https://raw.githubusercontent.com/hakyong-tae/spct-proxy/main/spct_races_parsed.json");
