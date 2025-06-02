@@ -111,14 +111,18 @@ async function loadEventInfo() {
   event = data.find(e => e.usedata?.toString() === eventId);
 
   // featured 목록에서 못 찾은 경우, fallback API 호출
-  if (!event) {
-    const fallbackRes = await fetch(`https://smartchip-proxy.fly.dev/api/event-title/${eventId}`);
-    const fallbackData = await fallbackRes.json();
-    if (fallbackData?.title) {
-          event = { name: fallbackData.title };
-        }
-      }
-    
+if (!event) {
+  const fallbackRes = await fetch(`https://smartchip-proxy.fly.dev/api/event-title/${eventId}`);
+  const fallbackData = await fallbackRes.json();
+  if (fallbackData?.title) {
+    event = {
+      name: fallbackData.title,
+      date: "날짜 정보 없음",        // 기본값 제공
+      place: "SmartChip 대회"        // 기본값 제공
+    };
+  }
+}
+   
     } else if (source === "spct") {
       const res = await fetch("https://raw.githubusercontent.com/hakyong-tae/spct-proxy/main/spct_races_parsed.json");
       const data = await res.json();
