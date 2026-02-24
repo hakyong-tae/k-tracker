@@ -62,72 +62,113 @@
     <script>
       const urlParams = new URLSearchParams(window.location.search);
       const eventId = urlParams.get("eventId");
+      const source = urlParams.get("source") || "myresult";
+      const groupPrefix = `group_${source}_${eventId}_`;
+
+      async function fetchJson(url) {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+      }
+
+      async function loadMyResultRaces() {
+        try {
+          return await fetchJson("https://k-tracker-api.fly.dev/races");
+        } catch (_) {
+          return await fetchJson("./data/myresult_races_parsed.json");
+        }
+      }
+
+      async function loadSmartChipRaces() {
+        try {
+          return await fetchJson("https://spct-proxy.fly.dev/races");
+        } catch (_) {
+          return await fetchJson("https://raw.githubusercontent.com/hakyong-tae/spct-proxy/main/spct_races_parsed.json");
+        }
+      }
 
       async function loadEventInfo() {
+        const infoBox = document.getElementById("eventInfo");
         try {
-          const res = await fetch("https://k-tracker-api.fly.dev/races");
-          const events = await res.json();
-          const event = events.find(e => e.id?.toString() === eventId);
-          const infoBox = document.getElementById("eventInfo");
-          if (event) {
-            const dateTime = event.dateTime || event.date || "";
-            const location = event.location || "장소 정보 없음";
-            infoBox.innerHTML = `<strong>${event.name}</strong><br>${dateTime} | ${location}`;
+          let event = null;
+
+          if (source === "smartchip") {
+            const events = await loadSmartChipRaces();
+            event = events.find((e) => String(e.event_no || e.id) === String(eventId));
+            if (event) {
+              infoBox.innerHTML = `<strong>${event.title || event.name}</strong><br>${event.date || ""} | Smartchip`;
+              return;
+            }
           } else {
-            infoBox.innerHTML = `❌ 대회 정보를 찾을 수 없습니다.`;
+            const events = await loadMyResultRaces();
+            event = events.find((e) => String(e.id) === String(eventId));
+            if (event) {
+              const dateTime = event.dateTime || event.date || "";
+              const location = event.location || "장소 정보 없음";
+              infoBox.innerHTML = `<strong>${event.name}</strong><br>${dateTime} | ${location}`;
+              return;
+            }
           }
-        } catch (e) {
-          document.getElementById("eventInfo").textContent = "❌ 대회 정보를 불러오지 못했습니다.";
+
+          infoBox.innerHTML = "❌ 대회 정보를 찾을 수 없습니다.";
+        } catch (_) {
+          infoBox.textContent = "❌ 대회 정보를 불러오지 못했습니다.";
         }
       }
 
       function loadMyGroups() {
-  const groupList = document.getElementById("myGroups");
-  groupList.innerHTML = "";
-  if (!eventId) return;
+        const groupList = document.getElementById("myGroups");
+        groupList.innerHTML = "";
+        if (!eventId) return;
 
-  for (let key in localStorage) {
-    if (key.startsWith(`group_${eventId}_`)) {
-      const groupName = key.replace(`group_${eventId}_`, "");
-      const li = document.createElement("li");
-      li.className = "list-group-item group-list-item d-flex justify-content-between align-items-center";
-      li.innerHTML = `
-        <div onclick="enterGroupFromList('${groupName}')" style="flex-grow: 1; cursor:pointer;">
-          <span class="icon">▶️</span>
-          <span class="group-name-label">${groupName}</span>
-        </div>
-        <button class="btn btn-sm btn-outline-danger" onclick="deleteGroup(event, '${groupName}')">🗑️ 삭제</button>
-      `;
-      groupList.appendChild(li);
-    }
-  }
-}
+        for (const key in localStorage) {
+          if (key.startsWith(groupPrefix)) {
+            const groupName = key.replace(groupPrefix, "");
+            const li = document.createElement("li");
+            li.className = "list-group-item group-list-item d-flex justify-content-between align-items-center";
+            li.innerHTML = `
+              <div onclick="enterGroupFromList('${groupName}')" style="flex-grow: 1; cursor:pointer;">
+                <span class="icon">▶️</span>
+                <span class="group-name-label">${groupName}</span>
+              </div>
+              <button class="btn btn-sm btn-outline-danger" onclick="deleteGroup(event, '${groupName}')">🗑️ 삭제</button>
+            `;
+            groupList.appendChild(li);
+          }
+        }
+      }
 
+      function enterGroup() {
+        const group = document.getElementById("groupName").value.trim();
+        if (!group || !eventId) {
+          alert("대회 또는 그룹명을 확인해주세요.");
+          return;
+        }
+        if (group.length > 16) {
+          alert("그룹명은 16글자 이하로 입력해주세요.");
+          return;
+        }
 
-function enterGroup() {
-  const group = document.getElementById("groupName").value.trim();
-  if (!group || !eventId) {
-    alert("대회 또는 그룹명을 확인해주세요.");
-    return;
-  }
-  if (group.length > 16) {
-    alert("그룹명은 16글자 이하로 입력해주세요.");
-    return;
-  }
+        const key = `${groupPrefix}${group}`;
+        if (!localStorage.getItem(key)) {
+          localStorage.setItem(key, "[]");
+        }
 
-  const key = `group_${eventId}_${group}`;
-  if (!localStorage.getItem(key)) {
-    localStorage.setItem(key, "[]"); // 빈 그룹 생성
-  }
-
-  window.location.href = `group_viewer.html?group=${group}&eventId=${eventId}`;
-}
-
- 
-
+        window.location.href = `group_viewer.html?group=${encodeURIComponent(group)}&eventId=${encodeURIComponent(eventId)}&source=${encodeURIComponent(source)}`;
+      }
 
       function enterGroupFromList(group) {
-        window.location.href = `group_viewer.html?group=${group}&eventId=${eventId}`;
+        window.location.href = `group_viewer.html?group=${encodeURIComponent(group)}&eventId=${encodeURIComponent(eventId)}&source=${encodeURIComponent(source)}`;
+      }
+
+      function deleteGroup(evt, group) {
+        evt.stopPropagation();
+        const key = `${groupPrefix}${group}`;
+        if (!localStorage.getItem(key)) return;
+        if (confirm(`"${group}" 그룹을 삭제하시겠습니까?`)) {
+          localStorage.removeItem(key);
+          loadMyGroups();
+        }
       }
 
       loadEventInfo();
