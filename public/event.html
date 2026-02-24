@@ -33,6 +33,16 @@
       color: #666;
       line-height: 1.4;
     }
+    .source-badge {
+      display: inline-block;
+      font-size: 0.8rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      margin-bottom: 0.5rem;
+      background: #eef4ff;
+      color: #2955a3;
+      border: 1px solid #cddcff;
+    }
     footer a:hover {
     color: #ffc107 !important; /* 노란색 hover 효과 */
     text-decoration: none;
@@ -49,13 +59,83 @@
   </div>
 
   <script>
+    const SOURCES = {
+      MYRESULT: "myresult",
+      SMARTCHIP: "smartchip"
+    };
+
+    async function fetchJson(url) {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return res.json();
+    }
+
+    function normalizeMyResult(races) {
+      return (races || []).map((race) => ({
+        id: String(race.id || ""),
+        source: SOURCES.MYRESULT,
+        name: race.name || "이름 없음",
+        date: race.date || "",
+        location: race.location || "장소 정보 없음"
+      }));
+    }
+
+    function normalizeSmartChip(races) {
+      return (races || []).map((race) => ({
+        id: String(race.event_no || race.id || ""),
+        source: SOURCES.SMARTCHIP,
+        name: race.title || race.name || "이름 없음",
+        date: race.date || "",
+        location: "Smartchip"
+      }));
+    }
+
+    async function loadMyResultRaces() {
+      try {
+        const apiData = await fetchJson("https://k-tracker-api.fly.dev/races");
+        return normalizeMyResult(apiData);
+      } catch (_) {
+        const localData = await fetchJson("./data/myresult_races_parsed.json");
+        return normalizeMyResult(localData);
+      }
+    }
+
+    async function loadSmartChipRaces() {
+      try {
+        const apiData = await fetchJson("https://spct-proxy.fly.dev/races");
+        return normalizeSmartChip(apiData);
+      } catch (_) {
+        const backupData = await fetchJson("https://raw.githubusercontent.com/hakyong-tae/spct-proxy/main/spct_races_parsed.json");
+        return normalizeSmartChip(backupData);
+      }
+    }
+
+    function getTimestamp(dateText) {
+      const t = Date.parse(dateText || "");
+      return Number.isNaN(t) ? 0 : t;
+    }
+
+    function sourceLabel(source) {
+      return source === SOURCES.SMARTCHIP ? "SMARTCHIP" : "MYRESULT";
+    }
+
     async function loadRaceList() {
       try {
-        const res = await fetch("https://k-tracker-api.fly.dev/races");
-        const races = await res.json();
+        const [myResultRaces, smartChipRaces] = await Promise.all([
+          loadMyResultRaces(),
+          loadSmartChipRaces()
+        ]);
+
+        const races = [...myResultRaces, ...smartChipRaces].filter((race) => race.id);
+        races.sort((a, b) => getTimestamp(b.date) - getTimestamp(a.date));
 
         const list = document.getElementById("race-list");
         list.innerHTML = "";
+
+        if (races.length === 0) {
+          list.innerHTML = "❌ 대회 정보를 불러오지 못했습니다.";
+          return;
+        }
 
         races.forEach(race => {
         const card = document.createElement("div");
@@ -63,12 +143,13 @@
 
         const title = document.createElement("a");
         title.className = "race-title";
-        title.href = `group_register.html?eventId=${race.id}`;
+        title.href = `group_register.html?eventId=${encodeURIComponent(race.id)}&source=${encodeURIComponent(race.source)}`;
         title.textContent = race.name;
 
         const meta = document.createElement("div");
         meta.className = "race-meta";
         meta.innerHTML = `
+            <div class="source-badge">${sourceLabel(race.source)}</div>
             <div>📅 <strong>${race.date || '날짜 정보 없음'}</strong></div>
             <div>📍 ${race.location || '장소 정보 없음'}</div>
         `;
