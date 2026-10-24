@@ -1,6 +1,7 @@
 import type { LiveCourse, LiveEvent, LiveRecord } from '../../shared/live.ts';
 import { clockSec, estimate, fmtClock, kstNowSec, type Estimate } from '../../shared/position.ts';
 import { fmtPace } from '../../shared/time.ts';
+import { icon } from '../../shared/icons.ts';
 import { BIB_RE, esc, getEvent, getRecord, groupPrefix, loadGroup, nowDate, params, providerLabel, providerOf, saveGroup, toast, debugNow, type StoredRunner } from './common.ts';
 
 const eventId = params.get('eventId') ?? '';
@@ -57,7 +58,8 @@ function renderHeader() {
   const box = $('event-info');
   if (!event) { box.innerHTML = '<p class="muted">대회 정보를 불러오는 중… / Loading…</p>'; return; }
   const courseLink = event.courseSlug
-    ? `<a class="btn ghost small-btn" href="/r/${esc(event.courseSlug)}?live=${provider}:${encodeURIComponent(eventId)}&bibs=${encodeURIComponent(bibs().join(','))}">🗺 코스에서 보기 / On the course</a>` : '';
+    ? `<a class="btn ghost small-btn" href="/r/${esc(event.courseSlug)}?live=${provider}:${encodeURIComponent(eventId)}&bibs=${encodeURIComponent(bibs().join(','))}">${icon('route', 16)}코스에서 보기<span class="en"> / On the course</span></a>`
+    : `<a class="btn ghost small-btn" href="/e/${provider}/${encodeURIComponent(eventId)}">${icon('upload', 16)}코스 GPX 올리기<span class="en"> / Add course</span></a>`;
   box.innerHTML = `<span class="badge-src src-${provider}">${providerLabel(provider)}</span>
     <h1>${esc(event.name || '대회 / Race')}</h1>
     <div class="muted">${esc([event.date, event.time].filter(Boolean).join(' '))}${event.location && event.location !== 'SPCT' ? ` · ${esc(event.location)}` : ''}</div>
@@ -94,12 +96,12 @@ function runnerCard(r: StoredRunner, i: number): string {
   let body = '';
   if (rec === undefined) body = '<p class="muted small">불러오는 중… / Loading…</p>';
   else if (rec === null) body = '<p class="warn small">이 배번의 기록을 찾지 못했어요. / Bib not found.</p>';
-  else if (rec.status === 'pre-race') body = '<p class="status">⏳ 출발 전이에요. 대회가 시작되면 기록이 들어와요. / Not started yet.</p>';
+  else if (rec.status === 'pre-race') body = `<p class="status">${icon('timer', 16)}출발 전이에요. 대회가 시작되면 기록이 들어와요.</p>`;
   else {
     const passed = rec.records.filter((x) => clockSec(x.checkpointTime) !== null);
     const last = passed[passed.length - 1];
     const e = estimateFor(rec);
-    if (!last) body = '<p class="status">⏳ 아직 통과 기록이 없어요. / No splits yet.</p>';
+    if (!last) body = `<p class="status">${icon('timer', 16)}아직 통과 기록이 없어요.</p>`;
     else {
       const pct = e && e.est.estKm !== null ? Math.min(100, (e.est.estKm / e.total) * 100) : 0;
       const finished = e?.est.finished || (!!rec.finishTime && !!rec.total);
@@ -118,10 +120,10 @@ function runnerCard(r: StoredRunner, i: number): string {
   }
   return `<article class="runner" style="--c:${color}">
     <header><span class="swatch"></span><h3>${title}</h3>${rec?.category ? `<span class="muted small">${esc(rec.category)}</span>` : ''}
-      <button type="button" class="x" data-remove="${esc(r.bib)}" aria-label="삭제 / Remove">×</button></header>
-    <div class="muted small">🎽 ${esc(r.bib)}</div>
+      <button type="button" class="x" data-remove="${esc(r.bib)}" aria-label="삭제 / Remove">${icon('x', 18)}</button></header>
+    <div class="bibline">${icon('bib', 15)}${esc(r.bib)}</div>
     ${body}
-    <a class="small" href="${esc(resultUrl)}" target="_blank" rel="noopener">${providerLabel(provider)} 공식 기록 / Official ↗</a>
+    <a class="small" href="${esc(resultUrl)}" target="_blank" rel="noopener">${providerLabel(provider)} 공식 기록${icon('external', 13)}</a>
   </article>`;
 }
 

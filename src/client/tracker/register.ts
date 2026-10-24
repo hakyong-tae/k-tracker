@@ -1,3 +1,4 @@
+import { icon } from '../../shared/icons.ts';
 import { esc, getEvent, groupPrefix, params, providerLabel, providerOf, toast } from './common.ts';
 
 const eventId = params.get('eventId') ?? '';
@@ -13,7 +14,7 @@ const viewerUrl = (g: string) => `group_viewer.html?group=${encodeURIComponent(g
 function renderGroups() {
   const groups = Object.keys(localStorage).filter((k) => k.startsWith(prefix)).map((k) => k.slice(prefix.length));
   mine.innerHTML = groups.length
-    ? groups.map((g) => `<li class="group-row"><a href="${viewerUrl(g)}">▶ ${esc(g)}</a><button type="button" class="linkish danger" data-del="${esc(g)}">삭제 / Delete</button></li>`).join('')
+    ? groups.map((g) => `<li class="group-row"><a href="${viewerUrl(g)}">${icon('runner', 18)}${esc(g)}</a><button type="button" class="linkish danger" data-del="${esc(g)}">삭제 / Delete</button></li>`).join('')
     : '<li class="muted small">아직 만든 그룹이 없어요. / No groups yet.</li>';
 }
 mine.addEventListener('click', (e) => {
@@ -35,7 +36,7 @@ document.getElementById('group-form')!.addEventListener('submit', (e) => {
     info.innerHTML = `<span class="badge-src src-${provider}">${providerLabel(provider)}</span>
       <h1>${esc(ev.name || '대회 / Race')}</h1>
       <div class="muted">${esc([ev.date, ev.time].filter(Boolean).join(' '))}${ev.location && ev.location !== 'SPCT' ? ` · ${esc(ev.location)}` : ''}</div>
-      ${ev.courseSlug ? `<a class="btn ghost small-btn" href="/r/${esc(ev.courseSlug)}">🗺 코스 보기 / Course</a>` : ''}`;
+      ${ev.courseSlug ? `<a class="btn ghost small-btn" href="/r/${esc(ev.courseSlug)}">${icon('route', 16)}코스 보기<span class="en"> / Course</span></a>` : `<a class="btn ghost small-btn" href="/e/${provider}/${encodeURIComponent(eventId)}">${icon('info', 16)}대회 정보<span class="en"> / Race info</span></a>`}`;
   } catch { info.innerHTML = '<p class="warn">대회 정보를 불러오지 못했어요. / Could not load the race.</p>'; }
 })();
 renderGroups();

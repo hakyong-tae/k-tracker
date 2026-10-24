@@ -3,6 +3,9 @@ import { BRAND } from '../../src/shared/brand.ts';
 import { t } from '../../src/shared/i18n.ts';
 import type { Env } from './env.ts';
 import { ASSET_VERSION } from './version.ts';
+import { icon } from '../../src/shared/icons.ts';
+
+const LOGO = `<svg class="logo" width="28" height="28" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="var(--accent)"/><path d="M7 22.5c3-0.2 4.2-8.5 8-8.5s4 5 7 5 3-7 3-7" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7" cy="22.5" r="2" fill="#fff"/></svg>`;
 
 export const esc = (s: unknown): string =>
   String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
@@ -62,25 +65,29 @@ export function page(o: PageOpts): Response {
 ${o.ogImage ? html`<meta property="og:image" content="${o.ogImage}">` : ''}
 <meta name="twitter:card" content="summary_large_image">
 ${o.noindex ? raw('<meta name="robots" content="noindex">') : ''}
-<meta name="theme-color" content="#0f172a">
+<meta name="theme-color" content="#f7f6f3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0c0f14" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="/assets/app.css?v=${ASSET_VERSION}">
 ${o.jsonLd ? raw(`<script type="application/ld+json">${JSON.stringify(o.jsonLd).replace(/</g, '\\u003c')}</script>`) : ''}
 ${ads ? raw(`<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${esc(o.env.ADSENSE_CLIENT)}" crossorigin="anonymous"></script>`) : ''}
 </head>
 <body>
 <header class="topbar">
-  <a class="brand" href="/${o.lang === 'en' ? '?lang=en' : ''}">${BRAND.name}</a>
+  <a class="brand" href="/${o.lang === 'en' ? '?lang=en' : ''}">${raw(LOGO)}<span>${BRAND.name}</span></a>
   <nav class="topnav">
-    <a href="/event.html">${o.lang === 'ko' ? '실시간 응원' : 'Live'}</a>
+    <a href="/${o.lang === 'en' ? '?lang=en&f=live' : '?f=live'}">${o.lang === 'ko' ? '실시간 응원' : 'Live'}</a>
     <a class="hide-xs" href="/submit${o.lang === 'en' ? '?lang=en' : ''}">${t(o.lang, 'submitCourse')}</a>
     <a class="lang" href="${o.path}?lang=${other}" data-lang="${other}">${other === 'en' ? 'EN' : '한국어'}</a>
   </nav>
 </header>
 ${o.body}
 <footer class="foot">
-  <div>${BRAND.name} · ${t(o.lang, 'liveTracker')} · <a href="/event.html">${o.lang === 'ko' ? '대회 목록' : 'Races'}</a></div>
-  <div class="muted">© ${BRAND.author} · <a href="mailto:${BRAND.email}">${BRAND.email}</a> · Map data © OpenStreetMap contributors</div>
+  <div class="foot-brand">${raw(LOGO)}<b>${BRAND.name}</b></div>
+  <p>${o.lang === 'ko' ? '실시간 기록은 기록 업체(MyResult, SPCT)의 공개 페이지 기준이며 공식 기록이 아닐 수 있어요. 대회 정보는 반드시 공식 안내로 확인하세요.' : 'Live splits come from timing providers’ public pages and are unofficial. Always confirm race details with the organizer.'}</p>
+  <p class="muted">© ${BRAND.author} · <a href="mailto:${BRAND.email}">${BRAND.email}</a> · Map data © OpenStreetMap contributors</p>
 </footer>
 ${(o.scripts ?? []).map((s) => raw(`<script type="module" src="/assets/${s}.js?v=${ASSET_VERSION}"></script>`))}
 <script>document.querySelectorAll('a.lang').forEach(a=>a.addEventListener('click',()=>{document.cookie='lang='+a.dataset.lang+';path=/;max-age=31536000;samesite=lax'}))</script>

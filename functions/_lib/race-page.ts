@@ -5,6 +5,7 @@ import { segmentStats } from '../../src/shared/segments.ts';
 import { fmtDuration, fmtPace, addClock, daysUntil } from '../../src/shared/time.ts';
 import { defaultTarget, officialKm, TARGET_PRESETS } from '../../src/shared/race-defaults.ts';
 import { html, raw, jsonScript, page, adSlot, type Raw } from './html.ts';
+import { icon } from '../../src/shared/icons.ts';
 import type { Env } from './env.ts';
 
 const fmtDate = (lang: Lang, date: string) => {
@@ -48,16 +49,16 @@ export function renderRacePage(env: Env, lang: Lang, race: RaceRecord): Response
   const body = html`
 <main class="race" data-slug="${meta.slug}">
   <section class="race-head wrap">
-    <div class="eyebrow">${fmtDate(lang, meta.date)} · ${t(lang, 'start')} ${meta.startTime} · ${city}</div>
+    <div class="eyebrow">${raw(icon('calendar', 15))}${fmtDate(lang, meta.date)} · ${t(lang, 'start')} ${meta.startTime} ${raw(icon('pin', 15))}${city}</div>
     <h1>${name} <span class="dday" id="dday" data-date="${meta.date}" data-tz="${meta.timezone}">${ddayLabel(lang, days)}</span></h1>
     <ul class="chips">
       <li><b>${totalKm.toFixed(totalKm % 1 ? 3 : 0)}</b> km</li>
-      <li>${t(lang, 'gain')} <b>${c.gain}</b> m</li>
+      <li>${raw(icon('mountain', 15))}${t(lang, 'gain')} <b>${c.gain}</b> m</li>
       <li>${t(lang, 'highest')} <b>${Math.round(c.maxEle)}</b> m</li>
       ${meta.cutoff ? html`<li>${t(lang, 'cutoff')} <b>${meta.cutoff}</b></li>` : ''}
-      ${meta.officialUrl ? html`<li><a href="${meta.officialUrl}" target="_blank" rel="noopener">${t(lang, 'official')} ↗</a></li>` : ''}
+      ${meta.officialUrl ? html`<li><a href="${meta.officialUrl}" target="_blank" rel="noopener">${t(lang, 'official')}${raw(icon('external', 14))}</a></li>` : ''}
     </ul>
-    ${meta.live ? html`<p class="row"><a class="btn btn-live" href="/group_register.html?eventId=${encodeURIComponent(meta.live.eventId)}&source=${meta.live.provider === 'myresult' ? 'myresult' : 'smartchip'}">⏱ ${lang === 'ko' ? '실시간 응원' : 'Live tracking'}</a></p>` : ''}
+    ${meta.live ? html`<p class="row"><a class="btn btn-live" href="/group_register.html?eventId=${encodeURIComponent(meta.live.eventId)}&source=${meta.live.provider === 'myresult' ? 'myresult' : 'smartchip'}">${raw(icon('timer', 18))}${lang === 'ko' ? '실시간 응원' : 'Live tracking'}</a></p>` : ''}
     <div id="live-runners" class="live-runners" hidden></div>
   </section>
 
@@ -66,11 +67,11 @@ export function renderRacePage(env: Env, lang: Lang, race: RaceRecord): Response
       <canvas id="fly" aria-label="${lang === 'ko' ? '코스 주행 미리보기' : 'Course fly-through'}"></canvas>
       <div id="map" class="map" hidden></div>
       <div class="ov ov-tl"><span id="ov-km">0.0</span><small>km</small></div>
-      <button class="ov ov-tr iconbtn" id="btn-map" type="button" aria-pressed="false" title="${t(lang, 'showMap')}">${t(lang, 'showMap')}</button>
+      <button class="ov ov-tr iconbtn" id="btn-map" type="button" aria-pressed="false" title="${t(lang, 'showMap')}">${raw(icon('map', 16))}<span>${t(lang, 'showMap')}</span></button>
       <div class="ov ov-bl" id="ov-next"></div>
       <div class="ov ov-br">
         <button class="iconbtn" id="btn-speed" type="button">×10</button>
-        <button class="playbtn" id="btn-play" type="button" aria-label="${t(lang, 'play')}">▶</button>
+        <button class="playbtn" id="btn-play" type="button" aria-label="${t(lang, 'play')}">${raw(icon('play', 22))}</button>
       </div>
     </div>
     <aside class="panel" id="panel">
@@ -87,8 +88,8 @@ export function renderRacePage(env: Env, lang: Lang, race: RaceRecord): Response
       <div class="p-light" id="p-light"></div>
       <p class="p-tip" id="p-tip">${l(lang, meta.segments[0]?.tip) || ''}</p>
       <div class="p-links">
-        <a id="lnk-sv" target="_blank" rel="noopener" href="#">${t(lang, 'streetView')}</a>
-        <a id="lnk-map" target="_blank" rel="noopener" href="#">${t(lang, 'openMap')}</a>
+        <a id="lnk-sv" target="_blank" rel="noopener" href="#">${raw(icon('external', 15))}${t(lang, 'streetView')}</a>
+        <a id="lnk-map" target="_blank" rel="noopener" href="#">${raw(icon('pin', 15))}${t(lang, 'openMap')}</a>
       </div>
     </aside>
   </section>
@@ -149,7 +150,7 @@ export function renderRacePage(env: Env, lang: Lang, race: RaceRecord): Response
         })}
       </tbody>
     </table>
-    <p><a class="btn" id="band-link" href="/r/${meta.slug}/band?t=${fmtDuration(target, false)}${lang === 'en' ? '&lang=en' : ''}" target="_blank">${t(lang, 'printBand')}</a></p>
+    <p><a class="btn" id="band-link" href="/r/${meta.slug}/band?t=${fmtDuration(target, false)}${lang === 'en' ? '&lang=en' : ''}" target="_blank">${raw(icon('printer', 18))}${t(lang, 'printBand')}</a></p>
   </section>
 
   <section id="weather" class="wrap block">

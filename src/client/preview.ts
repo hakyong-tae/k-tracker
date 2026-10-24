@@ -17,7 +17,7 @@ const CHECK_TEXT: Record<string, [string, string]> = {
 
 export function checkList(lang: Lang, checks: Check[]): HTMLElement {
   return h('ul', { class: 'checks' }, checks.map((c) => h('li', { class: `ck-${c.level}` },
-    c.level === 'ok' ? '✓ ' : c.level === 'warn' ? '⚠ ' : '✕ ',
+    c.level === 'ok' ? '✓ ' : c.level === 'warn' ? '! ' : '✕ ',
     (CHECK_TEXT[c.code]?.[lang === 'ko' ? 0 : 1] ?? c.code) + (c.detail ? `: ${c.code === 'distance' ? (Number(c.detail) > 0 ? '+' : '') + c.detail + '%' : c.detail}` : ''))));
 }
 

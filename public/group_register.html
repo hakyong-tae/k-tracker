@@ -7,12 +7,14 @@
 <meta name="description" content="응원할 그룹을 만들고 배번을 추가하세요.">
 <meta name="theme-color" content="#0f172a">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="/assets/app.css">
 </head>
 <body>
 <header class="topbar">
-  <a class="brand" href="/">K-TRACKER</a>
-  <nav class="topnav"><a href="/event.html">실시간 응원</a><a class="hide-xs" href="/submit">코스 제보하기</a></nav>
+  <a class="brand" href="/"><svg class="logo" width="28" height="28" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="var(--accent)"/><path d="M7 22.5c3-0.2 4.2-8.5 8-8.5s4 5 7 5 3-7 3-7" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7" cy="22.5" r="2" fill="#fff"/></svg><span>K-TRACKER</span></a>
+  <nav class="topnav"><a href="/?f=live">실시간 응원</a><a class="hide-xs" href="/submit">코스 제보하기</a></nav>
 </header>
 <main class="wrap narrow block tracker">
   <section id="event-info" class="card event-card"><p class="muted">대회 정보를 불러오는 중… / Loading…</p></section>
@@ -23,11 +25,12 @@
   </form>
   <h2>내 그룹 / My groups</h2>
   <ul id="my-groups" class="group-list"></ul>
-  <p><a href="event.html">← 대회 목록 / All races</a></p>
+  <p><a href="/?f=live">← 대회 목록<span class="en"> / All races</span></a></p>
 </main>
 <footer class="foot">
-  <div>K-TRACKER · 실시간 기록은 각 기록 업체(MyResult, SPCT) 공개 페이지 기준이며 공식 기록이 아닐 수 있어요. / Unofficial; data from public timing pages.</div>
-  <div class="muted">© Hak-yong Tae · <a href="mailto:hy.tae@kakao.com">hy.tae@kakao.com</a> · <a href="https://x.com/yong_planet">X</a> · <a href="https://www.instagram.com/hy.tae/">Instagram</a> · <a href="https://github.com/hakyong-tae">GitHub</a></div>
+  <div class="foot-brand"><svg class="logo" width="28" height="28" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="var(--accent)"/><path d="M7 22.5c3-0.2 4.2-8.5 8-8.5s4 5 7 5 3-7 3-7" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7" cy="22.5" r="2" fill="#fff"/></svg><b>K-TRACKER</b></div>
+  <p>실시간 기록은 기록 업체(MyResult, SPCT)의 공개 페이지 기준이며 공식 기록이 아닐 수 있어요. / Unofficial; data from public timing pages.</p>
+  <p class="muted">© Hak-yong Tae · <a href="mailto:hy.tae@kakao.com">hy.tae@kakao.com</a> · <a href="https://x.com/yong_planet">X</a> · <a href="https://www.instagram.com/hy.tae/">Instagram</a> · <a href="https://github.com/hakyong-tae">GitHub</a></p>
 </footer>
 <script type="module" src="/assets/tracker-register.js"></script>
 </body>

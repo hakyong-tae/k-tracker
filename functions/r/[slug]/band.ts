@@ -33,17 +33,17 @@ export const onRequestGet = async (ctx: Ctx) => {
 h1{font-size:15px;margin:0 0 4px}.meta{color:#555;margin-bottom:12px}.bands{display:flex;gap:12px;flex-wrap:wrap}
 .band{width:62mm;border:1.5px solid #111;border-radius:4mm;padding:2mm 3mm}.band h2{font-size:11px;margin:0 0 2px;display:flex;justify-content:space-between}
 table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}th{font-size:9px;text-align:left;color:#555;font-weight:600}td{padding:1px 0;border-top:.5px solid #ddd}
-td:first-child{font-weight:700;width:10mm}tr.aid td:first-child::after{content:" 💧";font-size:8px}tr.slow td:last-child{font-weight:700}
+td:first-child{font-weight:700;width:10mm}tr.aid td:first-child::after{content:" •";color:#2563eb}tr.slow td:last-child{font-weight:700}
 .tip{margin-top:12px;color:#555}@media print{.noprint{display:none}body{margin:0}}button{font:inherit;padding:12px 18px;min-height:44px;margin-bottom:12px}
 </style></head><body>
-<button class="noprint" onclick="print()">🖨 ${t(lang, 'printBand')}</button>
+<button class="noprint" onclick="print()">${t(lang, 'printBand')}</button>
 <h1>${l(lang, meta.name)}</h1>
 <div class="meta">${t(lang, 'targetTime')} ${fmtDuration(target, false)} · ${t(lang, 'avgPace')} ${fmtPace(plan.avgPace)}/km · ${t(lang, 'start')} ${meta.startTime} → ${t(lang, 'finish')} ${addClock(meta.startTime, target)}</div>
 <div class="bands">
   <div class="band"><h2><span>${esc(meta.slug)}</span><span>${fmtDuration(target, false)}</span></h2>${strip(rows.slice(0, half))}</div>
   <div class="band"><h2><span>${esc(meta.slug)}</span><span>${fmtDuration(target, false)}</span></h2>${strip(rows.slice(half))}</div>
 </div>
-<p class="tip noprint">${lang === 'ko' ? '굵은 페이스는 오르막 구간, 💧는 급수가 있는 km예요. 잘라서 투명테이프로 손목에 감으세요.' : 'Bold paces are climbs, 💧 marks km with aid. Cut out and wrap with clear tape.'}</p>
+<p class="tip noprint">${lang === 'ko' ? '굵은 페이스는 오르막 구간, 파란 점은 급수가 있는 km예요. 잘라서 투명테이프로 손목에 감으세요.' : 'Bold paces are climbs, a blue dot marks km with aid. Cut out and wrap with clear tape.'}</p>
 </body></html>`;
   return new Response(doc.s, { headers: { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'public, max-age=300' } });
 };

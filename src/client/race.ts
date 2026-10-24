@@ -11,6 +11,7 @@ import { Flyover } from './flyover.ts';
 import { Profile } from './profile.ts';
 import type { CourseMap } from './map.ts';
 import { $, $$, h, store } from './dom.ts';
+import { icon, weatherIcon } from '../shared/icons.ts';
 import { clockSec, estimate, kstNowSec } from '../shared/position.ts';
 import type { LiveEvent, LiveRecord } from '../shared/live.ts';
 
@@ -59,7 +60,7 @@ btnMap.addEventListener('click', async () => {
   const show = mapEl.hidden;
   mapEl.hidden = !show; flyCanvas.hidden = show;
   btnMap.setAttribute('aria-pressed', String(show));
-  btnMap.textContent = show ? (lang === 'ko' ? '주행' : 'Run view') : t(lang, 'showMap');
+  btnMap.innerHTML = show ? `${icon('runner', 16)}<span>${lang === 'ko' ? '주행' : 'Run view'}</span>` : `${icon('map', 16)}<span>${t(lang, 'showMap')}</span>`;
   if (show && !map) {
     const { createMap } = await import('./map.ts');
     map = createMap(mapEl, track, meta.pois, (dd2) => seek(dd2));
@@ -97,7 +98,7 @@ function updatePanel() {
   const next = aid.find((p) => p.km > km + 0.01);
   el.aid.textContent = next ? `${next.km.toFixed(1)} km` : '—';
   el.ovNext.innerHTML = '';
-  if (next) el.ovNext.append(h('b', {}, `${next.km.toFixed(1)}km`), ' ', l(lang, POI_LABEL[next.type]));
+  if (next) { el.ovNext.innerHTML = icon('droplet', 15); el.ovNext.append(h('b', {}, `${next.km.toFixed(1)}km`), ' ', l(lang, POI_LABEL[next.type])); }
   const seg = meta.segments.find((s) => km >= s.fromKm && km < s.toKm + 1e-6) ?? meta.segments[meta.segments.length - 1];
   el.seg.textContent = seg ? l(lang, seg.title) : '';
   el.tip.textContent = seg ? l(lang, seg.tip) : '';
@@ -107,14 +108,14 @@ function updatePanel() {
   const sun = sunElevation(at, la, lo);
   const head = track.headingAt(d);
   const bits: string[] = [];
-  bits.push(sun < -0.8 ? `🌙 ${t(lang, 'dark')}` : sun < 15 ? `🌅 ${lang === 'ko' ? '낮은 해' : 'Low sun'} ${Math.round(sun)}°` : `☀️ ${lang === 'ko' ? '해' : 'Sun'} ${Math.round(sun)}°`);
-  bits.push(`🧭 ${compass(head, lang)}${lang === 'ko' ? '쪽으로' : '-bound'}`);
+  bits.push(sun < -0.8 ? `${icon('moon', 15)}${t(lang, 'dark')}` : sun < 15 ? `${icon('sunrise', 15)}${lang === 'ko' ? '낮은 해' : 'Low sun'} ${Math.round(sun)}°` : `${icon('sun', 15)}${lang === 'ko' ? '해' : 'Sun'} ${Math.round(sun)}°`);
+  bits.push(`${icon('compass', 15)}${compass(head, lang)}${lang === 'ko' ? '쪽으로' : '-bound'}`);
   const hw = hourAt(sec);
   if (hw?.wdir != null && hw.wind >= 1) {
     const rel = windRelative(head, hw.wdir);
-    bits.push(`💨 ${rel === 'head' ? (lang === 'ko' ? '맞바람' : 'Headwind') : rel === 'tail' ? (lang === 'ko' ? '뒷바람' : 'Tailwind') : (lang === 'ko' ? '옆바람' : 'Crosswind')} ${hw.wind.toFixed(1)}m/s`);
+    bits.push(`${icon('wind', 15)}${rel === 'head' ? (lang === 'ko' ? '맞바람' : 'Headwind') : rel === 'tail' ? (lang === 'ko' ? '뒷바람' : 'Tailwind') : (lang === 'ko' ? '옆바람' : 'Crosswind')} ${hw.wind.toFixed(1)}m/s`);
   }
-  el.light.textContent = bits.join(' · ');
+  el.light.innerHTML = bits.map((b) => `<span>${b}</span>`).join('');
   if (Math.abs(d - lastLinkUpdate) > 50) {
     lastLinkUpdate = d;
     el.sv.href = isKR ? `https://map.kakao.com/link/roadview/${la.toFixed(6)},${lo.toFixed(6)}` : `https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${la.toFixed(6)},${lo.toFixed(6)}&heading=${Math.round(head)}`;
@@ -135,7 +136,7 @@ function seek(nd: number) { d = Math.max(0, Math.min(course.total, nd)); draw();
 // ---------- playback ----------
 const btnPlay = $('#btn-play')!, btnSpeed = $('#btn-speed')!;
 btnSpeed.textContent = `×${SPEEDS[speedIdx]}`;
-function syncPlay() { btnPlay.textContent = playing ? '❚❚' : '▶'; btnPlay.setAttribute('aria-label', t(lang, playing ? 'pause' : 'play')); }
+function syncPlay() { btnPlay.innerHTML = icon(playing ? 'pause' : 'play', 22); btnPlay.setAttribute('aria-label', t(lang, playing ? 'pause' : 'play')); }
 btnPlay.addEventListener('click', () => { if (d >= course.total - 1) d = 0; playing = !playing; syncPlay(); });
 btnSpeed.addEventListener('click', () => { speedIdx = (speedIdx + 1) % SPEEDS.length; btnSpeed.textContent = `×${SPEEDS[speedIdx]}`; });
 let last = performance.now();
@@ -228,12 +229,11 @@ async function loadWeather() {
   } catch { wx = null; }
   wxEl.innerHTML = '';
   if (!wx || !wx.hours?.length) { wxEl.append(h('p', { class: 'muted' }, lang === 'ko' ? '날씨 정보를 불러오지 못했어요.' : 'Weather unavailable.')); return; }
-  const icon = (sym?: string | null) => !sym ? '' : sym.includes('thunder') ? '⛈' : sym.includes('rain') || sym.includes('sleet') ? '🌧' : sym.includes('snow') ? '❄️' : sym.includes('cloudy') ? '☁️' : sym.includes('partly') ? '⛅' : sym.includes('fair') ? '🌤' : sym.includes('clear') ? (sym.includes('night') ? '🌙' : '☀️') : '';
   wxEl.append(
     h('p', { class: 'muted small' }, wx.kind === 'forecast' ? `${t(lang, 'forecast')} · ${t(lang, 'forecastNote')}` : `${t(lang, 'climate')} (${wx.years?.join(', ')}) · ${t(lang, 'climateNote')}`),
     h('div', { class: 'wx-hours' }, wx.hours.map((x) => h('div', { class: 'wx-h' },
-      h('small', {}, x.hour), h('div', { class: 'wx-i' }, icon(x.symbol)), h('b', {}, `${Math.round(x.t)}°`),
-      h('small', {}, `💧${Math.round(x.rh)}%`), h('small', {}, `💨${x.wind.toFixed(1)}`), x.rain ? h('small', {}, `☔${x.rain}mm`) : null))),
+      h('small', {}, x.hour), (() => { const d = h('div', { class: 'wx-i' }); d.innerHTML = weatherIcon(x.symbol) ? icon(weatherIcon(x.symbol), 22) : ''; return d; })(), h('b', {}, `${Math.round(x.t)}°`),
+      ...[[ 'droplet', `${Math.round(x.rh)}%`], ['wind', `${x.wind.toFixed(1)}`], ...(x.rain ? [['rain', `${x.rain}mm`]] : [])].map(([ic, v]) => { const sm = h('small'); sm.innerHTML = icon(ic, 12) + v; return sm; })))),
     h('div', { id: 'heat', class: 'heat' }),
     h('p', { class: 'muted tiny' }, `${t(lang, 'sources')}: ${wx.source}`),
   );

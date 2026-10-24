@@ -6,12 +6,20 @@ import { courseFromText } from './gpx-tool.ts';
 import { metaForm } from './meta-form.ts';
 import { checkList, coursePreview } from './preview.ts';
 import { $, h } from './dom.ts';
+import { icon } from '../shared/icons.ts';
 
 const root = $('#submit-app')!;
 const lang = (root.dataset.lang as Lang) || 'ko';
 let course: Course | null = null, gpx: ParsedGpx | null = null, file: File | null = null;
 
-const form = metaForm(lang, {});
+// prefill from an event page link (/submit?live=myresult:176&name=…&date=…)
+const pre = new URLSearchParams(location.search);
+const [preProv, preId] = (pre.get('live') ?? '').split(':');
+const form = metaForm(lang, {
+  ...(pre.get('name') ? { name: { ko: pre.get('name')!, en: '' } } : {}),
+  ...(pre.get('date') && /^\d{4}-\d{2}-\d{2}/.test(pre.get('date')!) ? { date: pre.get('date')!.slice(0, 10) } : {}),
+  ...(preProv && preId ? { live: { provider: preProv === 'spct' ? 'spct' : 'myresult', eventId: preId } as never } : {}),
+});
 const status = h('p', { class: 'muted small' });
 const previewBox = h('div');
 const fileIn = h('input', { type: 'file', accept: '.gpx,application/gpx+xml,application/xml,text/xml', required: true }) as HTMLInputElement;
@@ -51,9 +59,9 @@ const el = h('form', { class: 'submit-form', onsubmit: async (e: Event) => {
   try {
     const r = await fetch('/api/submit', { method: 'POST', body: fd });
     const j = await r.json();
-    if (r.ok) { el.replaceWith(h('div', { class: 'done' }, h('h2', {}, '🙌'), h('p', {}, t(lang, 'sent')))); window.scrollTo(0, 0); }
-    else result.textContent = `⚠ ${j.error}`;
-  } catch { result.textContent = '⚠ network'; }
+    if (r.ok) { { const done = h('div', { class: 'done' }); done.innerHTML = `${icon('check', 44)}<h2>${lang === 'ko' ? '받았어요' : 'Received'}</h2><p>${t(lang, 'sent')}</p>`; el.replaceWith(done); } window.scrollTo(0, 0); }
+    else result.textContent = `${j.error}`;
+  } catch { result.textContent = 'network error'; }
   send.disabled = false;
 } } as never,
   h('label', { class: 'file' }, h('span', {}, t(lang, 'gpxFile')), fileIn), status, previewBox,

@@ -32,7 +32,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         race: 'src/client/race.ts', submit: 'src/client/submit.ts', admin: 'src/client/admin.ts', app: 'src/styles/app.css',
-        'tracker-events': 'src/client/tracker/events.ts', 'tracker-register': 'src/client/tracker/register.ts', 'tracker-viewer': 'src/client/tracker/viewer.ts',
+        home: 'src/client/home.ts', 'tracker-register': 'src/client/tracker/register.ts', 'tracker-viewer': 'src/client/tracker/viewer.ts',
       },
       output: { entryFileNames: 'assets/[name].js', chunkFileNames: 'assets/chunks/[name]-[hash].js', assetFileNames: 'assets/[name][extname]' },
     },

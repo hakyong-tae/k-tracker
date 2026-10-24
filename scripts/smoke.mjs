@@ -35,7 +35,7 @@ try {
 
   let r = await page.goto(`${BASE}/`, { waitUntil: 'networkidle0' });
   ok(r.status() === 200, 'home 200');
-  ok(await page.$eval('body', (b) => b.innerText.includes('D-')), 'home lists an upcoming race');
+  ok(await page.$eval('body', (b) => /D-\d|오늘|Today/.test(b.innerText)), 'home lists an upcoming race');
 
   r = await page.goto(`${BASE}/r/singapore-2026`, { waitUntil: 'networkidle0' });
   ok(r.status() === 200, 'race page 200');
@@ -78,7 +78,10 @@ try {
   }
   ok((await fetch(`${BASE}/api/live/record?provider=spct&event=1;x&bib=1`)).status === 400, 'live record rejects bad input');
   await page.goto(`${BASE}/event.html`, { waitUntil: 'networkidle0' });
-  ok((await page.$$('.race-list a')).length >= 10, 'tracker race list renders');
+  ok(page.url().includes('f=live') && (await page.$$('.race-feed > li:not([hidden])')).length >= 10, 'old tracker list redirects to the unified feed');
+  ok((await page.$$('.rc')).length >= 1 && (await page.$$('.er')).length >= 10, 'feed shows course cards and live-only rows');
+  r = await page.goto(`${BASE}/e/myresult/177`, { waitUntil: 'networkidle0' });
+  ok(r.status() === 200 && (await page.content()).includes('group_register.html?eventId=177'), 'live-only event page with tracking CTA');
   ok(!(await page.content()).includes('fly.dev'), 'tracker pages no longer call fly.dev');
   await page.goto(`${BASE}/group_register.html?eventId=176&source=myresult`, { waitUntil: 'networkidle0' });
   ok(await page.$eval('body', (b) => b.innerText.includes('춘천')), 'group register shows event info');

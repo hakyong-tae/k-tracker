@@ -1,18 +1,8 @@
 import type { Ctx } from '../../_lib/env.ts';
 import { json } from '../../_lib/html.ts';
-import { parseMyResultEvents, parseSpctEvents, type LiveRace, type Provider } from '../../../src/shared/live.ts';
-import { swr, upstream } from './_upstream.ts';
-
-async function loadMyResult(): Promise<LiveRace[]> {
-  const pages = await Promise.all([1, 2, 3].map(async (p) => parseMyResultEvents(await (await upstream(`https://myresult.co.kr/api/event/?page=${p}`, 'application/json')).json())));
-  const seen = new Set<string>();
-  return pages.flat().filter((r) => (seen.has(r.id) ? false : (seen.add(r.id), true)));
-}
-async function loadSpct(): Promise<LiveRace[]> {
-  const pages = await Promise.all([1, 2, 3].map(async (p) => parseSpctEvents(await (await upstream(`https://time.spct.kr/main.php?currentPage=${p}`)).text())));
-  const seen = new Set<string>();
-  return pages.flat().filter((r) => (seen.has(r.id) ? false : (seen.add(r.id), true)));
-}
+import type { Provider } from '../../../src/shared/live.ts';
+import { swr } from './_upstream.ts';
+import { loadMyResult, loadSpct } from '../../_lib/catalog.ts';
 
 /** GET /api/live/races?provider=myresult|spct → LiveRace[] (newest first). */
 export const onRequestGet = async (ctx: Ctx) => {

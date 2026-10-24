@@ -60,7 +60,7 @@ async function openSubmission(id: number, body: HTMLElement) {
       const r = await api<{ slug?: string }>(`/api/admin/submissions/${id}`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ action, status, meta: form.read(), note: note.value }) });
       out.textContent = action === 'reject' ? K('반려했어요.', 'Rejected.') : K(`승인 완료: /r/${r.slug}`, `Approved: /r/${r.slug}`);
       setTimeout(render, 900);
-    } catch (e) { out.textContent = `⚠ ${(e as Error).message}`; }
+    } catch (e) { out.textContent = `${(e as Error).message}`; }
   };
   body.innerHTML = '';
   body.append(
@@ -112,7 +112,7 @@ async function editRace(id: number, body: HTMLElement) {
     h('div', { class: 'row actions' }, h('label', {}, K('상태 ', 'Status '), statusSel),
       h('button', { type: 'button', class: 'btn', onclick: async () => {
         try { await api(`/api/admin/races/${id}`, { method: 'PUT', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ meta: form.read(), status: statusSel.value, course: newCourse ?? undefined }) }); out.textContent = K('저장했어요.', 'Saved.'); }
-        catch (e) { out.textContent = `⚠ ${(e as Error).message}`; }
+        catch (e) { out.textContent = `${(e as Error).message}`; }
       } } as never, K('저장', 'Save')),
       h('a', { class: 'btn ghost', href: `/r/${form.read().slug}?preview=1`, target: '_blank' }, K('미리보기', 'Preview'))),
     out);
@@ -129,7 +129,7 @@ function renderNew(body: HTMLElement) {
       const res = await courseFromText(await file.text());
       course = res.course; gpx = res.gpx; form.setCourse(course, gpx);
       prev.innerHTML = ''; prev.append(coursePreview(lang, form.read(), course), checkList(lang, runChecks(course, form.read())));
-    } catch (e) { out.textContent = `⚠ ${(e as Error).message}`; }
+    } catch (e) { out.textContent = `${(e as Error).message}`; }
   });
   const save = async (status: string) => {
     if (!course) { out.textContent = K('GPX를 먼저 올려주세요.', 'Upload a GPX first.'); return; }
@@ -137,7 +137,7 @@ function renderNew(body: HTMLElement) {
     if (file) fd.append('gpx', file);
     fd.append('payload', JSON.stringify({ meta: form.read(), course, status }));
     try { const r = await api<{ slug: string }>('/api/admin/races', { method: 'POST', body: fd }); out.innerHTML = ''; out.append(K('저장했어요: ', 'Saved: '), h('a', { href: `/r/${r.slug}?preview=1`, target: '_blank' }, `/r/${r.slug}`)); }
-    catch (e) { out.textContent = `⚠ ${(e as Error).message}`; }
+    catch (e) { out.textContent = `${(e as Error).message}`; }
   };
   body.innerHTML = '';
   body.append(h('label', { class: 'file' }, h('span', {}, 'GPX'), gpxIn), prev, form.el,
