@@ -72,7 +72,7 @@ function renderStrip() {
   const total = Math.max(...pts.map((p) => p.e!.total));
   const course = courseFor(pts[0].rec);
   const ticks = (course?.checkpoints ?? []).filter((c) => c.km > 0 && c.km < total - 0.2);
-  strip.innerHTML = `<div class="strip-head"><b>코스 위 위치 / On course</b><span class="muted small">0 – ${total.toFixed(1)} km · 추정 / estimated</span></div>
+  strip.innerHTML = `<div class="strip-head"><b>코스 위 위치<span class="en"> / On course</span></b><span class="muted small">0–${total.toFixed(1)} km · 추정<span class="en"> / estimated</span></span></div>
     <div class="strip-bar">
       ${ticks.map((c) => `<span class="tick" style="left:${(c.km / total) * 100}%" title="${esc(c.name)}"></span>`).join('')}
       ${pts.map((p) => {

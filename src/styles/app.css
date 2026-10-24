@@ -256,3 +256,58 @@ blockquote { margin: 8px 0; padding: 8px 12px; border-left: 3px solid var(--line
 .btn-live { background: #0f172a; }
 @media (prefers-color-scheme: dark) { .btn-live { background: #e8ecf5; color: #0b1020; } }
 .event-card > .badge-src, .event-card > .btn, .event-card .row .btn { justify-self: start; width: auto; }
+
+/* ---------- phone portrait ---------- */
+.topbar { padding-left: max(16px, env(safe-area-inset-left)); padding-right: max(16px, env(safe-area-inset-right)); padding-top: max(10px, env(safe-area-inset-top)); }
+.topnav { gap: 2px; align-items: center; }
+.topnav a { display: inline-flex; align-items: center; min-height: 40px; padding: 0 10px; border-radius: 10px; }
+.topnav a:active { background: var(--card); }
+.brand { display: inline-flex; align-items: center; min-height: 40px; }
+.foot { padding-bottom: max(48px, env(safe-area-inset-bottom)); }
+.iconbtn { min-height: 40px; min-width: 44px; }
+.subnav a { min-height: 40px; display: inline-flex; align-items: center; }
+.btn { min-height: 44px; }
+.small-btn { min-height: 40px; }
+.badge-src { font-size: .75rem; }
+.rc-main small, .p-stats small, .clock small, .pace-sum small { font-size: .75rem; }
+.strip-bar .dot i { font-size: .75rem; }
+.runner .x { width: 40px; height: 40px; margin: -8px -8px -8px auto; border-radius: 10px; }
+.runner .x:active { background: var(--bg); }
+.runner > a.small { display: inline-flex; align-items: center; min-height: 40px; }
+.live-runners button { min-height: 40px; }
+.presets button { min-height: 40px; padding: 0 1em; }
+.stepper button { width: 44px; height: 44px; }
+.checklist label { min-height: 40px; }
+.group-row { min-height: 52px; }
+.group-row a { padding: 8px 0; flex: 1; }
+.linkish.danger { min-height: 40px; padding: 0 4px; }
+@media (max-width: 560px) {
+  /* iOS zooms into inputs under 16px */
+  input, select, textarea { font-size: 16px; min-height: 44px; }
+  .topnav a { padding: 0 8px; font-size: .85rem; }
+  .brand { font-size: .95rem; }
+  .race-head h1 { font-size: 1.45rem; }
+  .bigkm { font-size: 2.6rem; }
+  .p-stats b { font-size: 1.15rem; }
+  .p-tip { font-size: .92rem; }
+  .ov-tl { font-size: 1.25rem; }
+  .playbtn { width: 52px; height: 52px; }
+  .seg { padding: 12px 14px; }
+  .stepper input { font-size: 2rem; }
+  .pace-sum b { font-size: 1.25rem; }
+  .group-bar { align-items: flex-start; }
+  .group-bar .row { width: 100%; }
+  .group-bar .row .btn { flex: 1 1 0; padding-left: .5em; padding-right: .5em; justify-content: center; }
+  .rc-main b { font-size: 1.1rem; }
+  .wx-h { flex-basis: 68px; }
+}
+@media (max-width: 380px) {
+  .topnav a.hide-xs { display: none; }
+}
+
+@media (max-width: 560px) {
+  .en { display: none; }
+  .strip-head { flex-wrap: wrap; row-gap: 2px; }
+  .inline-form .btn { flex: none; padding-left: 1.1em; padding-right: 1.1em; }
+}
+@media (max-width: 380px) { .en-wide { display: none; } }

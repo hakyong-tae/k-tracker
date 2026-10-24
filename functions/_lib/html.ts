@@ -72,7 +72,8 @@ ${ads ? raw(`<script async src="https://pagead2.googlesyndication.com/pagead/js/
 <header class="topbar">
   <a class="brand" href="/${o.lang === 'en' ? '?lang=en' : ''}">${BRAND.name}</a>
   <nav class="topnav">
-    <a href="/submit${o.lang === 'en' ? '?lang=en' : ''}">${t(o.lang, 'submitCourse')}</a>
+    <a href="/event.html">${o.lang === 'ko' ? '실시간 응원' : 'Live'}</a>
+    <a class="hide-xs" href="/submit${o.lang === 'en' ? '?lang=en' : ''}">${t(o.lang, 'submitCourse')}</a>
     <a class="lang" href="${o.path}?lang=${other}" data-lang="${other}">${other === 'en' ? 'EN' : '한국어'}</a>
   </nav>
 </header>

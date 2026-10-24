@@ -12,21 +12,21 @@
 <body>
 <header class="topbar">
   <a class="brand" href="/">K-TRACKER</a>
-  <nav class="topnav"><a href="/event.html">실시간 응원</a><a href="/submit">코스 제보하기</a></nav>
+  <nav class="topnav"><a href="/event.html">실시간 응원</a><a class="hide-xs" href="/submit">코스 제보하기</a></nav>
 </header>
 <main class="wrap block tracker">
   <section id="event-info" class="card event-card"><p class="muted">대회 정보를 불러오는 중… / Loading…</p></section>
   <div class="group-bar">
     <div><small class="muted">그룹 / Group</small> <b id="group-name">-</b></div>
     <div class="row">
-      <button type="button" class="btn small-btn" id="btn-share">🔗 공유 / Share</button>
-      <button type="button" class="btn ghost small-btn" id="btn-refresh">🔄 새로고침</button>
-      <button type="button" class="btn ghost small-btn" id="btn-rename">✏️ 이름 변경</button>
+      <button type="button" class="btn small-btn" id="btn-share" aria-label="공유 / Share">🔗 공유<span class="en"> / Share</span></button>
+      <button type="button" class="btn ghost small-btn" id="btn-refresh" aria-label="새로고침 / Refresh">🔄 새로고침</button>
+      <button type="button" class="btn ghost small-btn" id="btn-rename" aria-label="이름 변경 / Rename">✏️ 이름<span class="en-wide"> 변경</span></button>
     </div>
   </div>
   <form id="add-form" class="inline-form add-form">
     <input id="bib-input" inputmode="numeric" maxlength="10" placeholder="배번 입력 / Bib number" autocomplete="off" aria-label="배번 / Bib">
-    <button class="btn" type="submit">추가 / Add</button>
+    <button class="btn" type="submit">추가<span class="en"> / Add</span></button>
   </form>
   <section id="strip" class="card strip" hidden></section>
   <div id="runners" class="runners"></div>

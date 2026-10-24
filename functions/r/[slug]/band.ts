@@ -34,7 +34,7 @@ h1{font-size:15px;margin:0 0 4px}.meta{color:#555;margin-bottom:12px}.bands{disp
 .band{width:62mm;border:1.5px solid #111;border-radius:4mm;padding:2mm 3mm}.band h2{font-size:11px;margin:0 0 2px;display:flex;justify-content:space-between}
 table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}th{font-size:9px;text-align:left;color:#555;font-weight:600}td{padding:1px 0;border-top:.5px solid #ddd}
 td:first-child{font-weight:700;width:10mm}tr.aid td:first-child::after{content:" 💧";font-size:8px}tr.slow td:last-child{font-weight:700}
-.tip{margin-top:12px;color:#555}@media print{.noprint{display:none}body{margin:0}}button{font:inherit;padding:8px 14px;margin-bottom:12px}
+.tip{margin-top:12px;color:#555}@media print{.noprint{display:none}body{margin:0}}button{font:inherit;padding:12px 18px;min-height:44px;margin-bottom:12px}
 </style></head><body>
 <button class="noprint" onclick="print()">🖨 ${t(lang, 'printBand')}</button>
 <h1>${l(lang, meta.name)}</h1>
