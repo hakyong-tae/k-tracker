@@ -12,7 +12,8 @@
     "test": "vitest run",
     "typecheck": "tsc -p tsconfig.json && tsc -p tsconfig.functions.json && tsc -p tsconfig.node.json",
     "smoke": "node scripts/smoke.mjs",
-    "deploy": "npm run build && wrangler pages deploy dist --project-name k-tracker"
+    "deploy": "npm run build && wrangler pages deploy dist --project-name k-tracker",
+    "draft": "node scripts/race-draft.ts"
   },
   "dependencies": {
     "maplibre-gl": "^6.15.0"

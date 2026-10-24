@@ -5,4 +5,6 @@ dist/
 .env
 .DS_Store
 smoke-out/
-.claude/
+.claude/*
+!.claude/skills/
+.cache/
