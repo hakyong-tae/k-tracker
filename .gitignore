@@ -1,4 +1,8 @@
 node_modules/
+dist/
+.wrangler/
+.dev.vars
 .env
 .DS_Store
-node_modules
+smoke-out/
+.claude/

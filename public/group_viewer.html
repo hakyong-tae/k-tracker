@@ -131,6 +131,8 @@
       if (e.key === "Enter") addRunner();
     });
 
+    importBibsFromUrl();
+    syncShareUrl();
     loadEventInfo();
     loadRunners();
     updateLastRefreshTime();
@@ -209,8 +211,36 @@
     }
   }
 
+  // Group members live in this browser's localStorage, so the share link carries the bibs too.
+  function currentBibs() {
+    return JSON.parse(localStorage.getItem(groupKey) || "[]").map((r) => r.bib);
+  }
+
+  function shareUrl() {
+    const u = new URL(window.location.href);
+    const bibs = currentBibs();
+    if (bibs.length) u.searchParams.set("bibs", bibs.join(","));
+    else u.searchParams.delete("bibs");
+    return u.toString();
+  }
+
+  function syncShareUrl() {
+    history.replaceState(null, "", shareUrl());
+  }
+
+  function importBibsFromUrl() {
+    const raw = urlParams.get("bibs") || "";
+    const incoming = raw.split(",").map((b) => b.trim()).filter((b) => /^[0-9A-Za-z-]{1,10}$/.test(b)).slice(0, 50);
+    if (!incoming.length) return;
+    const runners = JSON.parse(localStorage.getItem(groupKey) || "[]");
+    for (const bib of incoming) {
+      if (!runners.find((r) => r.bib === bib)) runners.push({ bib, name: "", records: [] });
+    }
+    localStorage.setItem(groupKey, JSON.stringify(runners));
+  }
+
   function copyShareLink() {
-    navigator.clipboard.writeText(window.location.href)
+    navigator.clipboard.writeText(shareUrl())
       .then(() => alert("공유 링크가 복사되었습니다."))
       .catch(() => alert("복사 실패. 수동으로 복사해주세요."));
   }
@@ -223,7 +253,7 @@
 
   async function loadMyResultRaces() {
     try {
-      return await fetchJson("https://k-tracker-api.fly.dev/races");
+      return await fetchJson("/api/live/races?provider=myresult");
     } catch (_) {
       return await fetchJson("./data/myresult_races_parsed.json");
     }
@@ -231,7 +261,7 @@
 
   async function loadSmartChipRaces() {
     try {
-      return await fetchJson("https://spct-proxy.fly.dev/races");
+      return await fetchJson("/api/live/races?provider=spct");
     } catch (_) {
       return await fetchJson("https://raw.githubusercontent.com/hakyong-tae/spct-proxy/main/spct_races_parsed.json");
     }
@@ -246,7 +276,7 @@
         const events = await loadSmartChipRaces();
         const event = events.find((e) => String(e.event_no || e.id) === String(eventId));
         if (event) {
-          eventInfoElement.innerHTML = `<strong>${event.title || event.name}</strong><br>${event.date || ""} | Smartchip`;
+          eventInfoElement.innerHTML = `<strong>${event.title || event.name}</strong><br>${event.date || ""} | SPCT`;
         } else {
           eventInfoElement.innerHTML = "❌ 대회 정보를 찾을 수 없습니다.";
         }
@@ -267,36 +297,35 @@
     }
   }
 
-  function mapSmartChipRecords(data) {
-    return (data.sections || []).map((section) => ({
-      section: section.section,
-      checkpointTime: section.record
-    }));
+  function escapeHtml(v) {
+    return String(v ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
   }
 
   function buildResultUrl(bib) {
     if (source === "smartchip") {
-      return `https://time.spct.kr/m2.php?EVENT_NO=${encodeURIComponent(eventId)}&BIB_NO=${encodeURIComponent(bib)}`;
+      const year = /^20\d{2}/.test(eventId) ? eventId.slice(0, 4) : new Date().getFullYear();
+      return `https://time.spct.kr/m2.php?EVENT_NO=${encodeURIComponent(eventId)}&TargetYear=${year}&currentPage=1&BIB_NO=${encodeURIComponent(bib)}`;
     }
     return `https://myresult.co.kr/${encodeURIComponent(eventId)}/${encodeURIComponent(bib)}`;
   }
 
+  // "smartchip" in old links means SPCT (time.spct.kr). MyResult is read from its public runner page.
+  // linkOnly cards remain as a fallback when a provider cannot be read.
   async function fetchRunnerData(bib) {
-    if (source === "smartchip") {
-      const data = await fetchJson(`https://spct-proxy.fly.dev/player_record?event_no=${encodeURIComponent(eventId)}&bib_no=${encodeURIComponent(bib)}`);
-      if (data.error) throw new Error(data.error);
-      return {
-        bib,
-        name: (data.name || "").trim() || "이름 미확인",
-        records: mapSmartChipRecords(data)
-      };
+    const provider = source === "smartchip" ? "spct" : "myresult";
+    const res = await fetch(`/api/live/record?provider=${provider}&event=${encodeURIComponent(eventId)}&bib=${encodeURIComponent(bib)}`);
+    const data = await res.json().catch(() => ({}));
+    if (res.status === 501 && data.error === "unsupported") {
+      return { bib, name: "", records: [], linkOnly: true };
     }
-
-    const data = await fetchJson(`https://k-tracker-api.fly.dev/api/myresult/${encodeURIComponent(eventId)}/${encodeURIComponent(bib)}`);
-    if (data.error) throw new Error(data.error);
+    if (!res.ok || data.error) throw new Error(data.error || `HTTP ${res.status}`);
     return {
       bib,
-      name: (data.name || "").trim() || "이름 미확인",
+      name: (data.name || "").trim(),
+      status: data.status || "",
+      category: data.category || "",
+      total: data.total || "",
+      rank: data.rankOverall || "",
       records: data.records || []
     };
   }
@@ -319,10 +348,13 @@
       if (!runners.find((r) => r.bib === bib)) {
         runners.push(runner);
         localStorage.setItem(groupKey, JSON.stringify(runners));
+        syncShareUrl();
         bibInput.value = "";
         await loadRunners();
         updateLastRefreshTime();
-        addStatus.innerHTML = `<span class='text-success'>${runner.name} 선수(배번호 ${bib})가 추가되었습니다.</span>`;
+        addStatus.innerHTML = runner.linkOnly
+          ? `<span class='text-success'>배번 ${escapeHtml(bib)}이(가) 추가되었습니다. 기록은 MyResult 공식 페이지에서 볼 수 있어요.</span>`
+          : `<span class='text-success'>${escapeHtml(runner.name || "배번 " + bib)} (배번호 ${escapeHtml(bib)}) 추가되었습니다.</span>`;
       } else {
         addStatus.innerHTML = "<span class='text-warning'>이미 등록된 배번호입니다.</span>";
       }
@@ -362,13 +394,20 @@
 
       const resultUrl = buildResultUrl(runner.bib);
       const lastCheckpoint = (runner.records || []).slice().reverse().find((r) => r.checkpointTime && r.checkpointTime !== "-");
+      const title = runner.name ? escapeHtml(runner.name) : `배번 ${escapeHtml(runner.bib)}`;
+      const waiting = !runner.linkOnly && !(runner.records || []).some((r) => r.checkpointTime && r.checkpointTime !== "-");
+      const statusLine = runner.status === "pre-race" ? "⏳ 출발 전이에요. 대회가 시작되면 기록이 자동으로 들어와요."
+        : waiting ? "⏳ 아직 통과 기록이 없어요." : "";
 
       div.innerHTML = `
         <button class="remove-btn" onclick="removeRunner(${index})">&times;</button>
-        <a href="${resultUrl}" target="_blank">
-          <h5>▶️ ${runner.name || "이름 없음"}</h5>
-          <p class="runner-meta">🎽 배번호: ${runner.bib}</p>
-          ${lastCheckpoint ? `<p class="runner-meta">📍 ${lastCheckpoint.section} | ⏱ ${lastCheckpoint.checkpointTime}</p>` : ""}
+        <a href="${resultUrl}" target="_blank" rel="noopener">
+          <h5>▶️ ${title}${runner.category ? ` <small class="text-muted">${escapeHtml(runner.category)}</small>` : ""}</h5>
+          <p class="runner-meta">🎽 배번호: ${escapeHtml(runner.bib)}</p>
+          ${lastCheckpoint ? `<p class="runner-meta">📍 ${escapeHtml(lastCheckpoint.section)} | ⏱ ${escapeHtml(lastCheckpoint.checkpointTime)}</p>` : ""}
+          ${runner.total ? `<p class="runner-meta">🏁 ${escapeHtml(runner.total)}${runner.rank ? ` · 코스 순위 ${escapeHtml(runner.rank)}` : ""}</p>` : ""}
+          ${statusLine ? `<p class="runner-meta">${statusLine}</p>` : ""}
+          ${runner.linkOnly ? `<p class="runner-meta">MyResult 공식 기록 페이지에서 실시간 기록을 확인하세요 ↗</p>` : ""}
         </a>
       `;
       container.appendChild(div);
@@ -378,9 +417,10 @@
   function removeRunner(index) {
     const runners = JSON.parse(localStorage.getItem(groupKey) || "[]");
     const runnerToRemove = runners[index];
-    if (confirm(`${runnerToRemove.name || "이름 없음"} 선수(배번호 ${runnerToRemove.bib})를 삭제하시겠습니까?`)) {
+    if (confirm(`${runnerToRemove.name || "배번 " + runnerToRemove.bib} (배번호 ${runnerToRemove.bib})를 삭제하시겠습니까?`)) {
       runners.splice(index, 1);
       localStorage.setItem(groupKey, JSON.stringify(runners));
+      syncShareUrl();
       loadRunners();
     }
   }

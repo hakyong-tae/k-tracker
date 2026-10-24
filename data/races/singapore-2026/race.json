@@ -1,0 +1,331 @@
+{
+  "slug": "singapore-2026",
+  "name": {
+    "ko": "BYD 싱가포르 국제 마라톤 2026 (presented by adidas)",
+    "en": "BYD Singapore International Marathon presented by adidas 2026"
+  },
+  "date": "2026-12-06",
+  "startTime": "04:30",
+  "timezone": "Asia/Singapore",
+  "country": "SG",
+  "city": {
+    "ko": "싱가포르",
+    "en": "Singapore"
+  },
+  "distance": "full",
+  "officialUrl": "https://singaporeinternationalmarathon.com/events/byd-marathon/",
+  "cutoff": "7:00",
+  "courseSource": {
+    "type": "approximated-from-official-map",
+    "url": "https://singaporeinternationalmarathon.com/wp-content/uploads/2026/10/SGIM-FULL-M-Race-Route-Map-Elevation-Profile-2.jpg",
+    "note": {
+      "ko": "2026-10-22 기준 공식 GPX 파일이 공개되지 않아, 공식 2026 코스맵과 고도 그래프(8월 17일 기준)를 따라 OpenStreetMap 도로에 맞춰 그린 경로예요. 도로와의 오차는 중간값 약 6m, 측정 거리는 42.40km(+0.48%)입니다. 고도는 공식 고도 그래프 값을 썼어요. 2025년이 아닌 2026년 코스이며, 공식 GPX가 나오면 교체합니다.",
+      "en": "No official GPX had been published as of 2026-10-22, so this track was traced from the official 2026 route map and elevation profile (as of 17 Aug) and aligned to OpenStreetMap roads, with a median offset of about 6 m. It measures 42.40 km (+0.48%). Elevation comes from the official profile. This is the 2026 course, not 2025, and will be replaced once an official GPX is released."
+    }
+  },
+  "pois": [
+    {
+      "km": 0,
+      "type": "landmark",
+      "name": {
+        "ko": "출발 – F1 피트 빌딩",
+        "en": "Start – F1 Pit Building"
+      }
+    },
+    {
+      "km": 1.5,
+      "type": "landmark",
+      "name": {
+        "ko": "크로퍼드 교차로 (코스 최저점 약 4.7 m)",
+        "en": "Crawford Junction (lowest point, ~4.7 m)"
+      }
+    },
+    {
+      "km": 3,
+      "type": "landmark",
+      "name": {
+        "ko": "니콜 하이웨이 – 선텍시티·전쟁기념공원",
+        "en": "Nicoll Highway – Suntec City / War Memorial Park"
+      }
+    },
+    {
+      "km": 4.25,
+      "type": "landmark",
+      "name": {
+        "ko": "에스플러네이드 브리지 (멀라이언·마리나베이)",
+        "en": "Esplanade Bridge (Merlion / Marina Bay)"
+      }
+    },
+    {
+      "km": 5,
+      "type": "landmark",
+      "name": {
+        "ko": "로빈슨 로드 – 라우파삿",
+        "en": "Robinson Road – Lau Pa Sat"
+      }
+    },
+    {
+      "km": 7,
+      "type": "landmark",
+      "name": {
+        "ko": "옛 탄종파가 기차역 (케펠 로드)",
+        "en": "Former Tanjong Pagar Railway Station (Keppel Road)"
+      }
+    },
+    {
+      "km": 9.5,
+      "type": "turnaround",
+      "name": {
+        "ko": "웨스트코스트 하이웨이 U턴 (약 18.6 m)",
+        "en": "West Coast Highway U-turn (~18.6 m)"
+      }
+    },
+    {
+      "km": 12,
+      "type": "landmark",
+      "name": {
+        "ko": "싱가포르 아트 뮤지엄 (탄종파가 디스트리파크)",
+        "en": "Singapore Art Museum (Tanjong Pagar Distripark)"
+      }
+    },
+    {
+      "km": 15.75,
+      "type": "landmark",
+      "name": {
+        "ko": "가든스 바이 더 베이 (나가는 길)",
+        "en": "Gardens by the Bay (outbound)"
+      }
+    },
+    {
+      "km": 17,
+      "type": "landmark",
+      "name": {
+        "ko": "마리나 바라지",
+        "en": "Marina Barrage"
+      }
+    },
+    {
+      "km": 21.1,
+      "type": "landmark",
+      "name": {
+        "ko": "하프 지점 – 이스트코스트 파크",
+        "en": "Halfway – East Coast Park"
+      }
+    },
+    {
+      "km": 24.5,
+      "type": "turnaround",
+      "name": {
+        "ko": "이스트코스트 파크 U턴 (공식 지도상 24~25 km 사이, 근사값)",
+        "en": "East Coast Park U-turn (between the 24 and 25 km markers on the official map; approximate)"
+      }
+    },
+    {
+      "km": 30,
+      "type": "landmark",
+      "name": {
+        "ko": "케펠 마리나 이스트 해수담수화 플랜트",
+        "en": "Keppel Marina East Desalination Plant"
+      }
+    },
+    {
+      "km": 33.75,
+      "type": "landmark",
+      "name": {
+        "ko": "마리나 바라지 다리 (돌아오는 길, 약 300 m 왕복 구간)",
+        "en": "Marina Barrage bridge (inbound; ~300 m two-way stretch)"
+      }
+    },
+    {
+      "km": 37.25,
+      "type": "landmark",
+      "name": {
+        "ko": "벤자민 시어스 브리지 정상 (코스 최고점 약 28.5 m)",
+        "en": "Benjamin Sheares Bridge crest (highest point, ~28.5 m)"
+      }
+    },
+    {
+      "km": 39.5,
+      "type": "landmark",
+      "name": {
+        "ko": "머데카 브리지",
+        "en": "Merdeka Bridge"
+      }
+    },
+    {
+      "km": 40,
+      "type": "landmark",
+      "name": {
+        "ko": "니콜 하이웨이 – 옛 칼랑 공항",
+        "en": "Nicoll Highway – Old Kallang Airport"
+      }
+    },
+    {
+      "km": 42.195,
+      "type": "landmark",
+      "name": {
+        "ko": "결승 – 국립경기장 (더 칼랑)",
+        "en": "Finish – National Stadium (The Kallang)"
+      }
+    }
+  ],
+  "segments": [
+    {
+      "fromKm": 0,
+      "toKm": 5,
+      "title": {
+        "ko": "F1 피트 빌딩 → 리퍼블릭 애비뉴 → 비치 로드 → 니콜 하이웨이 → 에스플러네이드 브리지 → 로빈슨 로드",
+        "en": "F1 Pit Building → Republic Ave → Beach Rd → Nicoll Hwy → Esplanade Bridge → Robinson Rd"
+      },
+      "tip": {
+        "ko": "새벽 4시 30분 깜깜한 도심에서 출발합니다. 1.5 km 크로퍼드 저지대와 4 km 다리 오르막 말고는 평탄하니, 붐비는 초반에는 페이스를 억누르세요.",
+        "en": "You start in full darkness at 4:30 am. The only bumps are the dip at Crawford (1.5 km) and the Esplanade Bridge (4.25 km), so hold back while the field is packed."
+      }
+    },
+    {
+      "fromKm": 5,
+      "toKm": 10,
+      "title": {
+        "ko": "로빈슨·앤슨 로드 → 케펠 로드(옛 탄종파가역) → 웨스트코스트 하이웨이 U턴",
+        "en": "Robinson & Anson Rd → Keppel Rd (former Tanjong Pagar station) → West Coast Highway U-turn"
+      },
+      "tip": {
+        "ko": "8 km쯤부터 웨스트코스트 하이웨이 고가로 약 10 m를 올라 9.5 km에서 U턴합니다. 아직 서늘한 시간대이니 오르막에서 무리하지 말고, 반대편에서 오는 주자를 조심하세요.",
+        "en": "From about 8 km you climb roughly 10 m onto the West Coast Highway and U-turn at 9.5 km. It is still cool, so climb steadily and watch for runners coming the other way."
+      }
+    },
+    {
+      "fromKm": 10,
+      "toKm": 15,
+      "title": {
+        "ko": "웨스트코스트 하이웨이 내리막 → 케펠 로드 → 앤슨·로빈슨 로드 → 콜리어 키 → 마리나 불러바드",
+        "en": "West Coast Highway descent → Keppel Rd → Anson & Robinson Rd → Collyer Quay → Marina Blvd"
+      },
+      "tip": {
+        "ko": "고가 내리막 뒤로는 고층 빌딩 사이 평지가 이어집니다. 내리막에서 속도를 내기보다 다리를 풀면서 리듬을 되찾으세요.",
+        "en": "After the viaduct descent it is flat road between the CBD towers. Use the downhill to relax your legs rather than to bank time."
+      }
+    },
+    {
+      "fromKm": 15,
+      "toKm": 20,
+      "title": {
+        "ko": "마리나 불러바드 → 가든스 바이 더 베이 → 마리나 바라지 → 마리나 이스트 드라이브",
+        "en": "Marina Blvd → Gardens by the Bay → Marina Barrage → Marina East Drive"
+      },
+      "tip": {
+        "ko": "그늘 없는 매립지를 지나며 바닷바람이 그대로 부는 구간입니다. 바라지 다리를 건넌 뒤 마리나 이스트 드라이브의 긴 직선에서는 일정한 페이스를 지키세요.",
+        "en": "This is open reclaimed land with no shade and wind straight off the sea. After the barrage, settle into an even rhythm on the long straight of Marina East Drive."
+      }
+    },
+    {
+      "fromKm": 20,
+      "toKm": 25,
+      "title": {
+        "ko": "이스트코스트 파크 자전거도로(하프 지점) → U턴",
+        "en": "East Coast Park cycling track (halfway) → U-turn"
+      },
+      "tip": {
+        "ko": "해안을 따라 구불구불한 공원 자전거도로라 폭이 좁고 혼잡합니다. 추월할 때는 주위를 살피고, 24~25 km 사이 U턴에서는 감속하세요.",
+        "en": "The park cycling track winds along the shore and is narrow, so expect congestion. Look around before you pass, and slow down for the U-turn between 24 and 25 km."
+      }
+    },
+    {
+      "fromKm": 25,
+      "toKm": 30,
+      "title": {
+        "ko": "이스트코스트 파크 서비스 도로 복귀 → 탄종 루 → 해수담수화 플랜트",
+        "en": "East Coast Park service road (return) → Tanjong Rhu → desalination plant"
+      },
+      "tip": {
+        "ko": "돌아오는 길은 더 넓고 곧은 서비스 도로입니다. 6시 54분 무렵 해가 뜨면 기온과 습도가 함께 오르니 급수대마다 꼭 마시세요.",
+        "en": "The return leg uses the wider, straighter service road. Sunrise is around 6:54 am, and heat and humidity climb after it, so drink at every station."
+      }
+    },
+    {
+      "fromKm": 30,
+      "toKm": 35,
+      "title": {
+        "ko": "가든스 바이 더 베이 이스트 수변 → 마리나 바라지(복귀) → 가든스 바이 더 베이 사우스",
+        "en": "Gardens by the Bay East waterfront → Marina Barrage (inbound) → Gardens by the Bay South"
+      },
+      "tip": {
+        "ko": "그늘 없는 수변 산책로를 해를 맞으며 달리는 후반 구간입니다. 바라지 위 약 300 m는 양방향 통행이니 우측을 유지하세요.",
+        "en": "This is an exposed waterfront promenade in the sun, late in the race. About 300 m on the barrage is two-way, so keep to your side."
+      }
+    },
+    {
+      "fromKm": 35,
+      "toKm": 40,
+      "title": {
+        "ko": "마리나 가든스 드라이브 → 시어스 애비뉴 → 벤자민 시어스 브리지 → 리퍼블릭 불러바드 → 머데카 브리지",
+        "en": "Marina Gardens Dr → Sheares Ave → Benjamin Sheares Bridge → Republic Blvd → Merdeka Bridge"
+      },
+      "tip": {
+        "ko": "36.5~37.3 km에서 벤자민 시어스 브리지를 약 18 m 올라가는 코스 최대 오르막입니다. 다리 직전 푸드존에서 보충하고, 보폭을 줄여 넘은 뒤 내리막에서 회복하세요.",
+        "en": "Between 36.5 and 37.3 km the Benjamin Sheares Bridge climbs about 18 m, the biggest hill of the day. Refuel at the food zone before the bridge, shorten your stride to get over it, then recover on the way down."
+      }
+    },
+    {
+      "fromKm": 40,
+      "toKm": 42.195,
+      "title": {
+        "ko": "니콜 하이웨이(옛 칼랑 공항) → 마운트배튼 로드 → 스타디움 불러바드 → 국립경기장 결승",
+        "en": "Nicoll Hwy (Old Kallang Airport) → Mountbatten Rd → Stadium Blvd → National Stadium finish"
+      },
+      "tip": {
+        "ko": "경기장을 바로 들어가지 않고 동쪽으로 한 바퀴 돈 뒤 입장합니다. 결승선이 보여도 남은 거리를 계산하며 끝까지 페이스를 유지하세요.",
+        "en": "The course loops east around Stadium Boulevard before entering the stadium. Even when the stadium is in sight, check the distance left and hold your pace to the line."
+      }
+    }
+  ],
+  "notes": {
+    "ko": [
+      "2026년부터 대회명이 'BYD 싱가포르 국제 마라톤 presented by adidas'로 바뀌었고 주최사도 SG International Marathon Pte Ltd로 바뀌었습니다. 스탠다드차타드는 이제 10 km 종목만 후원합니다. 공식 사이트는 singaporeinternationalmarathon.com이며, 옛 singaporemarathon.com에는 2025년 정보만 있습니다.",
+      "풀코스는 12월 6일(일) 오전 4시 30분에 출발합니다. 출발은 F1 피트 빌딩, 결승은 국립경기장(더 칼랑) 안입니다. 주최 측은 최소 1시간 전 도착을 권합니다.",
+      "제한시간은 7시간이며 '마지막 주자가 출발선을 통과한 시점부터' 계산합니다. 중간 컷오프 지점은 대회가 가까워지면 공개될 예정입니다(2026-10-22 기준 미공개).",
+      "출발 펜(구역)은 신청 시 입력한 예상 기록으로 배정되고, 배번의 알파벳으로 표시됩니다. 배정 후에는 바꿀 수 없습니다. 펜 마감 시각은 아직 공개되지 않았습니다.",
+      "짐 보관은 신청할 때 18 싱가포르달러에 구매해야 합니다. 배번 수령 때 받은 전용 가방만 받으며, 출발 지점 Gear Bag Deposit 카운터에 맡기고 결승 지점에서 찾습니다. 운영 시간은 아직 공개되지 않았습니다.",
+      "대회 당일 새벽에는 남북선·동서선·순환선 일부 구간이 오전 2시 30분부터 15분 간격으로 운행하며 누구나 무료입니다. 무료 열차의 마지막 출발은 오전 4시 30분, Bukit Batok·Jurong East·Tanah Merah·Serangoon역입니다. 운행하는 역 목록은 보도자료에서 확인하세요.",
+      "차량 하차 추천 지점(출발선 인근)은 Millenia Walk, Marina Square, Suntec City 컨벤션센터, Esplanade, Raffles City입니다.",
+      "일출은 약 06:54, 시민박명 시작은 약 06:32입니다(NOAA 태양 계산식으로 산출). 출발 후 약 2시간은 어둠 속에서 달립니다.",
+      "12월 싱가포르의 일평균 최저기온은 24.3°C이고, 상대습도는 해 뜨기 직전에 가장 높아 90%를 넘습니다(12월 일최고 평균 96%). 북동 몬순 초기 우기라 12월은 연중 가장 비가 많은 달(평균 331.9 mm, 약 19일)입니다. 약한 비에는 대회를 강행하고, 뇌우나 연무 때는 지연·중단·취소될 수 있습니다.",
+      "급수대·스포츠음료·젤의 위치와 간격은 아직 공개되지 않았습니다(러너 안내서 미발행). 그래서 POI에는 급수 지점을 넣지 않았습니다. 100PLUS가 공식 이온음료 후원사이고, 언론 보도에 따르면 벤자민 시어스 브리지 오르막 직전에 푸드존이 있습니다.",
+      "인증 응급처치 자격을 갖춘 '메딕 러너'가 하프와 풀 코스에 최대 200명 배치되고, 전문 의료팀도 코스 곳곳에 대기합니다.",
+      "코스는 대부분 한 방향으로 흐르지만 마리나 바라지 위 약 300 m는 양방향입니다. 이스트코스트 파크에서는 나갈 때 자전거도로, 돌아올 때 서비스 도로를 씁니다. 공식 누적 상승은 96.1 m, 하강은 94.5 m입니다.",
+      "배번 수령은 12월 3~5일 Arena Park, The Kallang(5 Stadium Drive)에서 하며, 5일 오후 6시가 마지막 입장입니다.",
+      "공식 지도는 '2026년 8월 17일 기준이며 변경될 수 있음'이라고 밝히고 있습니다."
+    ],
+    "en": [
+      "From 2026 the race is the 'BYD Singapore International Marathon presented by adidas', run by a new organiser, SG International Marathon Pte Ltd. Standard Chartered now sponsors only the 10 km. The official site is singaporeinternationalmarathon.com; the old singaporemarathon.com only has 2025 content.",
+      "The marathon starts at 4:30 am on Sunday 6 Dec, from the F1 Pit Building, and finishes inside the National Stadium (The Kallang). The organiser advises arriving at least 1 hour before the start.",
+      "The cut-off is 7 hours, counted from when the last starter crosses the start line. Intermediate cut-off points will be released closer to the event (not published as of 2026-10-22).",
+      "Start pens are assigned from the predicted finish time you entered at registration and shown by the letter on your bib. They cannot be changed. Pen closing times have not been published yet.",
+      "Bag deposit costs S$18 and must be bought at registration. Only the official bag issued at pack collection is accepted. Drop it at the Gear Bag Deposit counters at the start and collect it at the finish. Hours have not been published yet.",
+      "On race morning, selected North-South, East-West and Circle Line sections run from 2:30 am every 15 minutes, free for everyone. The last free departures are at 4:30 am from Bukit Batok, Jurong East, Tanah Merah and Serangoon. The list of open stations is in the press release.",
+      "Suggested drop-off points near the start are Millenia Walk, Marina Square, Suntec City Convention Centre, Esplanade and Raffles City.",
+      "Sunrise is around 06:54 and civil dawn around 06:32 (computed with the NOAA solar algorithm), so the first two hours or so are run in the dark.",
+      "In December Singapore's mean daily minimum is 24.3°C. Humidity peaks just before sunrise at over 90% (December mean daily maximum: 96%). December is the early wet phase of the Northeast Monsoon and the wettest month (mean 331.9 mm over about 19 rain days). The race goes ahead in light rain but may be delayed, suspended or cancelled for thunderstorms or haze.",
+      "Positions and spacing of water, isotonic and gel stations have not been published yet (no Runner's Information Guide so far), so no aid-station POIs are listed. 100PLUS is the official isotonic sponsor, and press reports mention a food zone just before the Benjamin Sheares Bridge climb.",
+      "Up to 200 certified first-aid 'Medic Runners' will be on the half and full marathon courses, alongside professional medical teams along the route.",
+      "The course is mostly one-directional, except for about 300 m on the Marina Barrage that is run both ways. In East Coast Park runners go out on the cycling path and return on the service road. Official total gain is 96.1 m and loss is 94.5 m.",
+      "Race pack collection is 3–5 Dec at Arena Park, The Kallang (5 Stadium Drive), with last entry at 6 pm on 5 Dec.",
+      "The official map states the route is 'accurate as of 17 August 2026 and subject to change'."
+    ]
+  },
+  "sources": [
+    "https://singaporeinternationalmarathon.com/events/byd-marathon/",
+    "https://singaporeinternationalmarathon.com/wp-content/uploads/2026/10/SGIM-FULL-M-Race-Route-Map-Elevation-Profile-2.jpg",
+    "https://singaporeinternationalmarathon.com/events/races",
+    "https://singaporeinternationalmarathon.com/faqs/",
+    "https://singaporeinternationalmarathon.com/race-day-transport/",
+    "https://singaporeinternationalmarathon.com/wp-content/uploads/2026/09/2026.09.01-SGIM2026-Rules-and-Regulations-.pdf",
+    "https://www.sportplus.sg/post/extended-early-morning-train-services-new-safety-measures-announced-for-2026-byd-singapore-interna",
+    "https://mothership.sg/2026/08/full-marathon-2026-local-entries-sold-out/",
+    "https://littlebigreddot.com/singapore-international-marathon-2026-registration-route-fees/",
+    "https://www.weather.gov.sg/climate-climate-of-singapore/",
+    "https://www.singaporemarathon.com/",
+    "https://www.openstreetmap.org/copyright",
+    "https://www.opentopodata.org/datasets/srtm/"
+  ]
+}

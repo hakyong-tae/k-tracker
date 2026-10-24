@@ -1,0 +1,30 @@
+{
+  "name": "k-tracker",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "watch": "vite build --watch",
+    "dev": "npm run build && concurrently -k -n vite,pages \"vite build --watch --logLevel warn\" \"wrangler pages dev dist --port 8788 --live-reload\"",
+    "db:migrate": "wrangler d1 migrations apply k-tracker --local",
+    "db:migrate:remote": "wrangler d1 migrations apply k-tracker --remote",
+    "seed": "node scripts/seed-race.ts",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json && tsc -p tsconfig.functions.json && tsc -p tsconfig.node.json",
+    "smoke": "node scripts/smoke.mjs",
+    "deploy": "npm run build && wrangler pages deploy dist --project-name k-tracker"
+  },
+  "dependencies": {
+    "maplibre-gl": "^6.15.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261021.1",
+    "@types/geojson": "^7946.0.16",
+    "@types/node": "^26.6.5",
+    "concurrently": "^10.0.6",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.5",
+    "vitest": "^5.0.5",
+    "wrangler": "^4.151.3"
+  }
+}

@@ -96,13 +96,13 @@
         source: SOURCES.SMARTCHIP,
         name: race.title || race.name || "이름 없음",
         date: race.date || "",
-        location: "Smartchip"
+        location: "SPCT"
       }));
     }
 
     async function loadMyResultRaces() {
       try {
-        const apiData = await fetchJson("https://k-tracker-api.fly.dev/races");
+        const apiData = await fetchJson("/api/live/races?provider=myresult");
         return normalizeMyResult(apiData);
       } catch (_) {
         const localData = await fetchJson("./data/myresult_races_parsed.json");
@@ -112,7 +112,7 @@
 
     async function loadSmartChipRaces() {
       try {
-        const apiData = await fetchJson("https://spct-proxy.fly.dev/races");
+        const apiData = await fetchJson("/api/live/races?provider=spct");
         return normalizeSmartChip(apiData);
       } catch (_) {
         const backupData = await fetchJson("https://raw.githubusercontent.com/hakyong-tae/spct-proxy/main/spct_races_parsed.json");
@@ -126,7 +126,7 @@
     }
 
     function sourceLabel(source) {
-      return source === SOURCES.SMARTCHIP ? "SMARTCHIP" : "MYRESULT";
+      return source === SOURCES.SMARTCHIP ? "SPCT" : "MYRESULT"; // URL value "smartchip" is historical and means SPCT
     }
 
     async function loadRaceList() {

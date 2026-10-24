@@ -73,7 +73,7 @@
 
       async function loadMyResultRaces() {
         try {
-          return await fetchJson("https://k-tracker-api.fly.dev/races");
+          return await fetchJson("/api/live/races?provider=myresult");
         } catch (_) {
           return await fetchJson("./data/myresult_races_parsed.json");
         }
@@ -81,7 +81,7 @@
 
       async function loadSmartChipRaces() {
         try {
-          return await fetchJson("https://spct-proxy.fly.dev/races");
+          return await fetchJson("/api/live/races?provider=spct");
         } catch (_) {
           return await fetchJson("https://raw.githubusercontent.com/hakyong-tae/spct-proxy/main/spct_races_parsed.json");
         }
@@ -96,7 +96,7 @@
             const events = await loadSmartChipRaces();
             event = events.find((e) => String(e.event_no || e.id) === String(eventId));
             if (event) {
-              infoBox.innerHTML = `<strong>${event.title || event.name}</strong><br>${event.date || ""} | Smartchip`;
+              infoBox.innerHTML = `<strong>${event.title || event.name}</strong><br>${event.date || ""} | SPCT`;
               return;
             }
           } else {

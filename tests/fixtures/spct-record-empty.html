@@ -1,0 +1,93 @@
+<body>
+    <div id='wrapper-main'>
+        <div class='board view'>
+            <div class='btn-back'>
+                <a href='m1.php?TargetYear=2026&EVENT_NO=20261017002&currentPage=1'><img
+                        src='./assets/img/arrow_left_01.svg'></a>
+            </div>
+            <h3 class='subject'>
+                2026 정선동강마라톤                <table board=0 width="100%">
+                    <tbody>
+                        <tr>
+                            <td width="50%" align="left">
+                                <p class='date'>
+                                    <span class='type run'><img src='/assets/img/icon-run.png'></span>2026-10-17                                </p>
+                            </td>
+                            <td width="50%" align="right">
+                                                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </h3>
+                        <div class='content'>
+                <p class='error'>데이터가 없습니다. <br>No Results</p>
+            </div>
+                    </div>
+    </div>
+
+    <br>
+
+
+    <BR>
+    <!-- youtube 관련 //-->
+    
+    <form name="frmYoutube" target="_blank" action="https://youtu.be/" method="GET">
+        <input type="hidden" name="t" value="">
+        <input type="hidden" name="autoplay" value="1">
+        <input type="hidden" name="rel" value="0">
+    </form>
+
+    <form name="frmYoutube2" target="_blank" action="https://youtu.be/" method="GET">
+        <input type="hidden" name="t" value="">
+        <input type="hidden" name="autoplay" value="1">
+        <input type="hidden" name="rel" value="0">
+    </form>
+    <!--// 개인기록 보여주기 PDF//-->
+    <form name="frmResultsPDF" target="_blank" action="resultsPDF/ResultsPDF.php">
+        <input type="hidden" name="EVENT_NO" value="20261017002">
+        <input type="hidden" name="BIB_NO" value="1001">
+        <input type="hidden" name="IsOnlyDataPrint">
+    </form>
+    <!--// 개인기록 보여주기 MMS//-->
+    <form name="frmResultsMMS" target="_blank" action="https://img.spct.kr/resultsJPG/ResultsMMS.php">
+        <input type="hidden" name="EVENT_NO" value="20261017002">
+        <input type="hidden" name="BIB_NO" value="1001">
+    </form>
+    <!--// 개인기록 보여주기 PhotoResults//-->
+    <form name="frmResultPhotoResults" target="_blank"
+        action="https://img.spct.kr/PhotoResultsJPG/ResultsPhotoResults.php">
+        <input type="hidden" name="EVENT_NO" value="20261017002">
+        <input type="hidden" name="BIB_NO" value="1001">
+        <!--input type="hidden" name="theFirstPhotoName" value=""//-->
+    </form>
+    <!--// 사진기록증 사진 선택//-->
+    <form name="frmPhotoResultsUpdate" action="PhotoResultsPhotoUpdate.php">
+        <input type="hidden" name="EVENT_NO" value="20261017002">
+        <input type="hidden" name="BIB_NO" value="1001">
+        <input type="hidden" name="TargetYear" value="2026">
+        <input type="hidden" name="PhotoResults_file" value="">
+        <input type="hidden" name="currentPage" value="1">
+    </form>
+    <form name="frmGotoPhoto" method="GET">
+        <input type="hidden" name="EVENT_NO" value="20261017002">
+        <input type="hidden" name="TargetYear" value="2026">
+        <input type="hidden" name="currentPage" value="1">
+    </form>
+    
+    <!--// Footer //-->
+    <!--// M footer //-->
+<footer id='footer'>
+    <p>SPCT Co., Ltd.</p>
+    <p>+82(0)2-6281-8822 <a href='http://www.spct.kr'>http://www.spct.kr</a></p>
+    <p><a href="http://app.spct.kr/privacy-policy.php>">Privacy Policy</a></p>
+    <p>Copyright© 2016 SPCT Co., Ltd. All rights reserved.</p>
+</footer>
+<!--// M footer //-->
+    <!--// Footer //-->
+    
+
+        
+    
+</body>
+
+</html>

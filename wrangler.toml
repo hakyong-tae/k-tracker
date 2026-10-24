@@ -1,0 +1,19 @@
+name = "k-tracker"
+pages_build_output_dir = "dist"
+compatibility_date = "2025-09-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "k-tracker"
+database_id = "c320602d-2e2b-43de-a5b3-baaf9fb43a49"
+migrations_dir = "migrations"
+
+[[r2_buckets]]
+binding = "GPX"
+bucket_name = "k-tracker-gpx"
+
+[vars]
+SITE_URL = "https://k-tracker-vit.pages.dev"
+# Monetization slots stay hidden until these are set (Pages dashboard → Settings → Variables)
+ADSENSE_CLIENT = ""
+AGODA_CID = ""

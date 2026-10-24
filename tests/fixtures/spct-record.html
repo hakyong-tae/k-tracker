@@ -1,0 +1,202 @@
+<body>
+    <div id='wrapper-main'>
+        <div class='board view'>
+            <div class='btn-back'>
+                <a href='m1.php?TargetYear=2026&EVENT_NO=2026101804&currentPage=1'><img
+                        src='./assets/img/arrow_left_01.svg'></a>
+            </div>
+            <h3 class='subject'>
+                제 19회 증랑구청장배 장미마라톤                <table board=0 width="100%">
+                    <tbody>
+                        <tr>
+                            <td width="50%" align="left">
+                                <p class='date'>
+                                    <span class='type run'><img src='/assets/img/icon-run.png'></span>2026-10-18                                </p>
+                            </td>
+                            <td width="50%" align="right">
+                                                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </h3>
+                        <div class='content'>
+                <p class='name'>
+                    홍길동                    <span>M HALF</span>
+                </p>
+                <P class='tag'>
+                    <span>20230</span>
+                </P>
+
+
+                <div class='category'>
+                    <div class='links'>
+                                                <a href='javascript:GeYouTube();'>도착영상1</a>
+                        		                        <a href='javascript:GetResultsMMS();' title="Record Certificate">기록증</a>
+                        <!-- block -->
+                        <!-- b001 -->
+
+
+
+                        <!-- block end -->
+                                            </div>
+                    <!-- SNS버튼 시작 -->
+                    <div class='sns'>
+                        <!-- Instagram -->
+                        <a href=""
+                            onclick="window.open(url_combine_instagram, '', 'scrollbars=no, width=600, height=600'); return false;"><img
+                                src='./assets/img/sns_insta_01.png' title="Share to Instagram"></a>
+                        <!-- Facebook -->
+                        <a href=""
+                            onclick="window.open(url_combine_fb, '', 'scrollbars=no, width=600, height=600'); return false;"><img
+                                src='./assets/img/sns_facebook_01.png' title="Share to Facebook"></a>
+                        <!-- X twiter -->
+                        <a href=""
+                            onclick="window.open(url_combine_tw, '', 'scrollbars=no, width=600, height=600'); return false;"><img
+                                src='./assets/img/sns_x_01.png' title="Share to X"></a>
+                        <!-- Kakao //-->
+                        <a href=""
+                            onclick="window.open(url_combine_ks, '', 'scrollbars=no, width=600, height=600'); return false;"><img
+                                src='./assets/img/sns_kakao_01.png' title="Share to Kakao"></a>
+                        <!-- Naver //-->
+                        <a href=""
+                            onclick="window.open(url_combine_naver, '', 'scrollbars=no, width=600, height=600'); return false;"><img
+                                src='./assets/img/sns_naver_01.png' title="Share to Naver"></a>
+                        <!-- 밴드 공유 버튼 -->
+                        <a href=""
+                            onclick="window.open(url_combine_band, '', 'scrollbars=no, width=584, height=635'); return false;"><img
+                                src='./assets/img/sns_band_01.png' title="Share to Band"></a>
+                    </div>
+                </div>
+                                
+                                <div class='record'>
+                    <div class='time'>
+                        01:14:26.33                    </div>
+
+                    <!--p>예상기록 02:37:08.46 [12:22:54]</p//-->
+                    <p>Start Time&nbsp;&nbsp;&nbsp;: 08:29:56.46</p>
+                    <p>Finish Time : 09:44:22.79</p>
+                    <!-- p>평균 페이스 : 4km/h</p//-->
+                </div>
+
+                                <table>
+                    <thead>
+                        <tr>
+                            <th>Section</th>
+                            <th>Record</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!--tr>
+              <td>5Km</td>
+              <td>09:48:23.44 [00:17:51.71] - 4km/h</td>
+            </tr//-->
+
+                                                <tr>
+                            <td>Section 1</td>
+                            <td>
+                                 ()                            </td>
+                        </tr>
+                                                <tr>
+                            <td>Section 2</td>
+                            <td>
+                                 ()                            </td>
+                        </tr>
+                                                <tr>
+                            <td>Section 3</td>
+                            <td>
+                                09:06:19.45 (00:36:22.99)                            </td>
+                        </tr>
+                                            </tbody>
+                </table>
+                                                <ul class='rank'>
+                    <li>
+                        <p>HALF<Br>전체순위</p>
+                        <p>
+                            <span>1</span>
+                                                        <span>/873</span>
+                                                    </p>
+                    </li>
+                    <li>
+                        <p>HALF<Br>남자순위</p>
+                        <p>
+                            <span>1</span>
+                                                        <span>/734</span>
+                            
+                        </p>
+                    </li>
+                                    </ul>
+                <p class='guide'>
+                    ※ 대회 중 순위는 바뀔 수 있습니다.<br>Ranking might be changed during the event.
+                </p>
+
+
+
+                        </div>
+    </div>
+
+    <br>
+
+
+    <BR>
+    <!-- youtube 관련 //-->
+    
+    <form name="frmYoutube" target="_blank" action="https://youtu.be/RMb0Fi-zV6U" method="GET">
+        <input type="hidden" name="t" value="30m10s">
+        <input type="hidden" name="autoplay" value="1">
+        <input type="hidden" name="rel" value="0">
+    </form>
+
+    <form name="frmYoutube2" target="_blank" action="https://youtu.be/" method="GET">
+        <input type="hidden" name="t" value="">
+        <input type="hidden" name="autoplay" value="1">
+        <input type="hidden" name="rel" value="0">
+    </form>
+    <!--// 개인기록 보여주기 PDF//-->
+    <form name="frmResultsPDF" target="_blank" action="resultsPDF/ResultsPDF.php">
+        <input type="hidden" name="EVENT_NO" value="2026101804">
+        <input type="hidden" name="BIB_NO" value="020230">
+        <input type="hidden" name="IsOnlyDataPrint">
+    </form>
+    <!--// 개인기록 보여주기 MMS//-->
+    <form name="frmResultsMMS" target="_blank" action="https://img.spct.kr/resultsJPG/ResultsMMS.php">
+        <input type="hidden" name="EVENT_NO" value="2026101804">
+        <input type="hidden" name="BIB_NO" value="020230">
+    </form>
+    <!--// 개인기록 보여주기 PhotoResults//-->
+    <form name="frmResultPhotoResults" target="_blank"
+        action="https://img.spct.kr/PhotoResultsJPG/ResultsPhotoResults.php">
+        <input type="hidden" name="EVENT_NO" value="2026101804">
+        <input type="hidden" name="BIB_NO" value="020230">
+        <!--input type="hidden" name="theFirstPhotoName" value=""//-->
+    </form>
+    <!--// 사진기록증 사진 선택//-->
+    <form name="frmPhotoResultsUpdate" action="PhotoResultsPhotoUpdate.php">
+        <input type="hidden" name="EVENT_NO" value="2026101804">
+        <input type="hidden" name="BIB_NO" value="020230">
+        <input type="hidden" name="TargetYear" value="2026">
+        <input type="hidden" name="PhotoResults_file" value="">
+        <input type="hidden" name="currentPage" value="1">
+    </form>
+    <form name="frmGotoPhoto" method="GET">
+        <input type="hidden" name="EVENT_NO" value="2026101804">
+        <input type="hidden" name="TargetYear" value="2026">
+        <input type="hidden" name="currentPage" value="1">
+    </form>
+    
+    <!--// Footer //-->
+    <!--// M footer //-->
+<footer id='footer'>
+    <p>SPCT Co., Ltd.</p>
+    <p>+82(0)2-6281-8822 <a href='http://www.spct.kr'>http://www.spct.kr</a></p>
+    <p><a href="http://app.spct.kr/privacy-policy.php>">Privacy Policy</a></p>
+    <p>Copyright© 2016 SPCT Co., Ltd. All rights reserved.</p>
+</footer>
+<!--// M footer //-->
+    <!--// Footer //-->
+    
+
+        
+    
+</body>
+
+</html>

@@ -1,0 +1,159 @@
+<body>
+    <header id='header'>
+        <a href='main.php'>
+            <img src='assets/img/logo.jpeg'>
+        </a>
+    </header>
+
+<!-- Main_Top Banner Slot -->
+<div id="main-top-ad-wrap">
+  <a id="main-top-ad-link" href="#" rel="nofollow sponsored">
+    <img id="main-top-ad-img" src="" alt="Advertisement" width="600" height="100">
+  </a>
+</div>
+
+<style>
+  #main-top-ad-wrap {
+    width: 600px;
+    height: 100px;
+    margin: 16px auto;
+  }
+  #main-top-ad-link, #main-top-ad-img {
+    display: block;
+    width: 600px;
+    height: 100px;
+  }
+  /* 모바일 대응 */
+  @media (max-width: 640px) {
+    #main-top-ad-wrap { width: 100%; max-width: 600px; }
+    #main-top-ad-link, #main-top-ad-img { width: 100%; height: auto; }
+  }
+</style>
+
+
+
+
+
+    <div id='wrapper-main'>
+        <div class='board list'>
+            <div class='search'>
+                <form name='searchEventNameFrm' method='GET'>
+                    <input type='hidden' name='TargetYear' value='2026'>
+                    <select onchange='javascript:chgYear(this.value);'>
+                        <option value=2026 selected>2026</option><option value=2025>2025</option><option value=2024>2024</option><option value=2023>2023</option><option value=2022>2022</option><option value=2021>2021</option><option value=2020>2020</option><option value=2019>2019</option><option value=2018>2018</option><option value=2017>2017</option><option value=2016>2016</option>                    </select>
+                    <input type='text' name='searchEventName' id='searchEventName' placeholder='대회 찾기'
+                        value=''>
+                    <button class='btn-search'></button>
+                </form>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>종목</th>
+                        <th>날짜</th>
+                        <th>제목</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Event list //-->
+                                        <tr>
+                        <td>
+                            <img src='assets/img/icon-run.png'>                        </td>
+                        <td>2026-10-24</td>
+                        <td><a
+                                href="m1.php?TargetYear=2026&EVENT_NO=20261024002&currentPage=2">화성오산 교육가족 RAS 슬로깅페스타</a>
+                        </td>
+                    </tr>
+                                        <tr>
+                        <td>
+                            <img src='assets/img/icon-run.png'>                        </td>
+                        <td>2026-10-24</td>
+                        <td><a
+                                href="m1.php?TargetYear=2026&EVENT_NO=20261024001&currentPage=2">2026 런위드고</a>
+                        </td>
+                    </tr>
+                                        <tr>
+                        <td>
+                            <img src='assets/img/icon-run.png'>                        </td>
+                        <td>2026-10-18</td>
+                        <td><a
+                                href="m1.php?TargetYear=2026&EVENT_NO=2026101804&currentPage=2">제 19회 증랑구청장배 장미마라톤</a>
+                        </td>
+                    </tr>
+                                        <tr>
+                        <td>
+                            <img src='assets/img/icon-run.png'>                        </td>
+                        <td>2026-10-18</td>
+                        <td><a
+                                href="m1.php?TargetYear=2026&EVENT_NO=2026101803&currentPage=2">2026 아시아 오픈 마라톤대회</a>
+                        </td>
+                    </tr>
+                                        <tr>
+                        <td>
+                            <img src='assets/img/icon-run.png'>                        </td>
+                        <td>2026-10-18</td>
+                        <td><a
+                                href="m1.php?TargetYear=2026&EVENT_NO=2026101802&currentPage=2">제25회 대청호마라톤</a>
+                        </td>
+                    </tr>
+                                        <tr>
+                        <td>
+                            <img src='assets/img/icon-run.png'>                        </td>
+                        <td>2026-10-18</td>
+                        <td><a
+                                href="m1.php?TargetYear=2026&EVENT_NO=2026101801&currentPage=2">2026 스타일런</a>
+                        </td>
+                    </tr>
+                                        <tr>
+                        <td>
+                            <img src='assets/img/icon-run.png'>                        </td>
+                        <td>2026-10-18</td>
+                        <td><a
+                                href="m1.php?TargetYear=2026&EVENT_NO=20261018009&currentPage=2">제23회 여주세종대왕 마라톤 대회</a>
+                        </td>
+                    </tr>
+                                        <tr>
+                        <td>
+                            <img src='assets/img/icon-bicycle.png'>                        </td>
+                        <td>2026-10-17</td>
+                        <td><a
+                                href="m1.php?TargetYear=2026&EVENT_NO=2026101703&currentPage=2">2026 통영그란폰도 KOM</a>
+                        </td>
+                    </tr>
+                                        <tr>
+                        <td>
+                            <img src='assets/img/icon-run.png'>                        </td>
+                        <td>2026-10-17</td>
+                        <td><a
+                                href="m1.php?TargetYear=2026&EVENT_NO=2026101702&currentPage=2">2026 경청마라톤</a>
+                        </td>
+                    </tr>
+                                        <tr>
+                        <td>
+                            <img src='assets/img/icon-bicycle.png'>                        </td>
+                        <td>2026-10-17</td>
+                        <td><a
+                                href="m1.php?TargetYear=2026&EVENT_NO=2026101701&currentPage=2">2026 통영그란폰도</a>
+                        </td>
+                    </tr>
+                                    </tbody>
+            </table>
+            <div class='paging'>
+                <button class='prev' onclick='javascript:gotoPage(1)'></button><span class='current'>2</span><span class='total'>/24</span><button class='next' onclick='javascript:gotoPage(3);'></button>            </div>
+        </div>
+    </div>
+
+    <!--// Footer //-->
+    <!--// M footer //-->
+<footer id='footer'>
+    <p>SPCT Co., Ltd.</p>
+    <p>+82(0)2-6281-8822 <a href='http://www.spct.kr'>http://www.spct.kr</a></p>
+    <p><a href="http://app.spct.kr/privacy-policy.php>">Privacy Policy</a></p>
+    <p>Copyright© 2016 SPCT Co., Ltd. All rights reserved.</p>
+</footer>
+<!--// M footer //-->
+    <!--// Footer //-->
+
+</body>
+
+</html>
