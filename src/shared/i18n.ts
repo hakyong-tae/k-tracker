@@ -106,6 +106,7 @@ export const POI_LABEL: Record<PoiType, L10n> = {
   turnaround: { ko: '반환점', en: 'Turnaround' },
   cutoff: { ko: '컷오프', en: 'Cutoff' },
   hill: { ko: '오르막', en: 'Hill' },
+  sponge: { ko: '스펀지', en: 'Sponge' },
 };
 export const AID_TYPES: PoiType[] = ['water', 'sports-drink', 'food', 'gel'];
 

@@ -3,7 +3,7 @@ export type L10n = { ko: string; en: string };
 
 export type PoiType =
   | 'water' | 'sports-drink' | 'food' | 'gel' | 'medical' | 'toilet'
-  | 'landmark' | 'turnaround' | 'cutoff' | 'hill';
+  | 'landmark' | 'turnaround' | 'cutoff' | 'hill' | 'sponge';
 
 export interface Poi { km: number; type: PoiType; name?: L10n | null }
 

@@ -19,8 +19,8 @@
     "type": "community-gpx",
     "url": null,
     "note": {
-      "ko": "사용자가 제공한 스트라바 GPS 기록으로 만든 경로예요. 측정 거리 42.45km(+0.6%)를 공식 42.195km에 맞춰 보정했고, 고도는 기기 기록을 평활화한 값이라 공식 고도표와 몇 미터 다를 수 있어요.",
-      "en": "Built from a runner's Strava GPS track supplied by the user. The measured 42.45 km (+0.6%) is scaled to the official 42.195 km, and elevation is smoothed device data, so it may differ from an official profile by a few meters."
+      "ko": "사용자가 직접 뛴 스트라바 GPS 기록으로 만든 경로예요. 측정 거리 42.45km(+0.6%)를 공식 42.195km에 맞춰 보정했어요. 고도는 기기 기록을 평활화한 값인데, 공식 고저도의 봉우리 위치(4·6·18·29·32km)와 최고점 약 116m가 일치해요. 급수·보급 위치는 대회 사이트에 게시된 공식 코스도 기준이에요.",
+      "en": "Built from the user's own Strava GPS track. The measured 42.45 km (+0.6%) is scaled to the official 42.195 km. Elevation is smoothed device data and matches the official profile's peaks (4, 6, 18, 29, 32 km) and its high point of about 116 m. Aid locations follow the official course map posted on the race site."
     }
   },
   "pois": [
@@ -33,7 +33,7 @@
       }
     },
     {
-      "km": 5.0,
+      "km": 5,
       "type": "water",
       "name": null
     },
@@ -46,12 +46,45 @@
       }
     },
     {
+      "km": 10,
+      "type": "water",
+      "name": null
+    },
+    {
+      "km": 12.5,
+      "type": "sponge",
+      "name": null
+    },
+    {
+      "km": 15,
+      "type": "water",
+      "name": null
+    },
+    {
       "km": 17.5,
       "type": "hill",
       "name": {
         "ko": "애니고 오르막",
         "en": "Ani High climb"
       }
+    },
+    {
+      "km": 17.5,
+      "type": "sponge",
+      "name": null
+    },
+    {
+      "km": 20,
+      "type": "food",
+      "name": {
+        "ko": "초코파이",
+        "en": "Choco pie"
+      }
+    },
+    {
+      "km": 20,
+      "type": "water",
+      "name": null
     },
     {
       "km": 20.6,
@@ -62,12 +95,68 @@
       }
     },
     {
+      "km": 22.5,
+      "type": "sponge",
+      "name": null
+    },
+    {
+      "km": 25,
+      "type": "gel",
+      "name": {
+        "ko": "스포츠젤",
+        "en": "Sports gel"
+      }
+    },
+    {
+      "km": 25,
+      "type": "water",
+      "name": null
+    },
+    {
+      "km": 27.5,
+      "type": "sponge",
+      "name": null
+    },
+    {
       "km": 29.1,
       "type": "hill",
       "name": {
         "ko": "춘천댐 오르막",
         "en": "Chuncheon Dam climb"
       }
+    },
+    {
+      "km": 30,
+      "type": "food",
+      "name": {
+        "ko": "바나나",
+        "en": "Banana"
+      }
+    },
+    {
+      "km": 30,
+      "type": "water",
+      "name": null
+    },
+    {
+      "km": 32.5,
+      "type": "sponge",
+      "name": null
+    },
+    {
+      "km": 35,
+      "type": "water",
+      "name": null
+    },
+    {
+      "km": 37.5,
+      "type": "sponge",
+      "name": null
+    },
+    {
+      "km": 40,
+      "type": "water",
+      "name": null
     }
   ],
   "segments": [
@@ -87,8 +176,8 @@
       "fromKm": 5,
       "toKm": 10,
       "title": {
-        "ko": "송암스포츠타운 → 첫 고개 → 의암호",
-        "en": "Songam Sports Town → First climb → Uiam Lake"
+        "ko": "송암스포츠타운 → 첫 고개 → 신연교(의암댐)",
+        "en": "Songam Sports Town → First climb → Sinyeon Bridge (Uiam Dam)"
       },
       "tip": {
         "ko": "5km를 지나 약 600m 동안 34m를 오르는 코스 최대 경사(평균 5~6%)가 나와요. 보폭을 줄여 넘고, 이어지는 의암호 내리막은 속도를 내기보다 힘을 빼고 흘려보내세요.",
@@ -171,8 +260,8 @@
       "fromKm": 40,
       "toKm": 42.195,
       "title": {
-        "ko": "근화동 → 공지천 골인",
-        "en": "Geunhwa-dong → Gongjicheon finish"
+        "ko": "소양2교 → 공지천 인조구장 골인",
+        "en": "Soyang 2 Bridge → Gongjicheon finish"
       },
       "tip": {
         "ko": "넓고 긴 직선이라 실제보다 멀게 느껴져요. 남은 힘을 고르게 쓰다가 마지막 1km에서 끌어올리세요.",
@@ -182,22 +271,27 @@
   ],
   "notes": {
     "ko": [
-      "출발은 10월 25일(일) 오전 9시, 춘천 공지천교예요. 골인은 공지천 축구장 앞입니다.",
+      "출발은 10월 25일(일) 오전 9시 춘천 공지천교, 골인은 공지천 인조구장이에요.",
+      "급수대는 5km마다(5·10·15·20·25·30·35·40km) 있고, 같은 곳에 구급차가 대기해요. 스펀지는 12.5km부터 2.5km 간격(12.5·17.5·22.5·27.5·32.5·37.5km)이에요.",
+      "보급은 20km 초코파이, 25km 스포츠젤, 30km 바나나예요. 젤은 춘천댐 오르막 직전인 25km에서 챙기세요.",
       "왕복 구간이 두 번 있어요. 4km 직전 저수지 쪽 짧은 왕복과 20.5km 무렵 신매대교 약 600m 왕복이에요.",
-      "가장 힘든 곳은 5km 직후의 짧고 가파른 첫 고개와, 26~29km 춘천댐 쪽 긴 완만한 오르막이에요.",
-      "제한 시간과 전체 급수 위치는 공식 사이트에서 확인하지 못했어요. 대회 안내문으로 꼭 확인하세요.",
+      "가장 힘든 곳은 5km 직후의 짧고 가파른 첫 고개와, 26~29km 춘천댐 쪽 긴 완만한 오르막이에요. 코스 최고점(약 116m)이 춘천댐 근처예요.",
+      "제한 시간은 공식 사이트에서 확인하지 못했어요. 대회 안내문으로 꼭 확인하세요.",
       "MyResult에서 실시간 기록이 제공돼요. K-TRACKER 실시간 응원으로 배번을 모아 볼 수 있어요."
     ],
     "en": [
-      "Start: Sunday 25 October, 09:00 at Gongjicheon Bridge, Chuncheon. Finish in front of Gongjicheon football ground.",
+      "Start: Sunday 25 October, 09:00 at Gongjicheon Bridge, Chuncheon. Finish at the Gongjicheon artificial-turf ground.",
+      "Water every 5 km (5, 10 … 40 km), each with an ambulance. Sponges every 5 km from 12.5 km (12.5, 17.5, 22.5, 27.5, 32.5, 37.5 km).",
+      "Food: choco pie at 20 km, sports gel at 25 km, banana at 30 km. Take the gel at 25 km, right before the dam climb.",
       "Two out-and-backs: a short one toward the reservoir just before 4 km and about 600 m onto Sinmae Bridge around 20.5 km.",
-      "The hardest parts are the short, steep first climb just after 5 km and the long gentle climb toward Chuncheon Dam from 26 to 29 km.",
-      "The cutoff time and full list of aid stations were not found on the official site. Check the race guide.",
+      "The hardest parts are the short, steep first climb just after 5 km and the long gentle climb toward Chuncheon Dam from 26 to 29 km. The high point (about 116 m) is near the dam.",
+      "The cutoff time was not found on the official site. Check the race guide.",
       "Live splits come from MyResult. Use K-TRACKER live tracking to follow a group of bibs."
     ]
   },
   "sources": [
     "https://www.chuncheonmarathon.com/",
+    "https://www.chuncheonmarathon.com/course/info.html",
     "https://www.chuncheonmarathon.com/course/exploration.html",
     "https://myresult.co.kr/176"
   ],

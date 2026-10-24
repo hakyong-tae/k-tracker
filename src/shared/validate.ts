@@ -1,7 +1,7 @@
 import type { Course, L10n, Poi, PoiType, RaceMeta, Segment } from './types.ts';
 import { gainLoss } from './course.ts';
 
-const POI_TYPES: PoiType[] = ['water', 'sports-drink', 'food', 'gel', 'medical', 'toilet', 'landmark', 'turnaround', 'cutoff', 'hill'];
+const POI_TYPES: PoiType[] = ['water', 'sports-drink', 'food', 'gel', 'medical', 'toilet', 'landmark', 'turnaround', 'cutoff', 'hill', 'sponge'];
 const str = (v: unknown, max = 200): string => (typeof v === 'string' ? v.trim().slice(0, max) : '');
 const l10n = (v: unknown, max = 200): L10n => {
   const o = (v ?? {}) as Record<string, unknown>;
