@@ -7,7 +7,7 @@ import type { Poi } from '../shared/types.ts';
 import type { Track } from './track.ts';
 import { AID_TYPES } from '../shared/i18n.ts';
 
-export interface CourseMap { setPosition(d: number): void; resize(): void }
+export interface CourseMap { setPosition(d: number): void; resize(): void; setRunners(r: { d: number; color: string; label: string }[]): void }
 
 /** Course map on OpenFreeMap vector tiles (free, commercial use allowed). */
 export function createMap(el: HTMLElement, track: Track, pois: Poi[], onSeek: (d: number) => void): CourseMap {
@@ -53,7 +53,16 @@ export function createMap(el: HTMLElement, track: Track, pois: Poi[], onSeek: (d
   const dot = document.createElement('div');
   dot.className = 'map-dot';
   const marker = new maplibregl.Marker({ element: dot }).setLngLat([c.lon[0], c.lat[0]]).addTo(map);
+  const runnerMarkers: maplibregl.Marker[] = [];
   return {
+    setRunners(rs) {
+      runnerMarkers.splice(0).forEach((m) => m.remove());
+      for (const r of rs) {
+        const el = document.createElement('div'); el.className = 'map-runner'; el.style.setProperty('--c', r.color); el.title = r.label;
+        const [la, lo] = track.latlon(r.d);
+        runnerMarkers.push(new maplibregl.Marker({ element: el }).setLngLat([lo, la]).addTo(map));
+      }
+    },
     setPosition(d) { const [la, lo] = track.latlon(d); marker.setLngLat([lo, la]); },
     resize() { map.resize(); },
   };

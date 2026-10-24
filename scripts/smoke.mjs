@@ -73,7 +73,7 @@ try {
   {
     const r = await fetch(`${BASE}/api/live/record?provider=myresult&event=176&bib=3743`);
     const j = r.ok ? await r.json() : {};
-    ok(r.ok && Array.isArray(j.records) && j.records.length > 0, `MyResult record via public page (${j.records?.length ?? 0} splits)`);
+    ok(r.ok && Array.isArray(j.records) && (j.status === 'pre-race' || j.records.length > 0), `MyResult record via public page (${j.status}, ${j.records?.length ?? 0} splits)`);
     ok((await fetch(`${BASE}/api/live/record?provider=myresult&event=176&bib=99999999`)).status === 404, 'MyResult unknown bib 404');
   }
   ok((await fetch(`${BASE}/api/live/record?provider=spct&event=1;x&bib=1`)).status === 400, 'live record rejects bad input');
@@ -82,6 +82,13 @@ try {
   ok(!(await page.content()).includes('fly.dev'), 'tracker pages no longer call fly.dev');
   await page.goto(`${BASE}/group_register.html?eventId=176&source=myresult`, { waitUntil: 'networkidle0' });
   ok(await page.$eval('body', (b) => b.innerText.includes('춘천')), 'group register shows event info');
+  // finished SPCT race: card should show the finish block and the course strip
+  await page.goto(`${BASE}/group_viewer.html?eventId=2026101804&group=smoke&source=smartchip&bibs=020230`, { waitUntil: 'networkidle0' });
+  await page.waitForSelector('.runner .rc-main', { timeout: 15000 }).catch(() => {});
+  const card = await page.$eval('#runners', (e) => e.innerText).catch(() => '');
+  ok(/완주|Finish/.test(card) && /01:14:26/.test(card), 'viewer shows a finished SPCT runner');
+  ok(page.url().includes('bibs=020230'), 'viewer keeps bibs in the share URL');
+  await page.evaluate(() => localStorage.clear());
 
   // public submit
   await page.goto(`${BASE}/submit`, { waitUntil: 'networkidle0' });

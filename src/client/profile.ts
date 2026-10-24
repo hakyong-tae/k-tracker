@@ -19,6 +19,7 @@ export class Profile {
   private base: HTMLCanvasElement | null = null;
   private cursorKm = 0;
   private hoverKm: number | null = null;
+  private runners: { km: number; color: string; label: string }[] = [];
   onSeek: ((km: number) => void) | null = null;
   private pad = { l: 34, r: 10, t: 44, b: 30 };
 
@@ -52,6 +53,7 @@ export class Profile {
   }
 
   setCursor(km: number) { this.cursorKm = km; this.draw(); }
+  setRunners(r: { km: number; color: string; label: string }[]) { this.runners = r; this.draw(); }
 
   private geom() {
     const { dpr, W, H, track } = this;
@@ -143,6 +145,13 @@ export class Profile {
     ctx.beginPath(); ctx.moveTo(cx, T - 8 * dpr); ctx.lineTo(cx, B); ctx.stroke();
     ctx.fillStyle = '#ff5a36';
     ctx.beginPath(); ctx.arc(cx, y(track.ele(track.dist(this.cursorKm))), 5 * dpr, 0, Math.PI * 2); ctx.fill();
+    for (const r of this.runners) {
+      const rx = x(r.km), ry = y(track.ele(track.dist(r.km)));
+      ctx.fillStyle = r.color; ctx.strokeStyle = cssVar('--card') || '#fff'; ctx.lineWidth = 2 * dpr;
+      ctx.beginPath(); ctx.arc(rx, ry, 6 * dpr, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.font = `700 ${10 * dpr}px system-ui, sans-serif`; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+      ctx.fillStyle = cssVar('--fg') || '#111'; ctx.fillText(r.label, rx, Math.min(B - 12 * dpr, ry + 8 * dpr));
+    }
     if (this.hoverKm !== null) {
       const hx = x(this.hoverKm), d = track.dist(this.hoverKm);
       ctx.strokeStyle = cssVar('--muted') || '#888'; ctx.lineWidth = dpr; ctx.setLineDash([3 * dpr, 3 * dpr]);

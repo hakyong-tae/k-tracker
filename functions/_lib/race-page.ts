@@ -57,6 +57,8 @@ export function renderRacePage(env: Env, lang: Lang, race: RaceRecord): Response
       ${meta.cutoff ? html`<li>${t(lang, 'cutoff')} <b>${meta.cutoff}</b></li>` : ''}
       ${meta.officialUrl ? html`<li><a href="${meta.officialUrl}" target="_blank" rel="noopener">${t(lang, 'official')} ↗</a></li>` : ''}
     </ul>
+    ${meta.live ? html`<p class="row"><a class="btn btn-live" href="/group_register.html?eventId=${encodeURIComponent(meta.live.eventId)}&source=${meta.live.provider === 'myresult' ? 'myresult' : 'smartchip'}">⏱ ${lang === 'ko' ? '실시간 응원' : 'Live tracking'}</a></p>` : ''}
+    <div id="live-runners" class="live-runners" hidden></div>
   </section>
 
   <section class="stage wrap">

@@ -85,6 +85,11 @@ npm run seed -- data/races/singapore-2026 --remote
 | `/api/live/record?provider=spct&event=&bib=` | SPCT 배번 기록(구간·완주·순위). 1분 캐시 |
 | `/api/live/record?provider=myresult&event=&bib=` | MyResult 공개 기록 페이지(서버 렌더링 HTML)의 구간표를 읽음. JSON API는 키가 필요해져서 안 씀 |
 
+- 트래커 화면(`public/*.html`)은 새 디자인 셸이고 로직은 `src/client/tracker/`(events·register·viewer)에 있다. URL·localStorage 키·`bibs` 공유 파라미터는 예전과 같다.
+- `/api/live/event?provider=&event=`: 대회 정보와 코스별 체크포인트(이름·km). MyResult 체크포인트 좌표는 임시값이라 쓰지 않는다. 연결된 코스 페이지가 있으면 `courseSlug`.
+- `/api/live/links`: 코스 페이지와 기록 대회 연결 목록. 연결은 race.json의 `"live": {"provider": "myresult", "eventId": "176"}` 또는 관리자 화면의 "실시간 추적" 칸으로 한다.
+- **코스 위 위치**: 마지막 통과 기록과 평균 페이스로 지금 km를 추정한다(`src/shared/position.ts`). 다음 매트 km를 넘지 않게 자른다. 그룹 화면의 코스 막대, 연결된 코스 페이지의 고도 그래프·지도에 점으로 표시된다(`/r/<slug>?live=myresult:176&bibs=3743`).
+- **재생 테스트**: 로컬(localhost)에서만 `?now=2026-10-25T02:00:00Z`를 붙이면 그 시각 기준으로 기록을 걸러 재생한다. 운영 주소에서는 무시된다.
 - 화면 링크의 `source=smartchip`은 역사적 이름이고 실제로는 SPCT다.
 - 파서는 `src/shared/live.ts`, 테스트 픽스처는 `tests/fixtures/`(이름은 가명 처리).
 - 수익화 전에 SPCT·MyResult에 데이터 이용 허락 또는 제휴를 받는 걸 권장. 두 곳 모두 robots.txt는 없다.

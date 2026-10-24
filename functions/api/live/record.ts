@@ -14,12 +14,14 @@ export const onRequestGet = async (ctx: Ctx) => {
   const bib = url.searchParams.get('bib') ?? '';
   if (!isEventId(event) || !isBib(bib)) return json({ error: 'bad-input' }, 400);
   if (provider !== 'spct' && provider !== 'myresult') return json({ error: 'bad-provider' }, 400);
+  // Local development only: replay a past day by passing ?now=ISO (skips the edge cache and the upload-date filter)
+  const devNow = /^(localhost|127\.0\.0\.1)$/.test(url.hostname) && url.searchParams.get('now') ? new Date(url.searchParams.get('now')!) : null;
 
   // Edge cache per runner for 60 s (Cache API needs a GET Request key)
   const cacheKey = new Request(`https://kt-cache.internal/${provider}/${event}/${bib}`);
   let cache: Cache | null = null;
   try { cache = (caches as unknown as { default: Cache }).default; } catch { cache = null; }
-  const hit = cache ? await cache.match(cacheKey).catch(() => undefined) : undefined;
+  const hit = cache && !devNow ? await cache.match(cacheKey).catch(() => undefined) : undefined;
   if (hit) return hit;
 
   let res: Response;
@@ -35,7 +37,7 @@ export const onRequestGet = async (ctx: Ctx) => {
           const j = (await (await upstream(`https://myresult.co.kr/api/event/${event}`, 'application/json')).json()) as { date?: string; time?: string };
           return { date: j.date ?? '', time: j.time ?? '00:00:00' };
         }).then((x) => x.data).catch(() => null);
-        if (ev?.date) rec = keepRaceDaySplits(guardRaceDay(rec, ev.date, ev.time), ev.date, myResultStamps(html));
+        if (ev?.date) rec = devNow ? guardRaceDay(rec, ev.date, ev.time, devNow) : keepRaceDaySplits(guardRaceDay(rec, ev.date, ev.time), ev.date, myResultStamps(html));
       }
       res = rec
         ? json(rec, 200, { 'cache-control': 'public, max-age=60' })
@@ -50,6 +52,6 @@ export const onRequestGet = async (ctx: Ctx) => {
   } catch (e) {
     return json({ error: 'upstream-unavailable', detail: String(e) }, 502);
   }
-  if (cache) ctx.waitUntil(cache.put(cacheKey, res.clone()).catch(() => {}));
+  if (cache && !devNow) ctx.waitUntil(cache.put(cacheKey, res.clone()).catch(() => {}));
   return res;
 };

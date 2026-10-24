@@ -1,4 +1,5 @@
 /** Parsers for Korean timing providers used by the live tracker. Pure functions, no DOM. */
+import { categoryKm } from './position.ts';
 
 export type Provider = 'myresult' | 'spct';
 export interface LiveRace { id: string; source: Provider; name: string; date: string; location: string; url: string }
@@ -7,6 +8,8 @@ export interface LiveRecord {
   source: Provider; eventId: string; bib: string; name: string; category: string;
   total: string; startTime: string; finishTime: string;
   records: LiveSplit[]; rankOverall: string; rankGender: string; resultUrl: string;
+  /** course length in km when known (from the provider's course data or category label) */
+  distanceKm?: number | null;
   /** 'pre-race' before the gun, 'live' on race day, 'final' afterwards */
   status?: 'pre-race' | 'live' | 'final';
 }
@@ -81,7 +84,7 @@ export function parseSpctRecord(html: string, eventId: string, bib: string): Liv
     .filter((r) => r.section);
   const ranks = [...h.matchAll(/<li>\s*<p>[\s\S]*?<\/p>\s*<p>\s*<span>([^<]*)<\/span>\s*<span>([^<]*)<\/span>/gi)].map((x) => `${x[1].trim()}${x[2].trim()}`);
   return {
-    source: 'spct', eventId, bib: clean(tag, 12), name: clean(name, 40), category: clean(category, 30),
+    source: 'spct', eventId, distanceKm: categoryKm(category), bib: clean(tag, 12), name: clean(name, 40), category: clean(category, 30),
     total: clean(total, 20), startTime: clean(after(ps.find((p) => /^Start/i.test(p))), 20), finishTime: clean(after(ps.find((p) => /^Finish/i.test(p))), 20),
     records, rankOverall: ranks[0] ?? '', rankGender: ranks[1] ?? '', resultUrl: spctResultUrl(eventId, bib),
   };
@@ -110,8 +113,9 @@ export function parseMyResultPage(html: string, eventId: string, bib: string): L
   };
   const explain = html.match(/course:\{[\s\S]{0,400}?explain:"([^"]*)"/)?.[1] ?? '';
   const net = pick('result_nettime');
+  const dist = Number(html.match(/course:\{[\s\S]{0,400}?distance:"([\d.]+)"/)?.[1]);
   return {
-    source: 'myresult', eventId,
+    source: 'myresult', eventId, distanceKm: Number.isFinite(dist) && dist > 0 ? dist : null,
     bib: clean(p.match(/\btag:(?:"([^"]*)"|(\d+))/)?.slice(1).find(Boolean) ?? bib, 12),
     name: clean(pick('name'), 40),
     category: clean(explain, 30),
@@ -179,4 +183,23 @@ export function keepRaceDaySplits(rec: LiveRecord, eventDate: string, stamps: { 
   if (!fresh.length) return { ...rec, name: '', category: '', total: '', startTime: '', finishTime: '', records: [], rankOverall: '', rankGender: '', status: rec.status };
   const finished = rec.finishTime ? isFresh(rec.finishTime) : false;
   return { ...rec, records, total: finished ? rec.total : '', finishTime: finished ? rec.finishTime : '', rankOverall: finished ? rec.rankOverall : '', rankGender: finished ? rec.rankGender : '' };
+}
+
+export interface LiveCourse { code: string; label: string; distanceKm: number; gun: string; checkpoints: { name: string; km: number }[] }
+export interface LiveEvent { provider: Provider; id: string; name: string; date: string; time: string; location: string; courses: LiveCourse[]; courseSlug: string | null }
+
+/** MyResult open event JSON → event with course checkpoint tables (their lat/lng are placeholders, so only names and km are kept). */
+export function parseMyResultEvent(j: Record<string, unknown>): Omit<LiveEvent, 'courseSlug'> {
+  const courses = (Array.isArray(j.courses) ? j.courses : []) as Record<string, unknown>[];
+  return {
+    provider: 'myresult', id: String(j.id ?? ''), name: clean(String(j.name ?? ''), 120), date: String(j.date ?? ''),
+    time: String(j.time ?? '').slice(0, 5), location: clean(String(j.place_area ?? ''), 80),
+    courses: courses.map((c) => ({
+      code: clean(String(c.course_cd ?? ''), 20), label: clean(String(c.explain || c.name || c.course_cd || ''), 40),
+      distanceKm: Number(c.distance) || 0, gun: String(c.guntime ?? '').slice(0, 8),
+      checkpoints: ((Array.isArray(c.points) ? c.points : []) as Record<string, unknown>[])
+        .map((p) => ({ name: clean(String(p.name ?? ''), 30), km: Number(p.distance) || 0 }))
+        .filter((p) => p.name),
+    })),
+  };
 }

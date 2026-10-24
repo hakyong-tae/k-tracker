@@ -11,6 +11,8 @@ import { Flyover } from './flyover.ts';
 import { Profile } from './profile.ts';
 import type { CourseMap } from './map.ts';
 import { $, $$, h, store } from './dom.ts';
+import { clockSec, estimate, kstNowSec } from '../shared/position.ts';
+import type { LiveEvent, LiveRecord } from '../shared/live.ts';
 
 const data = JSON.parse($('#race-data')!.textContent!) as { meta: RaceMeta; course: Course; lang: Lang };
 const { meta, course, lang } = data;
@@ -62,6 +64,7 @@ btnMap.addEventListener('click', async () => {
     const { createMap } = await import('./map.ts');
     map = createMap(mapEl, track, meta.pois, (dd2) => seek(dd2));
     map.setPosition(d);
+    map.setRunners(liveMarks.map((m) => ({ d: track.dist(m.km), color: m.color, label: m.label })));
   } else map?.resize();
   if (!show) { fly.resize(); draw(); }
 });
@@ -245,5 +248,53 @@ const count = () => { const n = boxes.filter((b) => b.checked).length; $('#ck-co
 boxes.forEach((b) => { b.checked = !!ck[b.dataset.k!]; b.addEventListener('change', () => { ck[b.dataset.k!] = b.checked; store.set(`${KEY}:check`, ck); count(); }); });
 count();
 
+// ---------- live runners on the course (opened from the tracker's "On the course" link) ----------
+const COLORS = ['#ff5a36', '#2f80ed', '#27ae60', '#9b51e0', '#f2994a', '#eb5757', '#2d9cdb', '#219653'];
+let liveMarks: { km: number; color: string; label: string }[] = [];
+function startLive() {
+  const q = new URLSearchParams(location.search);
+  const [prov, evId] = (q.get('live') ?? '').split(':');
+  const live = prov && evId ? { provider: prov === 'spct' || prov === 'smartchip' ? 'spct' : 'myresult', eventId: evId } : meta.live ? { provider: meta.live.provider === 'myresult' ? 'myresult' : 'spct', eventId: meta.live.eventId } : null;
+  const bibs = (q.get('bibs') ?? '').split(',').map((b) => b.trim()).filter((b) => /^[0-9A-Za-z-]{1,10}$/.test(b)).slice(0, 20);
+  if (!live || !bibs.length) return;
+  const debugNow = q.get('now');
+  const box = $('#live-runners')!;
+  let ev: LiveEvent | null = null;
+  const recs = new Map<string, LiveRecord>();
+  const paint = () => {
+    const nowSec = kstNowSec(debugNow ? new Date(debugNow) : new Date());
+    liveMarks = [];
+    box.innerHTML = '';
+    bibs.forEach((bib, i) => {
+      const rec = recs.get(bib);
+      const color = COLORS[i % COLORS.length];
+      const label = rec?.name || bib;
+      const course = ev?.courses.find((c) => c.label === rec?.category) ?? ev?.courses.find((c) => Math.abs(c.distanceKm - track.totalKm) < 0.3) ?? null;
+      const e = rec && rec.status !== 'pre-race' && rec.records.length
+        ? estimate(rec.records, { totalKm: track.totalKm, checkpoints: course?.checkpoints ?? [], nowSec, gunSec: clockSec(course?.gun) }) : null;
+      const km = e?.estKm ?? null;
+      if (km !== null) liveMarks.push({ km, color, label: label.slice(0, 6) });
+      const b = h('button', { type: 'button', style: `--c:${color}`, onclick: () => { if (km !== null) { playing = false; syncPlay(); seek(track.dist(km)); } } } as never,
+        h('i'), `${label} · ${km !== null ? `${km.toFixed(1)}km` : rec?.status === 'pre-race' ? (lang === 'ko' ? '출발 전' : 'not started') : '—'}`);
+      box.append(b);
+    });
+    box.hidden = false;
+    profile.setRunners(liveMarks);
+    map?.setRunners(liveMarks.map((m) => ({ d: track.dist(m.km), color: m.color, label: m.label })));
+  };
+  const load = async () => {
+    if (!ev) ev = await fetch(`/api/live/event?provider=${live.provider}&event=${encodeURIComponent(live.eventId)}`).then((r) => (r.ok ? r.json() : null)).catch(() => null);
+    await Promise.all(bibs.map(async (bib) => {
+      const r = await fetch(`/api/live/record?provider=${live.provider}&event=${encodeURIComponent(live.eventId)}&bib=${encodeURIComponent(bib)}${debugNow ? `&now=${encodeURIComponent(debugNow)}` : ''}`).catch(() => null);
+      if (r?.ok) recs.set(bib, await r.json());
+    }));
+    paint();
+  };
+  load();
+  setInterval(load, 2 * 60 * 1000);
+  setInterval(paint, 20 * 1000);
+}
+
 renderPace();
 loadWeather();
+startLive();
