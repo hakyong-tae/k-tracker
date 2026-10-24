@@ -1,0 +1,208 @@
+{
+  "slug": "chuncheon-2026",
+  "name": {
+    "ko": "2026 조선일보 춘천마라톤",
+    "en": "2026 Chuncheon Marathon"
+  },
+  "date": "2026-10-25",
+  "startTime": "09:00",
+  "timezone": "Asia/Seoul",
+  "country": "KR",
+  "city": {
+    "ko": "춘천",
+    "en": "Chuncheon"
+  },
+  "distance": "full",
+  "officialUrl": "https://www.chuncheonmarathon.com/",
+  "cutoff": null,
+  "courseSource": {
+    "type": "community-gpx",
+    "url": null,
+    "note": {
+      "ko": "사용자가 제공한 스트라바 GPS 기록으로 만든 경로예요. 측정 거리 42.45km(+0.6%)를 공식 42.195km에 맞춰 보정했고, 고도는 기기 기록을 평활화한 값이라 공식 고도표와 몇 미터 다를 수 있어요.",
+      "en": "Built from a runner's Strava GPS track supplied by the user. The measured 42.45 km (+0.6%) is scaled to the official 42.195 km, and elevation is smoothed device data, so it may differ from an official profile by a few meters."
+    }
+  },
+  "pois": [
+    {
+      "km": 4.0,
+      "type": "turnaround",
+      "name": {
+        "ko": "1차 반환점 (저수지 쪽)",
+        "en": "1st U-turn (reservoir)"
+      }
+    },
+    {
+      "km": 5.0,
+      "type": "water",
+      "name": null
+    },
+    {
+      "km": 5.8,
+      "type": "hill",
+      "name": {
+        "ko": "첫 고개",
+        "en": "First climb"
+      }
+    },
+    {
+      "km": 17.5,
+      "type": "hill",
+      "name": {
+        "ko": "애니고 오르막",
+        "en": "Ani High climb"
+      }
+    },
+    {
+      "km": 20.6,
+      "type": "turnaround",
+      "name": {
+        "ko": "신매대교 반환",
+        "en": "Sinmae Bridge U-turn"
+      }
+    },
+    {
+      "km": 29.1,
+      "type": "hill",
+      "name": {
+        "ko": "춘천댐 오르막",
+        "en": "Chuncheon Dam climb"
+      }
+    }
+  ],
+  "segments": [
+    {
+      "fromKm": 0,
+      "toKm": 5,
+      "title": {
+        "ko": "공지천교 → 삼천사거리 → 송암스포츠타운 → 1차 반환",
+        "en": "Gongjicheon Bridge → Samcheon junction → Songam Sports Town → 1st U-turn"
+      },
+      "tip": {
+        "ko": "출발 직후 삼천사거리까지 완만하게 오르고, 4km 직전 저수지 쪽으로 짧게 들어갔다 되돌아 나와요. 붐비는 초반이니 목표보다 10~15초 느리게 시작하세요.",
+        "en": "A gentle rise to Samcheon junction, then a short out-and-back toward the reservoir just before 4 km. Start 10–15 s/km slower than goal while the field is packed."
+      }
+    },
+    {
+      "fromKm": 5,
+      "toKm": 10,
+      "title": {
+        "ko": "송암스포츠타운 → 첫 고개 → 의암호",
+        "en": "Songam Sports Town → First climb → Uiam Lake"
+      },
+      "tip": {
+        "ko": "5km를 지나 약 600m 동안 34m를 오르는 코스 최대 경사(평균 5~6%)가 나와요. 보폭을 줄여 넘고, 이어지는 의암호 내리막은 속도를 내기보다 힘을 빼고 흘려보내세요.",
+        "en": "Just past 5 km comes the steepest climb: about 34 m over 600 m (5–6%). Shorten your stride over it, then relax down to Uiam Lake rather than racing the descent."
+      }
+    },
+    {
+      "fromKm": 10,
+      "toKm": 15,
+      "title": {
+        "ko": "의암호 서쪽 박사로",
+        "en": "Baksa-ro along the west side of Uiam Lake"
+      },
+      "tip": {
+        "ko": "호수를 오른쪽에 두고 달리는 거의 평탄한 구간이에요. 고개에서 흐트러진 호흡과 리듬을 되찾고, 비슷한 페이스의 주자 무리에 붙어 가세요.",
+        "en": "Almost flat with the lake on your right. Settle your breathing after the climb and tuck into a group running your pace."
+      }
+    },
+    {
+      "fromKm": 15,
+      "toKm": 20,
+      "title": {
+        "ko": "박사로 → 강원애니고 → 서춘천",
+        "en": "Baksa-ro → Gangwon Animation High → West Chuncheon"
+      },
+      "tip": {
+        "ko": "17km 전후로 300m쯤 되는 짧은 오르막이 한 번 있어요. 길지 않으니 페이스를 지키는 정도로만 넘으면 됩니다.",
+        "en": "One short rise of about 300 m around 17 km. It is brief, so just hold your effort over it."
+      }
+    },
+    {
+      "fromKm": 20,
+      "toKm": 25,
+      "title": {
+        "ko": "신매대교 왕복 → 하프 통과",
+        "en": "Sinmae Bridge out-and-back → Halfway"
+      },
+      "tip": {
+        "ko": "20.5km쯤 신매대교로 들어가 약 600m를 갔다 되돌아오는 두 번째 반환이에요. 반환 직후 하프를 지나니 몸 상태를 점검하고 후반 전략을 정하세요.",
+        "en": "Around 20.5 km you run about 600 m onto Sinmae Bridge and turn back. You pass halfway right after, a good moment to check in and set your second-half plan."
+      }
+    },
+    {
+      "fromKm": 25,
+      "toKm": 30,
+      "title": {
+        "ko": "영서로 → 춘천댐",
+        "en": "Yeongseo-ro → Chuncheon Dam"
+      },
+      "tip": {
+        "ko": "26km부터 29km까지 3km 넘게 완만한 오르막(약 30m)이 이어지는 코스의 최대 고비예요. 페이스보다 같은 힘을 유지하고, 오르막 전에 보급을 미리 챙기세요.",
+        "en": "The crux: a gentle climb of about 30 m stretching over 3 km from 26 to 29 km. Run by effort, not pace, and take your fuel before the climb starts."
+      }
+    },
+    {
+      "fromKm": 30,
+      "toKm": 35,
+      "title": {
+        "ko": "신북 → 신동삼거리",
+        "en": "Sinbuk → Sindong junction"
+      },
+      "tip": {
+        "ko": "31km에 짧은 오르막을 넘으면 내리막과 잔잔한 오르내림이에요. 32.5km부터 차선이 넓어져 길이 멀게 느껴지니, 시선을 멀리 두지 말고 앞 주자의 허리 높이에 두세요.",
+        "en": "A short rise at 31 km, then downhill and gentle rollers. From 32.5 km the road widens and feels endless, so keep your eyes on the runner just ahead, not the horizon."
+      }
+    },
+    {
+      "fromKm": 35,
+      "toKm": 40,
+      "title": {
+        "ko": "영서로 → 우두동 → 소양2교",
+        "en": "Yeongseo-ro → Udu-dong → Soyang 2 Bridge"
+      },
+      "tip": {
+        "ko": "평지가 이어지고 소양2교를 건너요. 다리 위 강바람에 대비하고, 지친 시점이니 자세와 팔치기에 집중하세요.",
+        "en": "Flat running and the crossing of Soyang 2 Bridge. Expect wind on the bridge, and focus on posture and arm swing as fatigue sets in."
+      }
+    },
+    {
+      "fromKm": 40,
+      "toKm": 42.195,
+      "title": {
+        "ko": "근화동 → 공지천 골인",
+        "en": "Geunhwa-dong → Gongjicheon finish"
+      },
+      "tip": {
+        "ko": "넓고 긴 직선이라 실제보다 멀게 느껴져요. 남은 힘을 고르게 쓰다가 마지막 1km에서 끌어올리세요.",
+        "en": "A long, wide straight that feels longer than it is. Spread what you have left and lift for the final kilometer."
+      }
+    }
+  ],
+  "notes": {
+    "ko": [
+      "출발은 10월 25일(일) 오전 9시, 춘천 공지천교예요. 골인은 공지천 축구장 앞입니다.",
+      "왕복 구간이 두 번 있어요. 4km 직전 저수지 쪽 짧은 왕복과 20.5km 무렵 신매대교 약 600m 왕복이에요.",
+      "가장 힘든 곳은 5km 직후의 짧고 가파른 첫 고개와, 26~29km 춘천댐 쪽 긴 완만한 오르막이에요.",
+      "제한 시간과 전체 급수 위치는 공식 사이트에서 확인하지 못했어요. 대회 안내문으로 꼭 확인하세요.",
+      "MyResult에서 실시간 기록이 제공돼요. K-TRACKER 실시간 응원으로 배번을 모아 볼 수 있어요."
+    ],
+    "en": [
+      "Start: Sunday 25 October, 09:00 at Gongjicheon Bridge, Chuncheon. Finish in front of Gongjicheon football ground.",
+      "Two out-and-backs: a short one toward the reservoir just before 4 km and about 600 m onto Sinmae Bridge around 20.5 km.",
+      "The hardest parts are the short, steep first climb just after 5 km and the long gentle climb toward Chuncheon Dam from 26 to 29 km.",
+      "The cutoff time and full list of aid stations were not found on the official site. Check the race guide.",
+      "Live splits come from MyResult. Use K-TRACKER live tracking to follow a group of bibs."
+    ]
+  },
+  "sources": [
+    "https://www.chuncheonmarathon.com/",
+    "https://www.chuncheonmarathon.com/course/exploration.html",
+    "https://myresult.co.kr/176"
+  ],
+  "live": {
+    "provider": "myresult",
+    "eventId": "176"
+  }
+}

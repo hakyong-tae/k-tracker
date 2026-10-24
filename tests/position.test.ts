@@ -40,6 +40,8 @@ describe('position estimate', () => {
     expect(fmtClock(fin.finishSec!)).toBe('12:32');
     const none = estimate([], { totalKm: 42.195, checkpoints: CPS, nowSec: clockSec('08:30:00')!, gunSec: clockSec('09:00:00') });
     expect(none.estKm).toBeNull();
+    const gunOnly = estimate([{ section: '5K', checkpointTime: '-' }], { totalKm: 42.195, checkpoints: CPS, nowSec: clockSec('11:00:00')!, gunSec: clockSec('09:00:00') });
+    expect(gunOnly.estKm).toBeNull(); // gun has gone but no mat crossed yet → unknown, not 0 km
     const started = estimate([{ section: '출발', checkpointTime: '09:04:00' }], { totalKm: 42.195, checkpoints: CPS, nowSec: clockSec('09:10:00')! });
     expect(started.estKm).toBe(0);
     expect(started.paceSec).toBeNull();

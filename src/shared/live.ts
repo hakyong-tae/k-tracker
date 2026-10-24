@@ -80,7 +80,7 @@ export function parseSpctRecord(html: string, eventId: string, bib: string): Liv
   const after = (s?: string) => (s ? s.slice(s.indexOf(':') + 1).trim() : '');
   const tbody = h.slice(h.indexOf("<div class='record'>") >= 0 ? h.indexOf("<div class='record'>") : 0);
   const records: LiveSplit[] = [...tbody.matchAll(/<tr>\s*<td>([\s\S]*?)<\/td>\s*<td>([\s\S]*?)<\/td>/gi)]
-    .map((x) => ({ section: clean(text(x[1]), 40), checkpointTime: clean(text(x[2]).replace(/^\(\)$/, ''), 60) || '-' }))
+    .map((x) => { const v = text(x[2]); return { section: clean(text(x[1]), 40), checkpointTime: /\d{1,2}:\d{2}:\d{2}/.test(v) ? clean(v, 60) : '-' }; })
     .filter((r) => r.section);
   const ranks = [...h.matchAll(/<li>\s*<p>[\s\S]*?<\/p>\s*<p>\s*<span>([^<]*)<\/span>\s*<span>([^<]*)<\/span>/gi)].map((x) => `${x[1].trim()}${x[2].trim()}`);
   return {
@@ -122,7 +122,8 @@ export function parseMyResultPage(html: string, eventId: string, bib: string): L
     total: clean(net.replace(/\.\d+$/, ''), 20),
     startTime: clean(rows.find((r) => r[0] === '출발')?.[1] ?? '', 20),
     finishTime: clean(rows.find((r) => r[0] === '도착')?.[1] ?? '', 20),
-    records: rows.map((r) => ({ section: clean(r[0], 40), checkpointTime: clean(r[1] || '-', 60) || '-' })),
+    // future mats show '?' or '-': keep a value only when it holds a clock time
+    records: rows.map((r) => ({ section: clean(r[0], 40), checkpointTime: /\d{1,2}:\d{2}:\d{2}/.test(r[1] ?? '') ? clean(r[1], 60) : '-' })),
     rankOverall: rank('코스 전체순위'), rankGender: rank('코스 성별순위'),
     resultUrl: myResultResultUrl(eventId, bib),
   };

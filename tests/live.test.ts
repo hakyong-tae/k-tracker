@@ -78,6 +78,11 @@ describe('live tracker parsers', () => {
     expect(live.name).toBe('홍길동');
     expect(live.total).toBe('');
   });
+  it('treats ? and blank future mats as not passed', () => {
+    const html = fx('myresult-record.html').replace(/09:28:52/g, '?');
+    const r = parseMyResultPage(html, '176', '3743')!;
+    expect(r.records[2]).toEqual({ section: '5K', checkpointTime: '-' });
+  });
   it('MyResult page without player is null', () => expect(parseMyResultPage('<html><body>nothing</body></html>', '176', '1')).toBeNull());
   it('returns null for an unknown bib', () => expect(parseSpctRecord(fx('spct-record-empty.html'), '20261017002', '1001')).toBeNull());
   it('derives year and validates input', () => {

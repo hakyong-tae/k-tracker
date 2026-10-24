@@ -64,7 +64,7 @@ export function estimate(splits: Split[], opts: { totalKm: number; checkpoints?:
   let estKm: number | null = null;
   if (finished) estKm = opts.totalKm;
   else if (last && paceSec) estKm = Math.min(nextKm ?? opts.totalKm, lastKm + Math.max(0, opts.nowSec - last.t) / paceSec);
-  else if (startSec !== null && opts.nowSec >= startSec) estKm = 0;
+  else if (known.some((x) => x.km === 0) && opts.nowSec >= (startSec ?? 0)) estKm = 0; // only once a start-mat split exists
   const finishSec = finished ? last!.t : paceSec && startSec !== null ? startSec + paceSec * opts.totalKm : null;
   return { startSec, lastKm, lastSec: last?.t ?? null, lastName: last?.name ?? '', paceSec, estKm: estKm === null ? null : finished ? opts.totalKm : Math.round(estKm * 100) / 100, nextKm, finishSec, finished };
 }

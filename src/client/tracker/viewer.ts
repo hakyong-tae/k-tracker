@@ -96,7 +96,7 @@ function runnerCard(r: StoredRunner, i: number): string {
   else if (rec === null) body = '<p class="warn small">이 배번의 기록을 찾지 못했어요. / Bib not found.</p>';
   else if (rec.status === 'pre-race') body = '<p class="status">⏳ 출발 전이에요. 대회가 시작되면 기록이 들어와요. / Not started yet.</p>';
   else {
-    const passed = rec.records.filter((x) => x.checkpointTime && x.checkpointTime !== '-');
+    const passed = rec.records.filter((x) => clockSec(x.checkpointTime) !== null);
     const last = passed[passed.length - 1];
     const e = estimateFor(rec);
     if (!last) body = '<p class="status">⏳ 아직 통과 기록이 없어요. / No splits yet.</p>';
