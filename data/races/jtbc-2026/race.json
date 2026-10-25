@@ -1,0 +1,331 @@
+{
+  "slug": "jtbc-2026",
+  "name": {
+    "ko": "2026 JTBC 서울마라톤",
+    "en": "2026 JTBC Seoul Marathon"
+  },
+  "date": "2026-11-01",
+  "startTime": "07:30",
+  "timezone": "Asia/Seoul",
+  "country": "KR",
+  "city": {
+    "ko": "서울",
+    "en": "Seoul"
+  },
+  "distance": "full",
+  "officialUrl": "http://marathon.jtbc.com/",
+  "cutoff": null,
+  "courseSource": {
+    "type": "approximated-from-official-map",
+    "url": "http://marathon.jtbc.com/17/?bmode=view&idx=175063425",
+    "note": {
+      "ko": "2026-10-25 기준 공식 GPX와 공식 고도표가 없어, 공식 2026 코스 지도와 공식 교통통제 안내의 교차로별 km 표를 따라 OpenStreetMap 도로 위에 그린 근사 경로예요. 도로 중심선에서 10m 안쪽의 최단 주행선으로 다듬었고, 측정 거리는 42.24km(+0.1%)입니다. 공식 km 표와는 대부분 0.1~0.4km 안에서 맞아요. 고도는 공식 자료가 없어 위성 지형 데이터(SRTM·ASTER)를 평균하고 크게 평활화한 값이라 수 m 오차가 있습니다. 공식 GPX가 나오면 교체합니다.",
+      "en": "No official GPX or elevation profile had been published as of 2026-10-25, so this is an approximate track drawn on OpenStreetMap roads from the official 2026 course map and the intersection-by-km table on the official traffic-control page. It was trimmed to the shortest line within 10 m of the road centre and measures 42.24 km (+0.1%). It matches most official km values within 0.1–0.4 km. With no official profile, elevation is the average of satellite terrain data (SRTM and ASTER), heavily smoothed, so expect errors of a few metres. It will be replaced once an official GPX is released."
+    }
+  },
+  "pois": [
+    {
+      "km": 0,
+      "type": "landmark",
+      "name": {
+        "ko": "출발 – 광화문광장 (세종대로)",
+        "en": "Start – Gwanghwamun Square (Sejong-daero)"
+      }
+    },
+    {
+      "km": 1.4,
+      "type": "landmark",
+      "name": {
+        "ko": "숭례문 (급회전)",
+        "en": "Sungnyemun Gate (sharp turn)"
+      }
+    },
+    {
+      "km": 3.9,
+      "type": "turnaround",
+      "name": {
+        "ko": "을지로 대림상가 앞 반환점",
+        "en": "Eulji-ro U-turn (Daerim Sangga)"
+      }
+    },
+    {
+      "km": 5.4,
+      "type": "landmark",
+      "name": {
+        "ko": "광교 – 청계천로 진입",
+        "en": "Gwanggyo – onto Cheonggyecheon-ro"
+      }
+    },
+    {
+      "km": 10.4,
+      "type": "turnaround",
+      "name": {
+        "ko": "고산자교 반환점 (공식 표 10.2 km)",
+        "en": "Gosanja Bridge U-turn (10.2 km in the official table)"
+      }
+    },
+    {
+      "km": 15.7,
+      "type": "landmark",
+      "name": {
+        "ko": "무교동 – 종로 진입",
+        "en": "Mugyo-dong – onto Jong-ro"
+      }
+    },
+    {
+      "km": 18.4,
+      "type": "landmark",
+      "name": {
+        "ko": "흥인지문 (동대문)",
+        "en": "Heunginjimun (Dongdaemun Gate)"
+      }
+    },
+    {
+      "km": 19.9,
+      "type": "landmark",
+      "name": {
+        "ko": "신설동역 – 천호대로 진입",
+        "en": "Sinseol-dong Station – onto Cheonho-daero"
+      }
+    },
+    {
+      "km": 24.5,
+      "type": "landmark",
+      "name": {
+        "ko": "군자교 (중랑천)",
+        "en": "Gunja Bridge (Jungnangcheon stream)"
+      }
+    },
+    {
+      "km": 27.4,
+      "type": "landmark",
+      "name": {
+        "ko": "건대입구역 사거리",
+        "en": "Konkuk Univ. Station junction"
+      }
+    },
+    {
+      "km": 29.7,
+      "type": "landmark",
+      "name": {
+        "ko": "잠실대교 (한강, 약 1.1 km)",
+        "en": "Jamsil Bridge (Han River, ~1.1 km)"
+      }
+    },
+    {
+      "km": 32.2,
+      "type": "landmark",
+      "name": {
+        "ko": "석촌호수",
+        "en": "Seokchon Lake"
+      }
+    },
+    {
+      "km": 34.7,
+      "type": "landmark",
+      "name": {
+        "ko": "탄천1교 (탄천)",
+        "en": "Tancheon Bridge 1 (Tancheon stream)"
+      }
+    },
+    {
+      "km": 35.7,
+      "type": "turnaround",
+      "name": {
+        "ko": "학여울역 반환점 (SETEC 앞, 공식 표 35.5 km)",
+        "en": "Hangnyeoul U-turn by SETEC (35.5 km in the official table)"
+      }
+    },
+    {
+      "km": 38.6,
+      "type": "landmark",
+      "name": {
+        "ko": "수서IC – 양재대로 진입",
+        "en": "Suseo IC – onto Yangjae-daero"
+      }
+    },
+    {
+      "km": 41.6,
+      "type": "landmark",
+      "name": {
+        "ko": "방이역",
+        "en": "Bangi Station"
+      }
+    },
+    {
+      "km": 42.0,
+      "type": "landmark",
+      "name": {
+        "ko": "올림픽공원 사거리",
+        "en": "Olympic Park junction"
+      }
+    },
+    {
+      "km": 42.195,
+      "type": "landmark",
+      "name": {
+        "ko": "결승 – 올림픽공원",
+        "en": "Finish – Olympic Park"
+      }
+    }
+  ],
+  "segments": [
+    {
+      "fromKm": 0,
+      "toKm": 5,
+      "title": {
+        "ko": "광화문광장 → 숭례문 → 을지로 반환 → 광교",
+        "en": "Gwanghwamun Square → Sungnyemun → Eulji-ro U-turn → Gwanggyo"
+      },
+      "tip": {
+        "ko": "숭례문(1.4 km)과 한국은행 앞에서 급하게 꺾고 3.9 km 을지로에서 U턴하는, 회전이 많은 도심 구간입니다. 2 km까지 약 15 m 완만히 오르니 붐비는 초반에는 페이스를 억누르세요.",
+        "en": "A downtown stretch full of turns: sharp corners at Sungnyemun (1.4 km) and the Bank of Korea, then a U-turn on Eulji-ro at 3.9 km. It rises gently by about 15 m to 2 km, so hold back while the field is packed."
+      }
+    },
+    {
+      "fromKm": 5,
+      "toKm": 10,
+      "title": {
+        "ko": "광교 → 청계천로(남쪽) → 청계5가 → 청계8가",
+        "en": "Gwanggyo → Cheonggyecheon-ro (south bank) → Cheonggye 5-ga → Cheonggye 8-ga"
+      },
+      "tip": {
+        "ko": "청계천을 따라 동쪽으로 5 km 동안 약 15 m 천천히 내려가는 길입니다. 하천 옆 일방 도로라 폭이 좁으니 추월을 서두르지 말고 리듬을 찾으세요.",
+        "en": "You follow the Cheonggyecheon stream east, dropping about 15 m over 5 km. The stream-side road is one-way and narrow, so don't rush to pass; settle into a rhythm."
+      }
+    },
+    {
+      "fromKm": 10,
+      "toKm": 15,
+      "title": {
+        "ko": "고산자교 반환 → 청계천로(북쪽) → 청계8가 → 청계3가",
+        "en": "Gosanja Bridge U-turn → Cheonggyecheon-ro (north bank) → Cheonggye 8-ga → Cheonggye 3-ga"
+      },
+      "tip": {
+        "ko": "10.4 km 고산자교에서 다리를 건너 U턴한 뒤 맞은편 둑길로 돌아옵니다. 돌아오는 길은 5 km 넘게 약 15 m 서서히 오르니 노력을 일정하게 유지하세요.",
+        "en": "At 10.4 km you cross Gosanja Bridge to U-turn and come back on the opposite bank. The return climbs slowly, about 15 m over 5 km or so, so keep your effort even."
+      }
+    },
+    {
+      "fromKm": 15,
+      "toKm": 20,
+      "title": {
+        "ko": "무교동 → 종로1가~5가 → 흥인지문 → 신설동역",
+        "en": "Mugyo-dong → Jong-ro 1-ga to 5-ga → Heunginjimun → Sinseol-dong Station"
+      },
+      "tip": {
+        "ko": "15.7 km에서 종로로 들어서면 동쪽으로 곧게 뻗은 넓은 길이 이어지고, 신설동까지 10 m쯤 완만히 내려갑니다. 18.4 km 흥인지문은 문을 돌아 나가니 바깥쪽으로 크게 돌지 마세요.",
+        "en": "From 15.7 km Jong-ro runs wide and straight to the east, easing down about 10 m to Sinseol-dong. At 18.4 km the road curves around Heunginjimun Gate, so don't swing wide."
+      }
+    },
+    {
+      "fromKm": 20,
+      "toKm": 25,
+      "title": {
+        "ko": "천호대로 → 동대문구청 → 장한평역 → 군자교(중랑천)",
+        "en": "Cheonho-daero → Dongdaemun-gu Office → Janghanpyeong Station → Gunja Bridge (Jungnangcheon)"
+      },
+      "tip": {
+        "ko": "하프를 지나 천호대로를 따라 남동쪽으로 가는 넓고 평탄한 직선입니다. 24.5 km 군자교로 중랑천을 건너니, 이 구간에서 레이스 페이스를 굳히세요.",
+        "en": "Past halfway, Cheonho-daero runs south-east, wide, flat and straight. You cross the Jungnangcheon stream on Gunja Bridge at 24.5 km; use this stretch to lock in race pace."
+      }
+    },
+    {
+      "fromKm": 25,
+      "toKm": 30,
+      "title": {
+        "ko": "군자역 → 능동로 → 건대입구역 → 자양사거리 → 잠실대교",
+        "en": "Gunja Station → Neungdong-ro → Konkuk Univ. Station → Jayang junction → Jamsil Bridge"
+      },
+      "tip": {
+        "ko": "25.3 km 군자역에서 남쪽 능동로로 꺾어 어린이대공원까지 약 10 m 오르고, 27.4 km 건대입구에서 동쪽으로 꺾습니다. 28~29 km 다리 진입로를 한 번 더 오른 뒤 29.7 km부터 바람을 그대로 맞는 잠실대교로 한강을 건넙니다.",
+        "en": "Turn south onto Neungdong-ro at Gunja Station (25.3 km) and climb about 10 m past Children's Grand Park, then turn east at Konkuk Univ. Station (27.4 km). After one more rise on the bridge approach at 28–29 km, you cross the Han River on the wind-exposed Jamsil Bridge from 29.7 km."
+      }
+    },
+    {
+      "fromKm": 30,
+      "toKm": 35,
+      "title": {
+        "ko": "잠실대교 남단 → 잠실역 → 석촌호수 → 삼전사거리 → 탄천1교",
+        "en": "Jamsil Bridge south end → Jamsil Station → Seokchon Lake → Samjeon junction → Tancheon Bridge 1"
+      },
+      "tip": {
+        "ko": "다리를 내려와 송파대로를 따라 석촌호수(32.2 km)까지 10 m쯤 내려간 뒤 서쪽으로 꺾습니다. 이후는 평탄하니 34.7 km 탄천1교까지 힘을 아끼며 같은 페이스를 지키세요.",
+        "en": "Off the bridge, Songpa-daero drops about 10 m to Seokchon Lake (32.2 km), where you turn west. It is flat after that, so hold the same pace and save energy to Tancheon Bridge 1 at 34.7 km."
+      }
+    },
+    {
+      "fromKm": 35,
+      "toKm": 40,
+      "title": {
+        "ko": "남부순환로 → 학여울역 반환 → 수서IC → 양재대로 → 가락시장",
+        "en": "Nambusunhwan-ro → Hangnyeoul U-turn → Suseo IC → Yangjae-daero → Garak Market"
+      },
+      "tip": {
+        "ko": "35.7 km 학여울역(SETEC) 앞에서 U턴한 뒤 남부순환로를 따라 수서IC(38.6 km)로 갑니다. 양재대로에 올라서면 39 km부터 40 km 넘어까지 약 1% 오르막이 이어지니 보폭을 줄이세요.",
+        "en": "U-turn at Hangnyeoul Station by SETEC (35.7 km), then follow Nambusunhwan-ro to Suseo IC (38.6 km). On Yangjae-daero a climb of about 1% runs from 39 km to just past 40 km, so shorten your stride."
+      }
+    },
+    {
+      "fromKm": 40,
+      "toKm": 42.195,
+      "title": {
+        "ko": "가락시장 → 방이역 → 올림픽공원 사거리 → 올림픽공원 결승",
+        "en": "Garak Market → Bangi Station → Olympic Park junction → Olympic Park finish"
+      },
+      "tip": {
+        "ko": "41 km 언저리에서 오르막이 끝나고 방이역(41.6 km)부터 결승까지 살짝 내려갑니다. 42 km 올림픽공원 사거리에서 공원 안으로 들어가니 마지막까지 페이스를 유지하세요.",
+        "en": "The climb tops out around 41 km and it runs slightly downhill from Bangi Station (41.6 km) to the end. At the Olympic Park junction (42 km) you enter the park, so hold your pace to the line."
+      }
+    }
+  ],
+  "notes": {
+    "ko": [
+      "2026년 풀코스는 새 코스입니다. 작년까지는 상암 월드컵공원에서 출발해 양화대교·여의도·마포대교·광화문을 거쳐 올림픽공원으로 갔지만, 올해는 광화문광장에서 출발해 올림픽공원에서 끝납니다. 10K는 따로 상암 월드컵공원에서 출발해 여의도공원에서 끝납니다. 일부 블로그에는 아직 상암 출발로 나와 있으니 주의하세요.",
+      "집결은 06:30, 출발은 07:30이며 풀코스와 10K가 같습니다. 풀코스 출발 시각은 작년 08:00에서 07:30으로 당겨졌습니다.",
+      "출발·집결 장소는 광화문광장, 도착은 올림픽공원입니다. 주최 측은 장소가 사정에 따라 바뀔 수 있다고 밝히고 있습니다.",
+      "출발 그룹은 A~H 8개이며 A그룹은 서브3 기록자입니다. 페이스메이커 65명이 2:49부터 5:00까지 그룹별로 달립니다.",
+      "공식 제한 시간은 2026-10-25 기준 찾지 못했습니다. 참가 자격은 '5시간 이내 완주 가능한 자'이고, 가장 느린 페이스메이커는 5:00입니다.",
+      "급수·스펀지·의료 위치는 아직 공개되지 않아 POI에 넣지 않았습니다. 주최 측은 올해 급수 체계를 강화한다고만 밝혔습니다. 대회 안내서가 나오면 추가합니다.",
+      "짐 보관 장소와 운영 시간도 아직 공개되지 않았습니다.",
+      "레이스팩(배번 등)은 택배 없이 코리아 러닝 엑스포 현장에서만 받습니다. 10월 29~30일 12:00~20:00, 31일 10:00~23:00, SETEC 1관(학여울역 1번 출구)입니다. 주차가 안 되니 대중교통을 이용하세요. SETEC은 코스 35.7 km 반환점 바로 앞입니다.",
+      "대회 당일 05:00~13:50 코스 구간별로 차량이 통제됩니다(풀코스 구간은 07:20부터). 주최 측은 대중교통(지하철) 이용을 권합니다. 구간별 통제 시각은 공식 교통통제 안내 페이지에서 확인할 수 있습니다.",
+      "11월 1일 서울 일출은 약 06:56, 시민박명 시작은 약 06:29입니다(NOAA 태양 계산식으로 산출). 출발 때는 해가 뜬 뒤입니다.",
+      "코스에는 반환점이 세 곳(을지로 3.9 km, 고산자교 10.4 km, 학여울 35.7 km) 있고, 한강(잠실대교)과 중랑천·탄천을 건넙니다.",
+      "공식 GPX와 공식 고도표가 아직 없어 이 페이지의 경로와 고도는 근사값입니다. km 위치는 공식 교통통제 안내의 교차로별 km와 비교해 대부분 0.1~0.4 km 안에서 맞습니다."
+    ],
+    "en": [
+      "The 2026 marathon uses a new course. Until last year it started at Sangam World Cup Park and went via Yanghwa Bridge, Yeouido, Mapo Bridge and Gwanghwamun to Olympic Park. This year it starts at Gwanghwamun Square and finishes at Olympic Park. The 10K is now separate, from Sangam World Cup Park to Yeouido Park. Some blogs still show the old Sangam start.",
+      "Assembly is at 06:30 and the start at 07:30, the same for the marathon and the 10K. The marathon start moved from 08:00 last year to 07:30.",
+      "The start and assembly area is Gwanghwamun Square and the finish is Olympic Park. The organiser says venues may change.",
+      "There are eight start groups, A to H, with group A for sub-3 runners. 65 pacers run from 2:49 to 5:00 across the groups.",
+      "No official cut-off time could be found as of 2026-10-25. Entry requires being able to finish within 5 hours, and the slowest pacer is 5:00.",
+      "Water, sponge and medical positions have not been published, so no aid-station POIs are listed. The organiser only says the water-station system will be strengthened this year. They will be added once the race guide is out.",
+      "Bag drop location and hours have not been published yet.",
+      "Race packs (bib etc.) are not posted; collect them at the Korea Running Expo, SETEC Hall 1 (Hangnyeoul Station exit 1), 29–30 Oct 12:00–20:00 and 31 Oct 10:00–23:00. There is no parking, so use public transport. SETEC sits right at the 35.7 km U-turn.",
+      "On race day, roads close section by section between 05:00 and 13:50 (marathon sections from 07:20). The organiser recommends the subway. Closure times per section are on the official traffic-control page.",
+      "Sunrise on 1 Nov in Seoul is around 06:56 and civil dawn around 06:29 (computed with the NOAA solar algorithm), so it is light at the start.",
+      "The course has three U-turns (Eulji-ro 3.9 km, Gosanja Bridge 10.4 km, Hangnyeoul 35.7 km) and crosses the Han River (Jamsil Bridge) and the Jungnangcheon and Tancheon streams.",
+      "No official GPX or elevation profile exists yet, so the route and elevation on this page are approximate. Its km positions match most intersection km values on the official traffic-control page within 0.1–0.4 km."
+    ]
+  },
+  "sources": [
+    "http://marathon.jtbc.com/17/?bmode=view&idx=175063425",
+    "http://marathon.jtbc.com/17/?bmode=view&idx=175064126",
+    "http://marathon.jtbc.com/index",
+    "http://marathon.jtbc.com/65",
+    "http://marathon.jtbc.com/17/?bmode=view&idx=175125736",
+    "http://marathon.jtbc.com/17/?bmode=view&idx=173732917",
+    "http://marathon.jtbc.com/17/?bmode=view&idx=173732896",
+    "http://marathon.jtbc.com/17/?bmode=view&idx=170781622",
+    "https://www.koreajoongangdaily.com/korea/popular-marathon-to-crisscross-seoul-districts-bridges-this-sunday/12447497",
+    "https://myresult.co.kr/api/event/177",
+    "https://www.openstreetmap.org/copyright",
+    "https://www.opentopodata.org/datasets/srtm/",
+    "https://www.opentopodata.org/datasets/aster/"
+  ],
+  "live": {
+    "provider": "myresult",
+    "eventId": "177"
+  }
+}
