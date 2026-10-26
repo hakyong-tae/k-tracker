@@ -1,0 +1,384 @@
+{
+  "slug": "hongkong-2027",
+  "name": {
+    "ko": "스탠다드차타드 홍콩 마라톤 2027",
+    "en": "Standard Chartered Hong Kong Marathon 2027"
+  },
+  "date": "2027-01-17",
+  "startTime": "06:00",
+  "timezone": "Asia/Hong_Kong",
+  "country": "HK",
+  "city": {
+    "ko": "홍콩",
+    "en": "Hong Kong"
+  },
+  "distance": "full",
+  "officialUrl": "https://www.hkmarathon.com/race-information",
+  "cutoff": "6:00",
+  "courseSource": {
+    "type": "approximated-from-official-map",
+    "url": "https://resources.hkmarathon.com/marathon/SCHKM2027_Marathon_Map.jpg",
+    "note": {
+      "ko": "2026-10-26 기준 공식 GPX가 없어, 공식 2027 풀코스 지도(2026년과 같은 경로)와 홍콩 교통국의 2026년 통제 도로 목록을 따라 OpenStreetMap 도로 위에 그린 근사 경로예요. 스톤커터스 브리지·남완 터널·팅카우 브리지·청칭 터널·서구 해저터널을 모두 지나며, 도로 중심선에서 10m 안쪽의 최단 주행선으로 다듬었습니다. 측정 거리는 42.16km(-0.1%)입니다. 지도에 없는 U턴 위치는 2026년 공식 고도표와 분단 컷오프 시각에 맞춰 추정했어요. 고도는 2026년 러너 가이드의 공식 고도표(1km 간격)를 거리 비율로 옮긴 값이고, 해저터널 구간(약 -30m)도 그대로 반영했습니다. 2027년 러너 가이드나 공식 GPX가 나오면 교체합니다.",
+      "en": "No official GPX had been published as of 2026-10-26, so this is an approximate track drawn on OpenStreetMap roads from the official 2027 marathon map (same route as 2026) and the Transport Department's 2026 list of closed roads. It runs over Stonecutters Bridge, through Nam Wan Tunnel, over Ting Kau Bridge, through Cheung Tsing Tunnel and under the harbour in the Western Harbour Crossing, trimmed to the shortest line within 10 m of the road centre. It measures 42.16 km (-0.1%). U-turn points not drawn precisely on the map were estimated from the official 2026 elevation profile and the 2026 cut-off times. Elevation is the official 2026 Runner's Guide profile (1 km samples) mapped by distance, including the harbour-tunnel dip to about -30 m. It will be replaced when the 2027 Runner's Guide or an official GPX is released."
+    }
+  },
+  "pois": [
+    {
+      "km": 0,
+      "type": "landmark",
+      "name": {
+        "ko": "출발 – 침사추이 나단로드 (더 미라 호텔 앞)",
+        "en": "Start – Nathan Road, Tsim Sha Tsui (near The Mira)"
+      }
+    },
+    {
+      "km": 2.1,
+      "type": "landmark",
+      "name": {
+        "ko": "몽콕 아가일 스트리트로 좌회전",
+        "en": "Left onto Argyle Street, Mong Kok"
+      }
+    },
+    {
+      "km": 3.5,
+      "type": "turnaround",
+      "name": {
+        "ko": "린청로드 U턴 (위치 근사)",
+        "en": "Lin Cheung Road U-turn (approximate)"
+      }
+    },
+    {
+      "km": 4,
+      "type": "cutoff",
+      "name": {
+        "ko": "1차 컷오프 – 체리 스트리트×린청로드 (2026년 07:25, 마지막 출발 후 35분)",
+        "en": "Cut-off 1 – Cherry St × Lin Cheung Rd (2026: 07:25, 35 min after the last wave)"
+      }
+    },
+    {
+      "km": 10.35,
+      "type": "hill",
+      "name": {
+        "ko": "스톤커터스 브리지 (약 68m)",
+        "en": "Stonecutters Bridge (~68 m)"
+      }
+    },
+    {
+      "km": 12.8,
+      "type": "landmark",
+      "name": {
+        "ko": "남완 터널",
+        "en": "Nam Wan Tunnel"
+      }
+    },
+    {
+      "km": 15.5,
+      "type": "turnaround",
+      "name": {
+        "ko": "칭마 대교 입구 U턴 (위치 근사)",
+        "en": "U-turn at the Tsing Ma Bridge approach (approximate)"
+      }
+    },
+    {
+      "km": 16.8,
+      "type": "landmark",
+      "name": {
+        "ko": "팅카우 브리지 (나가는 길)",
+        "en": "Ting Kau Bridge (outbound)"
+      }
+    },
+    {
+      "km": 18.1,
+      "type": "turnaround",
+      "name": {
+        "ko": "칭롱 하이웨이 제4반환점",
+        "en": "Turning Point 4, Tsing Long Highway"
+      }
+    },
+    {
+      "km": 18.1,
+      "type": "cutoff",
+      "name": {
+        "ko": "2차 컷오프 – 칭롱 하이웨이 제4반환점 (2026년 09:30, 2시간 40분)",
+        "en": "Cut-off 2 – Turning Point 4, Tsing Long Hwy (2026: 09:30, 2 h 40 min)"
+      }
+    },
+    {
+      "km": 18.9,
+      "type": "hill",
+      "name": {
+        "ko": "코스 최고점 약 77m (공식 고도표 19km 지점)",
+        "en": "Highest point on the official profile, ~77 m (19 km)"
+      }
+    },
+    {
+      "km": 21.1,
+      "type": "landmark",
+      "name": {
+        "ko": "하프 지점 – 청칭 하이웨이",
+        "en": "Halfway – Cheung Tsing Highway"
+      }
+    },
+    {
+      "km": 23.1,
+      "type": "landmark",
+      "name": {
+        "ko": "청칭 터널",
+        "en": "Cheung Tsing Tunnel"
+      }
+    },
+    {
+      "km": 24.2,
+      "type": "landmark",
+      "name": {
+        "ko": "램블러 해협 다리 (칭콰이 하이웨이)",
+        "en": "Rambler Channel bridge (Tsing Kwai Highway)"
+      }
+    },
+    {
+      "km": 25,
+      "type": "food",
+      "name": {
+        "ko": "바나나·초콜릿 (2026년 기준 약 25km, 수량 한정)",
+        "en": "Banana & chocolate (2026: about 25 km, limited)"
+      }
+    },
+    {
+      "km": 27.7,
+      "type": "cutoff",
+      "name": {
+        "ko": "3차 컷오프 – 칭콰이 하이웨이 4번 출구 부근, 하프 반환점 (2026년 10:50, 4시간)",
+        "en": "Cut-off 3 – Tsing Kwai Hwy near Exit 4, half-marathon turn (2026: 10:50, 4 h)"
+      }
+    },
+    {
+      "km": 30,
+      "type": "food",
+      "name": {
+        "ko": "바나나·초콜릿 (2026년 기준 약 30km, 수량 한정)",
+        "en": "Banana & chocolate (2026: about 30 km, limited)"
+      }
+    },
+    {
+      "km": 32.6,
+      "type": "cutoff",
+      "name": {
+        "ko": "4차 컷오프 – 서구 해저터널 요금소 (2026년 11:25, 4시간 35분)",
+        "en": "Cut-off 4 – Western Harbour Crossing toll plaza (2026: 11:25, 4 h 35 min)"
+      }
+    },
+    {
+      "km": 34,
+      "type": "landmark",
+      "name": {
+        "ko": "서구 해저터널 최저점 (약 -30m)",
+        "en": "Western Harbour Crossing low point (~-30 m)"
+      }
+    },
+    {
+      "km": 35.3,
+      "type": "landmark",
+      "name": {
+        "ko": "사이완 루프 (해저터널 출구)",
+        "en": "Sai Wan loop (harbour tunnel exit)"
+      }
+    },
+    {
+      "km": 35.9,
+      "type": "cutoff",
+      "name": {
+        "ko": "5차 컷오프 – 코노트로드 웨스트 고가 (2026년 12:00, 5시간 10분)",
+        "en": "Cut-off 5 – Connaught Road West flyover (2026: 12:00, 5 h 10 min)"
+      }
+    },
+    {
+      "km": 37.4,
+      "type": "landmark",
+      "name": {
+        "ko": "센트럴 부두 지그재그 (U턴 2회)",
+        "en": "Central Piers zigzag (two U-turns)"
+      }
+    },
+    {
+      "km": 39.7,
+      "type": "landmark",
+      "name": {
+        "ko": "엑스포 드라이브 – 홍콩 컨벤션센터",
+        "en": "Expo Drive – HK Convention and Exhibition Centre"
+      }
+    },
+    {
+      "km": 40.8,
+      "type": "cutoff",
+      "name": {
+        "ko": "6차 컷오프 – 홍힝로드×마시로드 (2026년 12:40, 5시간 50분)",
+        "en": "Cut-off 6 – Hung Hing Rd × Marsh Rd (2026: 12:40, 5 h 50 min)"
+      }
+    },
+    {
+      "km": 42.195,
+      "type": "landmark",
+      "name": {
+        "ko": "결승 – 코즈웨이베이 빅토리아 공원 (2026년 12:50, 6시간)",
+        "en": "Finish – Victoria Park, Causeway Bay (2026: 12:50, 6 h)"
+      }
+    }
+  ],
+  "segments": [
+    {
+      "fromKm": 0,
+      "toKm": 5,
+      "title": {
+        "ko": "나단로드(침사추이) → 아가일 스트리트 → 린청로드 U턴 → 웨스트카오룽 고가",
+        "en": "Nathan Rd (Tsim Sha Tsui) → Argyle St → Lin Cheung Rd U-turn → West Kowloon viaduct"
+      },
+      "tip": {
+        "ko": "해 뜨기 전 어두운 나단로드를 북쪽으로 달리는 평지 구간이고, 3.5km에서 U턴합니다. 4km를 지나면 고가로 올라가는 긴 오르막이 시작되니 붐비는 초반에는 힘을 아끼세요.",
+        "en": "You head north up Nathan Road in the dark on flat ground and make a U-turn at 3.5 km. Just after 4 km the long climb onto the viaduct begins, so save energy while the field is packed."
+      }
+    },
+    {
+      "fromKm": 5,
+      "toKm": 10,
+      "title": {
+        "ko": "린청로드 → 웨스트카오룽 하이웨이 → 칭샤 하이웨이 → 스톤커터스 브리지",
+        "en": "Lin Cheung Rd → West Kowloon Hwy → Tsing Sha Hwy → Stonecutters Bridge"
+      },
+      "tip": {
+        "ko": "5km 동안 약 50m를 오르는 긴 완만한 오르막이고, 8km부터 스톤커터스 브리지까지가 가장 가파릅니다(최대 약 2%). 페이스가 떨어지는 건 정상이니 심박으로 조절하세요.",
+        "en": "Over these 5 km you climb about 50 m on a long, gentle grade, steepest from 8 km up to Stonecutters Bridge (about 2% at most). A slower pace here is normal, so run by effort."
+      }
+    },
+    {
+      "fromKm": 10,
+      "toKm": 15,
+      "title": {
+        "ko": "스톤커터스 브리지 → 남완 터널 → 북서 칭이 인터체인지",
+        "en": "Stonecutters Bridge → Nam Wan Tunnel → North West Tsing Yi Interchange"
+      },
+      "tip": {
+        "ko": "68m 높이의 다리 위는 바닷바람을 그대로 받고, 이어지는 남완 터널(약 1.3km)에서는 GPS가 끊깁니다. 터널을 나오면 칭마 대교 쪽으로 약 25m를 다시 올라갑니다.",
+        "en": "The bridge deck, about 68 m up, is fully exposed to sea wind, and GPS drops out in the 1.3 km Nam Wan Tunnel that follows. After the tunnel you climb about 25 m again toward the Tsing Ma Bridge."
+      }
+    },
+    {
+      "fromKm": 15,
+      "toKm": 20,
+      "title": {
+        "ko": "칭마 대교 입구 U턴 → 팅카우 브리지 → 칭롱 하이웨이 반환 → 팅카우 브리지",
+        "en": "Tsing Ma approach U-turn → Ting Kau Bridge → Tsing Long Hwy turn → Ting Kau Bridge"
+      },
+      "tip": {
+        "ko": "15.5km와 18.1km 두 번 U턴하고, 팅카우 브리지를 왕복하며 코스 최고점(약 77m)을 지납니다. 다리 위 왕복 구간이라 바람과 맞은편 주자에 주의하고, 반환점의 계측 매트를 꼭 밟으세요.",
+        "en": "You U-turn twice, at 15.5 km and 18.1 km, and cross Ting Kau Bridge both ways past the course high point (about 77 m). Watch the wind and the runners coming back on this two-way bridge, and make sure you cross the timing mat at each turn."
+      }
+    },
+    {
+      "fromKm": 20,
+      "toKm": 25,
+      "title": {
+        "ko": "팅카우 브리지 남단 → 청칭 하이웨이(하프 지점) → 청칭 터널 → 램블러 해협 다리",
+        "en": "Ting Kau Bridge south end → Cheung Tsing Hwy (halfway) → Cheung Tsing Tunnel → Rambler Channel bridge"
+      },
+      "tip": {
+        "ko": "약 40m를 내려가는 구간으로, 1.6km 길이의 청칭 터널 안에서도 계속 완만하게 내려갑니다. 내리막에서 속도를 내기보다 다리를 아끼고, 24km 다리 오르막(약 12m)은 짧게 넘기세요.",
+        "en": "You drop about 40 m here, including a steady gentle descent through the 1.6 km Cheung Tsing Tunnel. Save your legs on the downhill rather than banking time, and keep the short 12 m climb onto the bridge at 24 km compact."
+      }
+    },
+    {
+      "fromKm": 25,
+      "toKm": 30,
+      "title": {
+        "ko": "콰이청 곡선 → 칭콰이 하이웨이 → 메이푸(하프 반환점) → 웨스트카오룽 하이웨이",
+        "en": "Kwai Chung bend → Tsing Kwai Hwy → Mei Foo (half-marathon turn) → West Kowloon Hwy"
+      },
+      "tip": {
+        "ko": "완만한 내리막 뒤 20m 안팎의 고가가 평탄하게 이어지는, 리듬을 되찾기 좋은 구간입니다. 25km와 30km 부근에서 바나나·초콜릿을 받을 수 있었고(2026년 기준), 웨스트카오룽 하이웨이부터는 하프 코스와 길이 합쳐집니다.",
+        "en": "After a gentle descent the viaduct stays flat at around 20 m, a good place to settle back into rhythm. In 2026 banana and chocolate were offered near 25 and 30 km, and the half-marathon route joins on the West Kowloon Highway."
+      }
+    },
+    {
+      "fromKm": 30,
+      "toKm": 35,
+      "title": {
+        "ko": "웨스트카오룽 하이웨이 → 해저터널 요금소 → 서구 해저터널 → 사이완 출구",
+        "en": "West Kowloon Hwy → harbour tunnel toll plaza → Western Harbour Crossing → Sai Wan exit"
+      },
+      "tip": {
+        "ko": "해저터널로 약 30m를 내려간 뒤, 34~35km에 터널 출구까지 약 30m를 올라가는 이 코스에서 가장 가파른 오르막(평균 약 3%)이 나옵니다. 터널 안은 공기가 탁하고 GPS가 끊기니 보폭을 줄이고 km 표지판을 기준으로 달리세요.",
+        "en": "You drop about 30 m into the harbour tunnel, then face the steepest climb of the course, about 30 m up to the exit between 34 and 35 km (about 3% on average). The air inside is stale and GPS drops out, so shorten your stride and pace off the km markers."
+      }
+    },
+    {
+      "fromKm": 35,
+      "toKm": 40,
+      "title": {
+        "ko": "사이완 루프 → 코노트로드 웨스트 고가 → 센트럴 부두 지그재그 → 룽워로드",
+        "en": "Sai Wan loop → Connaught Rd West flyover → Central Piers zigzag → Lung Wo Rd"
+      },
+      "tip": {
+        "ko": "터널을 나오자마자 고가로 약 15m를 더 오르고, 센트럴 부두에서 짧은 U턴 두 번이 있는 지그재그를 지납니다. 피로가 쌓인 시점이라 회전 구간에서는 감속하고, 룽워로드의 완만한 내리막에서 리듬을 되찾으세요.",
+        "en": "Right after the tunnel you climb about 15 m more onto the flyover, then run a zigzag along the Central Piers with two tight U-turns. Fatigue is building, so slow down for the turns and find your rhythm again on the gentle descent of Lung Wo Road."
+      }
+    },
+    {
+      "fromKm": 40,
+      "toKm": 42.195,
+      "title": {
+        "ko": "엑스포 드라이브(컨벤션센터) → 홍힝로드 → 록하트로드 → 헤네시로드 → 빅토리아 공원 결승",
+        "en": "Expo Dr (Convention Centre) → Hung Hing Rd → Lockhart Rd → Hennessy Rd → Victoria Park finish"
+      },
+      "tip": {
+        "ko": "완전한 평지지만 완차이·코즈웨이베이 도심에서 직각 회전이 여러 번 있습니다. 응원이 가장 많은 구간이니 코너를 짧게 돌며 공원 안 결승선까지 페이스를 지키세요.",
+        "en": "It is completely flat, but there are several right-angle turns through Wan Chai and Causeway Bay. The crowds are biggest here, so take the corners tight and hold your pace to the finish inside the park."
+      }
+    }
+  ],
+  "notes": {
+    "ko": [
+      "대회일은 2027년 1월 17일(일)입니다. 풀코스는 세 그룹으로 나눠 출발합니다: 마라톤 챌린지(시니어·마스터 1~8, 상금 경쟁 그룹) 06:00, 마라톤 런 1 06:25, 마라톤 런 2 06:50. 그룹은 신청 때 낸 예상 기록으로 배정됩니다. 2026년에는 배정된 그룹이 아닌 때 출발하면 실격이었고, 각 그룹의 출발 마감은 출발 10분 뒤였습니다.",
+      "제한시간은 6시간입니다. 2026년 러너 가이드에는 분단 컷오프가 6곳 있었고(POI 참조), 시각은 마지막 그룹(06:50 출발) 기준이었습니다. 2027년 러너 가이드는 2026-10-26 기준 아직 공개되지 않았으니 컷오프 위치·시각은 가이드가 나오면 다시 확인하세요. 컷오프에 걸리면 대회 버스로 빅토리아 공원까지 이동합니다.",
+      "출발은 침사추이 나단로드입니다. 2026년에는 더 미라 호텔 앞에 출발선이 있었고 출발 구역은 하이퐁로드~킴벌리로드 사이였습니다. 짐 보관은 침사추이 스타페리 버스터미널에서 받았고 각 출발 25분 전에 마감했어요(2026년 권장 도착 04:50·05:15·05:40). 주최 측은 출발 70분 전 도착을 권합니다.",
+      "결승은 코즈웨이베이 빅토리아 공원입니다. 2026년에는 짐 찾기가 공원 5~6번 축구장(14:00 마감), 가족·친구와의 만남 장소가 코즈웨이베이 운동장이었습니다.",
+      "2026년 대회 날에는 MTR 8개 노선이 첫차를 앞당겨 03:25(동철선·툰마선)부터 운행했고 침사추이에 04:20~04:36쯤 도착했습니다. 특별 버스 28개 노선도 운행했어요. 2027년 교통 안내는 아직 발표되지 않았습니다.",
+      "2027년 공식 코스 지도는 2026년과 같은 경로입니다. 스톤커터스 브리지와 팅카우 브리지를 건너고, 칭마 대교 입구에서 U턴하며, 터널 세 개(남완·청칭·서구 해저터널)를 지납니다. 2026년 공식 고도표 기준 최고점은 약 77m(19km 부근), 최저점은 해저터널 안 약 -30m(34km 부근)입니다. 1km 간격 고도표로 계산한 누적 상승은 약 176m, 하강은 약 185m입니다.",
+      "남완(약 1.3km)·청칭(약 1.6km)·서구 해저터널(약 1.9km) 안에서는 GPS 시계가 거리를 놓쳐 페이스가 튈 수 있습니다. 1km마다 있는 거리 표지판을 기준으로 삼으세요.",
+      "2027년 급수 위치는 아직 공개되지 않았습니다. 2026년에는 출발·결승과 코스 곳곳의 급수대에서 물을 줬고(공식 지도상 대략 2~3km 간격), 10km 이후 급수대에서는 스포츠음료도 함께 줬습니다. 바나나·초콜릿은 약 25km·30km에서 요청하면 받을 수 있었어요(수량 한정). 2026년 지도에는 스펀지 지점이 없었습니다.",
+      "2026년에는 모든 급수대와 출발·결승에 구급소가 있었고 구급 자전거가 코스를 순회했습니다. 이동식 화장실은 급수대와 코스 곳곳에 있었어요. 반환점마다 계측 매트가 있어 기록이 빠지면 실격입니다.",
+      "1월 홍콩 평년값(홍콩 천문대 1991~2020)은 일 최저 14.6°C, 일 최고 18.7°C, 평균 습도 74%(새벽 2시 78%), 강수량 33.2mm(5.7일)입니다. 동풍 계열이 우세하고, 바다 위 다리에서는 바람이 훨씬 강합니다(와글란섬 평균 풍속 25km/h).",
+      "경기일 일출은 약 07:05, 시민박명 시작은 약 06:41입니다(NOAA 태양 계산식으로 산출). 출발 그룹에 따라 처음 15~65분은 어둠 속에서 달립니다.",
+      "2026년 규정상 경기일 새벽 3시 이후 태풍 신호 3호 이상, 또는 적색·흑색 호우 경보가 발령되면 대회가 취소됐습니다.",
+      "엑스포와 배번 수령은 2027년 1월 13~16일입니다. 2025·2026년에는 카이탁 아레나에서 열렸어요. 12월 말 수령 안내 메일이 오고, 1월 초에 수령 시간을 예약합니다."
+    ],
+    "en": [
+      "Race day is Sunday 17 January 2027. The marathon starts in three waves: Marathon Challenge (Senior and Master 1–8, the prize group) at 06:00, Marathon Run 1 at 06:25 and Marathon Run 2 at 06:50. Waves are assigned from your estimated finish time. In 2026, starting outside your wave meant disqualification, and each wave's start closed 10 minutes after its gun.",
+      "The time limit is 6 hours. The 2026 Runner's Guide had six intermediate cut-off points (see POIs), timed from the last wave's 06:50 start. The 2027 Runner's Guide had not been published as of 2026-10-26, so re-check cut-off places and times when it comes out. Runners who miss a cut-off are taken to Victoria Park by official bus.",
+      "The start is on Nathan Road, Tsim Sha Tsui. In 2026 the start line was near The Mira, with the start zone between Haiphong Road and Kimberley Road. Bag deposit was at the Star Ferry bus terminus in Tsim Sha Tsui and closed 25 minutes before each wave (suggested arrival in 2026: 04:50, 05:15, 05:40). The organiser asks runners to arrive 70 minutes before their start.",
+      "The finish is in Victoria Park, Causeway Bay. In 2026 bag collection was at soccer pitches 5–6 in the park (closing 14:00), and the meeting point for family and friends was Causeway Bay Sports Ground.",
+      "On race morning in 2026, eight MTR lines ran early trains from 03:25 (East Rail and Tuen Ma lines), reaching Tsim Sha Tsui at about 04:20–04:36, and 28 special bus routes ran. The 2027 transport plan has not been announced yet.",
+      "The official 2027 map shows the same route as 2026: over Stonecutters and Ting Kau bridges, a U-turn at the Tsing Ma Bridge approach, and three tunnels (Nam Wan, Cheung Tsing, Western Harbour Crossing). On the official 2026 profile the high point is about 77 m (near 19 km) and the low point about -30 m in the harbour tunnel (near 34 km). Gain is about 176 m, loss about 185 m.",
+      "GPS watches lose distance inside the Nam Wan (about 1.3 km), Cheung Tsing (about 1.6 km) and Western Harbour (about 1.9 km) tunnels, so pace readings can jump. Use the distance markers placed every kilometre.",
+      "Aid-station positions for 2027 have not been published. In 2026 water was served at the start, the finish and stations along the course (roughly every 2–3 km on the official map), with sports drink as well at stations after 10 km. Banana and chocolate were available on request at about 25 km and 30 km (limited). The 2026 map showed no sponge stations.",
+      "In 2026 there was first aid at the start, the finish and every water station, plus first-aid bicycles on the course. Mobile toilets were at water stations and along the route. Every turning point has a timing mat, and a missing record means disqualification.",
+      "Hong Kong Observatory normals for January (1991–2020): mean daily minimum 14.6°C, maximum 18.7°C, mean humidity 74% (78% at 2 am), rainfall 33.2 mm over 5.7 days. Winds are mostly easterly and much stronger on the sea bridges (Waglan Island mean 25 km/h).",
+      "On race day sunrise is around 07:05 and civil dawn around 06:41 (computed with the NOAA solar algorithm), so you run the first 15–65 minutes in the dark depending on your wave.",
+      "Under the 2026 rules the race was cancelled if Typhoon Signal No. 3 or higher, or a Red or Black Rainstorm Warning, was in force at or after 3 am on race day.",
+      "The Expo and race-pack collection run 13–16 January 2027. In 2025 and 2026 the Expo was at Kai Tak Arena. A collection email is sent in late December, and pick-up slots are booked in early January."
+    ]
+  },
+  "sources": [
+    "https://www.hkmarathon.com/race-information",
+    "https://www.hkmarathon.com/course-maps",
+    "https://resources.hkmarathon.com/marathon/SCHKM2027_Marathon_Map.jpg",
+    "https://www.hkmarathon.com/important-dates",
+    "https://resources.hkmarathon.com/runner-guide/SCHKM2026_Runner%27s%20Guide_Marathon_FINAL_v2.pdf",
+    "https://resources.hkmarathon.com/runner-guide/SCHKM2026_Important%20Notice_Marathon_FINAL_v2.pdf",
+    "https://resources.hkmarathon.com/file/Standard%20Chartered%20Hong%20Kong%20Marathon%202027%20Main%20race%20quota%20reaches%20record%20high%20of%2078,000%20Brand-new%20%E2%80%9C5km%20Harbourfront%20Run%E2%80%9D.pdf",
+    "https://resources.hkmarathon.com/file/Standard%20Chartered%20Hong%20Kong%20Marathon%202027%20Main%20race%20registration%20reaches%20a%20record%20high%20of%20over%20140,000%20entries.pdf",
+    "https://www.info.gov.hk/gia/general/202601/12/P2026011200455.htm",
+    "https://www.hko.gov.hk/en/cis/normal/1991_2020/normals.htm",
+    "https://www.openstreetmap.org/copyright"
+  ],
+  "live": null
+}
