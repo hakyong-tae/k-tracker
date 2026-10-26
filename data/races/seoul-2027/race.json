@@ -1,0 +1,507 @@
+{
+  "slug": "seoul-2027",
+  "name": {
+    "ko": "2027 서울마라톤 (제97회 동아마라톤)",
+    "en": "2027 Seoul Marathon (97th Dong-A Marathon)"
+  },
+  "date": "2027-03-21",
+  "startTime": "07:30",
+  "timezone": "Asia/Seoul",
+  "country": "KR",
+  "city": {
+    "ko": "서울",
+    "en": "Seoul"
+  },
+  "distance": "full",
+  "officialUrl": "https://seoul-marathon.com/",
+  "cutoff": "5:00",
+  "courseSource": {
+    "type": "approximated-from-official-map",
+    "url": "https://seoul-marathon.com/94/?bmode=view&idx=170393832",
+    "note": {
+      "ko": "2027년 코스도가 아직 공개되지 않아(2026-10-26 기준) 2026년 코스를 기준으로 했어요. 공식 2026 코스도와 공식 교통통제 안내의 교차로별 km 표를 따라 OpenStreetMap 도로 위에 그린 근사 경로이고, 도로 중심선에서 10 m 안쪽의 최단 주행선으로 다듬었어요. 측정 거리는 42.10 km(−0.2%)이고, 공식 km 표와 61곳 중 58곳이 0.2 km 안에서 맞습니다. 고도는 2026년 공식 코스도의 고도표를 옮겨 살짝 평활화한 값이에요. 2027년 공식 코스도나 GPX가 나오면 교체합니다.",
+      "en": "The 2027 course map had not been published as of 2026-10-26, so this follows the 2026 course. It is an approximate track drawn on OpenStreetMap roads from the official 2026 course map and the intersection-by-km table in the official traffic-control notice, trimmed to the shortest line within 10 m of the road centre. It measures 42.10 km (−0.2%), and 58 of 61 official km points match within 0.2 km. Elevation is digitised from the chart on the official 2026 course map and lightly smoothed. It will be replaced once a 2027 course map or GPX is released."
+    }
+  },
+  "pois": [
+    {
+      "km": 0,
+      "type": "landmark",
+      "name": {
+        "ko": "출발 – 광화문광장 (세종대로, 미국대사관 앞)",
+        "en": "Start – Gwanghwamun Square (Sejong-daero, by the US Embassy)"
+      }
+    },
+    {
+      "km": 1.2,
+      "type": "landmark",
+      "name": {
+        "ko": "숭례문 – 남대문로로 급회전",
+        "en": "Sungnyemun Gate – hairpin onto Namdaemun-ro"
+      }
+    },
+    {
+      "km": 2.1,
+      "type": "landmark",
+      "name": {
+        "ko": "을지로입구역 – 을지로 진입",
+        "en": "Euljiro 1-ga Station – onto Eulji-ro"
+      }
+    },
+    {
+      "km": 4.9,
+      "type": "landmark",
+      "name": {
+        "ko": "DDP(동대문디자인플라자) 순환",
+        "en": "Loop around DDP (Dongdaemun Design Plaza)"
+      }
+    },
+    {
+      "km": 5,
+      "type": "water",
+      "name": null
+    },
+    {
+      "km": 5,
+      "type": "sports-drink",
+      "name": {
+        "ko": "포카리스웨트",
+        "en": "Pocari Sweat"
+      }
+    },
+    {
+      "km": 7.5,
+      "type": "sponge",
+      "name": null
+    },
+    {
+      "km": 8.7,
+      "type": "landmark",
+      "name": {
+        "ko": "광교 – 청계천로 진입",
+        "en": "Gwanggyo – onto Cheonggyecheon-ro"
+      }
+    },
+    {
+      "km": 10,
+      "type": "water",
+      "name": null
+    },
+    {
+      "km": 10,
+      "type": "sports-drink",
+      "name": {
+        "ko": "포카리스웨트",
+        "en": "Pocari Sweat"
+      }
+    },
+    {
+      "km": 12.5,
+      "type": "sponge",
+      "name": null
+    },
+    {
+      "km": 13.8,
+      "type": "turnaround",
+      "name": {
+        "ko": "고산자교 반환점",
+        "en": "Gosanja Bridge U-turn"
+      }
+    },
+    {
+      "km": 15,
+      "type": "water",
+      "name": null
+    },
+    {
+      "km": 15,
+      "type": "sports-drink",
+      "name": {
+        "ko": "포카리스웨트",
+        "en": "Pocari Sweat"
+      }
+    },
+    {
+      "km": 17.5,
+      "type": "sponge",
+      "name": null
+    },
+    {
+      "km": 19.1,
+      "type": "landmark",
+      "name": {
+        "ko": "종로구청입구 – 종로 진입",
+        "en": "Jongno-gu Office junction – onto Jong-ro"
+      }
+    },
+    {
+      "km": 20,
+      "type": "water",
+      "name": null
+    },
+    {
+      "km": 20,
+      "type": "sports-drink",
+      "name": {
+        "ko": "포카리스웨트",
+        "en": "Pocari Sweat"
+      }
+    },
+    {
+      "km": 20,
+      "type": "food",
+      "name": {
+        "ko": "간식 (품목 변동 가능)",
+        "en": "Snacks (items may change)"
+      }
+    },
+    {
+      "km": 21.8,
+      "type": "landmark",
+      "name": {
+        "ko": "흥인지문 (동대문)",
+        "en": "Heunginjimun (Dongdaemun Gate)"
+      }
+    },
+    {
+      "km": 22.5,
+      "type": "sponge",
+      "name": null
+    },
+    {
+      "km": 23.1,
+      "type": "landmark",
+      "name": {
+        "ko": "신설동역 오거리 – 천호대로 진입",
+        "en": "Sinseol-dong Station junction – onto Cheonho-daero"
+      }
+    },
+    {
+      "km": 25,
+      "type": "water",
+      "name": null
+    },
+    {
+      "km": 25,
+      "type": "sports-drink",
+      "name": {
+        "ko": "포카리스웨트",
+        "en": "Pocari Sweat"
+      }
+    },
+    {
+      "km": 25.5,
+      "type": "landmark",
+      "name": {
+        "ko": "신답역 (엘리트는 지하차도 위, 마스터스는 지하차도 아래)",
+        "en": "Sindap Station (elites over the underpass, masters through it)"
+      }
+    },
+    {
+      "km": 27.5,
+      "type": "sponge",
+      "name": null
+    },
+    {
+      "km": 28.2,
+      "type": "landmark",
+      "name": {
+        "ko": "군자교 (중랑천)",
+        "en": "Gunja Bridge (Jungnangcheon stream)"
+      }
+    },
+    {
+      "km": 28.9,
+      "type": "landmark",
+      "name": {
+        "ko": "군자역 – 능동로 진입",
+        "en": "Gunja Station – onto Neungdong-ro"
+      }
+    },
+    {
+      "km": 29.8,
+      "type": "landmark",
+      "name": {
+        "ko": "어린이대공원역 – 광나루로 진입",
+        "en": "Children's Grand Park Station – onto Gwangnaru-ro"
+      }
+    },
+    {
+      "km": 30,
+      "type": "water",
+      "name": null
+    },
+    {
+      "km": 30,
+      "type": "sports-drink",
+      "name": {
+        "ko": "포카리스웨트",
+        "en": "Pocari Sweat"
+      }
+    },
+    {
+      "km": 30,
+      "type": "food",
+      "name": {
+        "ko": "간식 (품목 변동 가능)",
+        "en": "Snacks (items may change)"
+      }
+    },
+    {
+      "km": 32.5,
+      "type": "sponge",
+      "name": null
+    },
+    {
+      "km": 32.6,
+      "type": "landmark",
+      "name": {
+        "ko": "성동교 (중랑천)",
+        "en": "Seongdong Bridge (Jungnangcheon stream)"
+      }
+    },
+    {
+      "km": 33.6,
+      "type": "landmark",
+      "name": {
+        "ko": "서울숲 입구 – 뚝섬로 진입",
+        "en": "Seoul Forest entrance – onto Ttukseom-ro"
+      }
+    },
+    {
+      "km": 35,
+      "type": "water",
+      "name": null
+    },
+    {
+      "km": 35,
+      "type": "sports-drink",
+      "name": {
+        "ko": "포카리스웨트",
+        "en": "Pocari Sweat"
+      }
+    },
+    {
+      "km": 37.5,
+      "type": "sponge",
+      "name": null
+    },
+    {
+      "km": 37.6,
+      "type": "landmark",
+      "name": {
+        "ko": "잠실대교 북단 – 한강 횡단 시작",
+        "en": "Jamsil Bridge north end – Han River crossing"
+      }
+    },
+    {
+      "km": 39.7,
+      "type": "landmark",
+      "name": {
+        "ko": "잠실대교 남단",
+        "en": "Jamsil Bridge south end"
+      }
+    },
+    {
+      "km": 40.0,
+      "type": "landmark",
+      "name": {
+        "ko": "잠실역 – 올림픽로 진입",
+        "en": "Jamsil Station – onto Olympic-ro"
+      }
+    },
+    {
+      "km": 40,
+      "type": "water",
+      "name": null
+    },
+    {
+      "km": 40,
+      "type": "sports-drink",
+      "name": {
+        "ko": "포카리스웨트",
+        "en": "Pocari Sweat"
+      }
+    },
+    {
+      "km": 41.9,
+      "type": "landmark",
+      "name": {
+        "ko": "종합운동장 사거리",
+        "en": "Sports Complex junction"
+      }
+    },
+    {
+      "km": 42.195,
+      "type": "landmark",
+      "name": {
+        "ko": "결승 – 잠실종합운동장 동문",
+        "en": "Finish – Jamsil Sports Complex East Gate"
+      }
+    }
+  ],
+  "segments": [
+    {
+      "fromKm": 0,
+      "toKm": 5,
+      "title": {
+        "ko": "광화문광장 → 숭례문 → 을지로 → DDP",
+        "en": "Gwanghwamun Square → Sungnyemun → Eulji-ro → DDP"
+      },
+      "tip": {
+        "ko": "세종대로를 따라 1.2 km 숭례문까지 내려간 뒤 거의 되돌아가듯 급하게 꺾어 을지로로 들어갑니다. 공식 고도표상 숭례문 부근이 코스 최고점(약 34 m)이고 이후 4 km까지 13 m쯤 내려가니, 붐비는 초반에는 내리막에 속도를 맡기지 마세요.",
+        "en": "Head down Sejong-daero to Sungnyemun (1.2 km), then take a near-hairpin turn onto Eulji-ro. The official profile puts the high point (about 34 m) near the gate and drops about 13 m to 4 km, so don't let the downhill and the crowd set your pace."
+      }
+    },
+    {
+      "fromKm": 5,
+      "toKm": 10,
+      "title": {
+        "ko": "DDP 순환 → 을지로입구 → 광교 → 청계천로",
+        "en": "DDP loop → Euljiro 1-ga → Gwanggyo → Cheonggyecheon-ro"
+      },
+      "tip": {
+        "ko": "DDP를 한 바퀴 돌아 을지로를 거꾸로 달리고, 8.1 km 시청 앞에서 오른쪽으로 꺾어 청계천로에 들어섭니다. 코너가 잦고 공식 고도표상 약 15 m를 내려가는 구간이라, 꺾을 때마다 안쪽 선을 잡되 페이스는 고르게 지키세요.",
+        "en": "After looping around DDP you run Eulji-ro back west, then turn right by City Hall at 8.1 km onto Cheonggyecheon-ro. Corners come often and the official profile drops about 15 m here, so take the inside line at each turn but keep your pace even."
+      }
+    },
+    {
+      "fromKm": 10,
+      "toKm": 15,
+      "title": {
+        "ko": "청계4가 → 청계8가 → 고산자교 반환 → 청계9가",
+        "en": "Cheonggye 4-ga → Cheonggye 8-ga → Gosanja Bridge U-turn → Cheonggye 9-ga"
+      },
+      "tip": {
+        "ko": "청계천을 따라 동쪽으로 가다 13.8 km 고산자교를 건너 U턴하고 맞은편 길로 돌아옵니다. 하천 옆 좁은 일방 도로라 반환점에서 밀리기 쉽고, 공식 고도표상 15 km까지 약 18 m 서서히 오르니 반환 후 무리해서 치고 나가지 마세요.",
+        "en": "Follow the Cheonggyecheon stream east, cross Gosanja Bridge and U-turn at 13.8 km, then come back on the other bank. The stream-side road is narrow and one-way, so the turn gets crowded, and the official profile climbs about 18 m slowly to 15 km; don't surge out of the U-turn."
+      }
+    },
+    {
+      "fromKm": 15,
+      "toKm": 20,
+      "title": {
+        "ko": "청계7가 → 청계3가 → 광교 → 종로구청입구 → 종로2가",
+        "en": "Cheonggye 7-ga → Cheonggye 3-ga → Gwanggyo → Jongno-gu Office junction → Jong-ro 2-ga"
+      },
+      "tip": {
+        "ko": "청계천로를 서쪽으로 되짚어 오며 공식 고도표상 약 19 m 내려가는, 페이스를 되찾기 좋은 구간입니다. 19.1 km에서 오른쪽, 곧바로 다시 오른쪽으로 꺾어 종로에 올라타니 두 번 연속 코너를 미리 준비하세요.",
+        "en": "Retracing Cheonggyecheon-ro west, the official profile drops about 19 m, a good stretch to settle back into pace. At 19.1 km you turn right and almost immediately right again onto Jong-ro, so be ready for the double corner."
+      }
+    },
+    {
+      "fromKm": 20,
+      "toKm": 25,
+      "title": {
+        "ko": "종로3가 → 흥인지문 → 신설동역 오거리 → 동대문구청",
+        "en": "Jong-ro 3-ga → Heunginjimun → Sinseol-dong junction → Dongdaemun-gu Office"
+      },
+      "tip": {
+        "ko": "넓고 곧은 종로를 따라 동쪽으로 달려 하프를 지나고, 21.8 km 흥인지문을 돌아 23.1 km 신설동역 오거리에서 천호대로로 들어섭니다. 고저 차가 거의 없는 평지이니 이 구간에서 목표 페이스를 굳히세요.",
+        "en": "Wide, straight Jong-ro takes you east past halfway, around Heunginjimun Gate at 21.8 km and onto Cheonho-daero at the Sinseol-dong junction (23.1 km). It is almost flat, so lock in your goal pace here."
+      }
+    },
+    {
+      "fromKm": 25,
+      "toKm": 30,
+      "title": {
+        "ko": "신답역 → 장한평역 → 군자교 → 군자역 → 어린이대공원역",
+        "en": "Sindap Station → Janghanpyeong Station → Gunja Bridge → Gunja Station → Children's Grand Park Station"
+      },
+      "tip": {
+        "ko": "천호대로 직선을 따라가다 25.5 km 신답 지하차도를 지나고(2026년에는 마스터스가 지하차도 아래로 통과), 28.2 km 군자교에서 중랑천을 건넙니다. 28.9 km 군자역에서 오른쪽으로 꺾어 능동로를 내려가니 다리 진입 오르막에서만 힘을 조금 더 쓰세요.",
+        "en": "Cheonho-daero stays straight past the Sindap underpass at 25.5 km (in 2026 masters ran through it), then crosses the Jungnangcheon stream on Gunja Bridge at 28.2 km. Turn right at Gunja Station (28.9 km) down Neungdong-ro; spend a little extra effort only on the bridge ramps."
+      }
+    },
+    {
+      "fromKm": 30,
+      "toKm": 35,
+      "title": {
+        "ko": "광나루로 → 화양사거리 → 성동교 → 서울숲 → 뚝섬로",
+        "en": "Gwangnaru-ro → Hwayang junction → Seongdong Bridge → Seoul Forest → Ttukseom-ro"
+      },
+      "tip": {
+        "ko": "어린이대공원역에서 서쪽 광나루로를 따라가다 32.6 km 성동교에서 왼쪽으로 꺾어 중랑천을 건너고, 33.6 km 서울숲 입구에서 뚝섬로로 들어섭니다. 평탄하지만 30 km 이후라 지치기 쉬우니 앞사람을 따라 리듬을 유지하세요.",
+        "en": "From Children's Grand Park Station Gwangnaru-ro heads west; turn left over Seongdong Bridge (Jungnangcheon) at 32.6 km and join Ttukseom-ro at the Seoul Forest entrance (33.6 km). It is flat, but fatigue sets in past 30 km, so tuck in behind other runners and keep your rhythm."
+      }
+    },
+    {
+      "fromKm": 35,
+      "toKm": 40,
+      "title": {
+        "ko": "영동대교 북단 → 잠실대교 → 잠실역",
+        "en": "Yeongdong Bridge north end → Jamsil Bridge → Jamsil Station"
+      },
+      "tip": {
+        "ko": "뚝섬로를 따라 공식 고도표상 약 10 m 오른 뒤 37.6 km부터 잠실대교로 한강을 건넙니다. 다리 위는 강바람을 그대로 맞으니 무리 지어 달리고, 다리를 내려와 40 km 잠실역에서 오른쪽으로 꺾으세요.",
+        "en": "Ttukseom-ro rises about 10 m on the official profile before you cross the Han River on Jamsil Bridge from 37.6 km. The bridge is fully exposed to river wind, so run in a group, then come off it and turn right at Jamsil Station (40 km)."
+      }
+    },
+    {
+      "fromKm": 40,
+      "toKm": 42.195,
+      "title": {
+        "ko": "잠실역 → 잠실새내역 → 종합운동장 사거리 → 잠실종합운동장 동문",
+        "en": "Jamsil Station → Jamsil Saenae Station → Sports Complex junction → Jamsil Sports Complex East Gate"
+      },
+      "tip": {
+        "ko": "올림픽로를 따라 서쪽으로 곧게 달리는 평지 마무리입니다. 41.9 km 종합운동장 사거리에서 오른쪽으로 꺾어 약 300 m 가면 동문 결승선이니, 마지막 코너 전까지 스퍼트를 아껴 두세요.",
+        "en": "A flat, straight finish west along Olympic-ro. Turn right at the Sports Complex junction (41.9 km) and the East Gate finish is about 300 m on, so save your kick until after that last corner."
+      }
+    }
+  ],
+  "notes": {
+    "ko": [
+      "대회일은 2027년 3월 21일(일)로 공식 홈페이지 대회개요·유의사항·공지에 나와 있습니다(2027 서울마라톤 겸 제97회 동아마라톤).",
+      "2027년 코스도는 2026-10-26 기준 '추후 공개 예정'입니다. 이 페이지는 2026년 코스(광화문광장 → 잠실종합운동장)를 그대로 썼습니다. 2027년 풀코스 집결지도 광화문광장(예정)이라 같은 코스일 가능성이 높지만, 공식 코스도가 나오면 다시 확인합니다.",
+      "2027년 출발 시각은 아직 발표되지 않았고, 집결은 06:30(예정)입니다. 2026년에는 서울시 지침으로 08:00에서 07:30으로 당겨졌으며 이 페이지도 07:30으로 두었습니다.",
+      "풀코스는 명예의 전당(S그룹) 다음 A~H그룹 순으로 출발하고 기록은 넷타임입니다. 배정된 그룹보다 앞 그룹에서 출발하면 실격이고, 뒤 그룹으로 옮기는 것은 됩니다. 2026년에는 세종대로의 엘리트 출발선 뒤로 명예의 전당, A그룹, B그룹… 순으로 대기 구역이 이어졌습니다.",
+      "제한 시간은 풀코스 5시간으로 엄격히 적용되며, 거리별 제한시간이 지나면 교통통제가 풀립니다. 2027년 지점별 제한시간은 아직 없습니다. 참고로 2026년 교통통제 해제 시각은 청계4가(10.1 km) 09:10, 종로5가(21.2 km) 10:28, 화양삼거리(30.2 km) 11:31, 잠실대교 북단(37.6 km) 12:22, 잠실역(40 km) 12:40이었습니다(공식 제한시간이 아니라 도로 재개방 시각입니다).",
+      "급수: 5 km마다(8곳)와 결승점에서 생수와 이온음료, 7.5 km부터 5 km마다 스펀지, 20·30 km에서 간식을 줍니다(품목·지점 변동 가능). 2026년 풀코스 급수대는 한 곳이 약 135 m, 테이블 25개였고 포카리스웨트가 앞쪽, 생수가 뒤쪽에 있었습니다.",
+      "의료는 주요 지점에 구급차와 의료 지원을 둔다고만 안내돼 있어 km 위치는 넣지 않았습니다. 화장실도 2026년 코스도에 급수대 근처로 표시돼 있었지만 정확한 위치는 2027년 안내를 확인하세요.",
+      "물품보관: 2026년에는 광화문에서 06:00~07:00에 맡기고(06:30 전 도착 권장) 잠실에서 10:00~13:30에 찾았습니다. 집결지에 탈의실이 있습니다. 2027년 세부 안내는 아직 없습니다.",
+      "교통: 광화문광장과 잠실종합운동장 모두 주차가 안 되니 지하철을 이용하세요. 출발지는 5호선 광화문역, 결승지는 2호선 종합운동장역이 가깝습니다. 2026년에는 05:00~14:30 코스 구간별로 차량이 통제됐고, 광주·대구·대전·부산에서 오가는 셔틀버스(티머니GO 예약)가 운영됐습니다.",
+      "번호표와 기념품은 국내 참가자에게 대회 전 택배로 보내고, 해외 참가자는 대회 전 2027 서울마라톤 엑스포에서 직접 받아야 합니다.",
+      "3월 하순 서울 아침은 쌀쌀해서 출발 무렵 기온이 대략 0~7°C, 낮 최고는 10~15°C 안팎입니다. 바람이 불거나 미세먼지·황사가 낄 수 있으니 버릴 옷과 장갑을 챙기세요. 3월 21일 서울 일출은 약 06:36, 시민박명 시작은 약 06:10이라(NOAA 태양 계산식) 출발 때는 밝습니다.",
+      "코스에는 반환점이 한 곳(고산자교 13.8 km) 있고, 숭례문(1.2 km) 급회전과 DDP 순환(4.3~5.5 km)이 있습니다. 중랑천을 두 번(군자교 28.2 km, 성동교 32.6 km), 한강을 한 번(잠실대교 37.6~39.7 km) 건넙니다.",
+      "기록은 2026년 런카이브(record.runarchive.com)에서 조회했습니다. MyResult·SPCT에는 2027 서울마라톤 대회가 없어 실시간 응원 링크는 넣지 않았습니다.",
+      "공식 GPX가 없어 경로는 근사값입니다. 2026년 공식 교통통제 안내의 교차로별 km와 비교해 61곳 중 58곳이 0.2 km 안에서 맞습니다. 고도는 2026년 공식 코스도의 고도표를 옮긴 값인데, 위성 지형 데이터와는 곳곳에서 10 m 넘게 차이가 나니 참고만 하세요."
+    ],
+    "en": [
+      "Race day is Sunday 21 March 2027, as stated in the official overview, rules and notices (2027 Seoul Marathon / 97th Dong-A Marathon).",
+      "As of 2026-10-26 the 2027 course map is listed as 'to be published'. This page uses the 2026 course (Gwanghwamun Square → Jamsil Sports Complex). The 2027 full-marathon assembly area is again Gwanghwamun Square (planned), so the course is likely the same, but it will be re-checked once the official map is out.",
+      "The 2027 start time has not been announced; assembly is 06:30 (planned). In 2026 Seoul city guidance moved the start from 08:00 to 07:30, and this page uses 07:30.",
+      "Full-marathon waves start with the Hall of Fame (S) group, then A to H; timing is net. Starting from a group ahead of your own means disqualification, but moving back is allowed. In 2026 the corrals ran north along Sejong-daero behind the elite start line: Hall of Fame first, then A, B and so on.",
+      "The 5-hour cut-off is strictly enforced, and roads reopen behind distance-based cut-offs. Per-point cut-offs for 2027 are not published. For reference, the 2026 traffic-control table reopened roads at Cheonggye 4-ga (10.1 km) 09:10, Jong-ro 5-ga (21.2 km) 10:28, Hwayang junction (30.2 km) 11:31, Jamsil Bridge north end (37.6 km) 12:22 and Jamsil Station (40 km) 12:40. These are road reopening times, not official cut-offs.",
+      "Aid: water and sports drink every 5 km (8 stations) and at the finish, sponges every 5 km from 7.5 km, and snacks at 20 and 30 km (items and locations may change). In 2026 each full-course station was about 135 m long with 25 tables, Pocari Sweat first and water after it.",
+      "Medical support is described only as ambulances and medical teams at key points, so no medical km are listed. The 2026 map showed toilets near the aid stations, but check the 2027 guide for exact spots.",
+      "Bag drop: in 2026 bags went in at Gwanghwamun 06:00–07:00 (arrive before 06:30) and came back at Jamsil 10:00–13:30. Changing rooms are at the assembly area. 2027 details are not out yet.",
+      "Transport: neither Gwanghwamun Square nor Jamsil Sports Complex has parking, so take the subway. The start is next to Gwanghwamun Station (Line 5) and the finish next to Sports Complex Station (Line 2). In 2026 roads closed section by section from 05:00 to 14:30, and shuttle buses ran from Gwangju, Daegu, Daejeon and Busan (booked on T-money GO).",
+      "Bibs and race gifts are posted to domestic runners before the race. Overseas runners must collect theirs in person at the 2027 Seoul Marathon Expo before race day.",
+      "Late-March mornings in Seoul are cold: roughly 0–7°C around the start, with daytime highs near 10–15°C. Expect wind and possibly fine dust or yellow dust; bring a throwaway layer and gloves. Sunrise on 21 March is around 06:36 and civil dawn around 06:10 (NOAA solar algorithm), so it is light at the start.",
+      "There is one U-turn (Gosanja Bridge, 13.8 km), a hairpin at Sungnyemun (1.2 km) and a loop around DDP (4.3–5.5 km). The course crosses the Jungnangcheon stream twice (Gunja Bridge 28.2 km, Seongdong Bridge 32.6 km) and the Han River once (Jamsil Bridge, 37.6–39.7 km).",
+      "2026 results were published on Runarchive (record.runarchive.com). Neither MyResult nor SPCT lists a 2027 Seoul Marathon event, so there is no live-tracking link.",
+      "No official GPX exists, so the route is approximate. Compared with the intersection km table in the official 2026 traffic-control notice, 58 of 61 points are within 0.2 km. Elevation is taken from the chart on the official 2026 course map; it differs from satellite terrain data by more than 10 m in places, so treat it as a guide only."
+    ]
+  },
+  "sources": [
+    "https://seoul-marathon.com/96",
+    "https://seoul-marathon.com/95",
+    "https://seoul-marathon.com/91",
+    "https://seoul-marathon.com/94/?bmode=view&idx=171044053",
+    "https://en.seoul-marathon.com/83",
+    "https://en.seoul-marathon.com/60/?bmode=view&idx=173536131",
+    "https://web.archive.org/web/20260215053043/https://seoul-marathon.com/91",
+    "https://seoul-marathon.com/94/?bmode=view&idx=170393832",
+    "https://seoul-marathon.com/94/?bmode=view&idx=170393902",
+    "https://seoul-marathon.com/94/?bmode=view&idx=170394406",
+    "https://seoul-marathon.com/94/?bmode=view&idx=170394678",
+    "https://seoul-marathon.com/94/?bmode=view&idx=169959408",
+    "https://seoul-marathon.com/94/?bmode=view&idx=170264147",
+    "https://seoul-marathon.com/94/?bmode=view&idx=170424840",
+    "https://www.openstreetmap.org/copyright",
+    "https://www.opentopodata.org/datasets/srtm/",
+    "https://www.opentopodata.org/datasets/aster/"
+  ],
+  "live": null
+}
