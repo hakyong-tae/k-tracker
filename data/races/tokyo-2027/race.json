@@ -1,0 +1,656 @@
+{
+  "slug": "tokyo-2027",
+  "name": {
+    "ko": "도쿄 마라톤 2027",
+    "en": "Tokyo Marathon 2027"
+  },
+  "date": "2027-03-07",
+  "startTime": "09:10",
+  "timezone": "Asia/Tokyo",
+  "country": "JP",
+  "city": {
+    "ko": "도쿄",
+    "en": "Tokyo"
+  },
+  "distance": "full",
+  "officialUrl": "https://www.marathon.tokyo/en/",
+  "cutoff": "7:00",
+  "courseSource": {
+    "type": "official-route-kml",
+    "url": "https://www.google.com/maps/d/viewer?mid=1jGYjkrF_m5K3rWgYJu1XqyMbjHPq2pQ",
+    "note": {
+      "ko": "주최 측(도쿄마라톤재단)이 공개한 구글 내 지도 '東京マラソン2026 コースマップ'의 경로선(KML)을 GPX로 바꾼 것이에요. 2026년 코스선이지만 2027 공식 사이트의 km별 위치표·반환점·잠정 관문이 이 선과 같습니다. 같은 지도의 km 표지 43개가 모두 0.1km 안(대부분 0.02km 안)에서 맞고, 측정 거리는 42.19km(−0.02%)입니다. 고도는 공식 고도표를 읽어 거리 비율로 옮긴 값이라 ±2m 정도 오차가 있어요. 급수·의료 위치도 같은 2026 지도 기준입니다. 2027 지도가 나오면 다시 확인합니다.",
+      "en": "Converted to GPX from the route line (KML) in the organiser's public Google My Maps 'Tokyo Marathon 2026 Course Map' (Tokyo Marathon Foundation). It is the 2026 line, but the km-by-km location table, turning points and provisional cut-off points on the 2027 official site match it. All 43 km markers on the same map fall within 0.1 km of this track (most within 0.02 km), and it measures 42.19 km (−0.02%). Elevation is the official elevation profile digitised and mapped by distance, accurate to about ±2 m. Aid and medical positions come from the same 2026 map. It will be re-checked when a 2027 map is published."
+    }
+  },
+  "pois": [
+    {
+      "km": 0,
+      "type": "landmark",
+      "name": {
+        "ko": "출발 – 도쿄도청 제1본청사 (니시신주쿠)",
+        "en": "Start – Tokyo Metropolitan Government Bldg. No.1 (Nishi-Shinjuku)"
+      }
+    },
+    {
+      "km": 3.8,
+      "type": "landmark",
+      "name": {
+        "ko": "아케보노바시 (출발 후 가장 가파른 내리막 끝)",
+        "en": "Akebonobashi (end of the steepest early descent)"
+      }
+    },
+    {
+      "km": 4.9,
+      "type": "cutoff",
+      "name": {
+        "ko": "관문 10:25 – 이치가야미쓰케 교차로 (2027 잠정)",
+        "en": "Cut-off 10:25 – Ichigaya-Mitsuke junction (2027 provisional)"
+      }
+    },
+    {
+      "km": 5.0,
+      "type": "medical",
+      "name": null
+    },
+    {
+      "km": 5.2,
+      "type": "sports-drink",
+      "name": null
+    },
+    {
+      "km": 5.2,
+      "type": "water",
+      "name": {
+        "ko": "5km 급수소 (2026 위치)",
+        "en": "5 km aid station (2026 position)"
+      }
+    },
+    {
+      "km": 6.4,
+      "type": "landmark",
+      "name": {
+        "ko": "이다바시",
+        "en": "Iidabashi"
+      }
+    },
+    {
+      "km": 7.1,
+      "type": "landmark",
+      "name": {
+        "ko": "스이도바시",
+        "en": "Suidobashi"
+      }
+    },
+    {
+      "km": 7.5,
+      "type": "water",
+      "name": {
+        "ko": "7km 급수소 (2026 위치)",
+        "en": "7 km aid station (2026 position)"
+      }
+    },
+    {
+      "km": 9.2,
+      "type": "cutoff",
+      "name": {
+        "ko": "관문 11:00 – 스다초 교차로(남) (2027 잠정)",
+        "en": "Cut-off 11:00 – Sudacho junction (south) (2027 provisional)"
+      }
+    },
+    {
+      "km": 10.3,
+      "type": "sports-drink",
+      "name": null
+    },
+    {
+      "km": 10.3,
+      "type": "water",
+      "name": {
+        "ko": "10km 급수소 (2026 위치)",
+        "en": "10 km aid station (2026 position)"
+      }
+    },
+    {
+      "km": 10.6,
+      "type": "turnaround",
+      "name": {
+        "ko": "우에노히로코지 반환점",
+        "en": "Ueno-hirokoji U-turn"
+      }
+    },
+    {
+      "km": 11.3,
+      "type": "medical",
+      "name": null
+    },
+    {
+      "km": 12.5,
+      "type": "water",
+      "name": {
+        "ko": "12km 급수소 (2026 위치)",
+        "en": "12 km aid station (2026 position)"
+      }
+    },
+    {
+      "km": 13.3,
+      "type": "landmark",
+      "name": {
+        "ko": "니혼바시",
+        "en": "Nihombashi Bridge"
+      }
+    },
+    {
+      "km": 15.3,
+      "type": "sports-drink",
+      "name": null
+    },
+    {
+      "km": 15.3,
+      "type": "water",
+      "name": {
+        "ko": "15km 급수소 (2026 위치)",
+        "en": "15 km aid station (2026 position)"
+      }
+    },
+    {
+      "km": 15.4,
+      "type": "cutoff",
+      "name": {
+        "ko": "관문 11:55 – 히사마쓰초 교차로 (2027 잠정)",
+        "en": "Cut-off 11:55 – Hisamatsucho junction (2027 provisional)"
+      }
+    },
+    {
+      "km": 15.5,
+      "type": "medical",
+      "name": null
+    },
+    {
+      "km": 17.2,
+      "type": "food",
+      "name": {
+        "ko": "오모테나시 에이드 (2026)",
+        "en": "OMOTENASHI AID (2026)"
+      }
+    },
+    {
+      "km": 17.2,
+      "type": "water",
+      "name": {
+        "ko": "17km 급수소 (2026 위치)",
+        "en": "17 km aid station (2026 position)"
+      }
+    },
+    {
+      "km": 18.2,
+      "type": "landmark",
+      "name": {
+        "ko": "아사쿠사 가미나리몬",
+        "en": "Asakusa Kaminarimon Gate"
+      }
+    },
+    {
+      "km": 20.0,
+      "type": "landmark",
+      "name": {
+        "ko": "구라마에바시 (스미다강, 약 5m 오르막)",
+        "en": "Kuramae Bridge (Sumida River, ~5 m rise)"
+      }
+    },
+    {
+      "km": 20.5,
+      "type": "sponge",
+      "name": null
+    },
+    {
+      "km": 20.5,
+      "type": "sports-drink",
+      "name": null
+    },
+    {
+      "km": 20.5,
+      "type": "water",
+      "name": {
+        "ko": "20km 급수소 (2026 위치)",
+        "en": "20 km aid station (2026 position)"
+      }
+    },
+    {
+      "km": 20.9,
+      "type": "cutoff",
+      "name": {
+        "ko": "관문 12:45 – 미도리 1초메 교차로 (2027 잠정)",
+        "en": "Cut-off 12:45 – Midori 1-chome junction (2027 provisional)"
+      }
+    },
+    {
+      "km": 21.0,
+      "type": "medical",
+      "name": null
+    },
+    {
+      "km": 22.4,
+      "type": "food",
+      "name": {
+        "ko": "우메보시·크림롤 + 오모테나시 에이드 (2026)",
+        "en": "Pickled plum, cream roll + OMOTENASHI AID (2026)"
+      }
+    },
+    {
+      "km": 22.4,
+      "type": "water",
+      "name": {
+        "ko": "22km 급수소 (2026 위치)",
+        "en": "22 km aid station (2026 position)"
+      }
+    },
+    {
+      "km": 23.2,
+      "type": "medical",
+      "name": null
+    },
+    {
+      "km": 23.95,
+      "type": "turnaround",
+      "name": {
+        "ko": "도미오카하치만구 반환점",
+        "en": "Tomioka Hachimangu U-turn"
+      }
+    },
+    {
+      "km": 24.3,
+      "type": "landmark",
+      "name": {
+        "ko": "몬젠나카초",
+        "en": "Monzen-nakacho"
+      }
+    },
+    {
+      "km": 24.7,
+      "type": "cutoff",
+      "name": {
+        "ko": "관문 13:20 – 후카가와 1초메 교차로 (2027 잠정)",
+        "en": "Cut-off 13:20 – Fukagawa 1-chome junction (2027 provisional)"
+      }
+    },
+    {
+      "km": 24.8,
+      "type": "medical",
+      "name": null
+    },
+    {
+      "km": 25.4,
+      "type": "sponge",
+      "name": null
+    },
+    {
+      "km": 25.4,
+      "type": "sports-drink",
+      "name": null
+    },
+    {
+      "km": 25.4,
+      "type": "water",
+      "name": {
+        "ko": "25km 급수소 (2026 위치)",
+        "en": "25 km aid station (2026 position)"
+      }
+    },
+    {
+      "km": 26.9,
+      "type": "medical",
+      "name": null
+    },
+    {
+      "km": 27.0,
+      "type": "food",
+      "name": {
+        "ko": "우메보시·초콜릿·닌교야키 + 오모테나시 에이드 (2026)",
+        "en": "Pickled plum, chocolate, doll-shaped cake + OMOTENASHI AID (2026)"
+      }
+    },
+    {
+      "km": 27.0,
+      "type": "water",
+      "name": {
+        "ko": "27km 급수소 (2026 위치)",
+        "en": "27 km aid station (2026 position)"
+      }
+    },
+    {
+      "km": 28.0,
+      "type": "landmark",
+      "name": {
+        "ko": "구라마에바시 재통과 (약 5.5m 오르막)",
+        "en": "Kuramae Bridge again (~5.5 m rise)"
+      }
+    },
+    {
+      "km": 29.2,
+      "type": "cutoff",
+      "name": {
+        "ko": "관문 14:00 – 아사쿠사바시 교차로 (2027 잠정)",
+        "en": "Cut-off 14:00 – Asakusabashi junction (2027 provisional)"
+      }
+    },
+    {
+      "km": 29.2,
+      "type": "medical",
+      "name": null
+    },
+    {
+      "km": 30.4,
+      "type": "sponge",
+      "name": null
+    },
+    {
+      "km": 30.4,
+      "type": "sports-drink",
+      "name": null
+    },
+    {
+      "km": 30.4,
+      "type": "water",
+      "name": {
+        "ko": "30km 급수소 (2026 위치)",
+        "en": "30 km aid station (2026 position)"
+      }
+    },
+    {
+      "km": 31.5,
+      "type": "medical",
+      "name": null
+    },
+    {
+      "km": 31.9,
+      "type": "landmark",
+      "name": {
+        "ko": "니혼바시 2초메 – 주오도리 진입",
+        "en": "Nihombashi 2-chome – onto Chuo-dori"
+      }
+    },
+    {
+      "km": 32.0,
+      "type": "food",
+      "name": {
+        "ko": "오모테나시 에이드 (2026)",
+        "en": "OMOTENASHI AID (2026)"
+      }
+    },
+    {
+      "km": 32.0,
+      "type": "water",
+      "name": {
+        "ko": "32km 급수소 (2026 위치)",
+        "en": "32 km aid station (2026 position)"
+      }
+    },
+    {
+      "km": 33.4,
+      "type": "landmark",
+      "name": {
+        "ko": "긴자 4초메",
+        "en": "Ginza 4-chome"
+      }
+    },
+    {
+      "km": 33.5,
+      "type": "cutoff",
+      "name": {
+        "ko": "관문 14:35 – 스키야바시 교차로 (2027 잠정)",
+        "en": "Cut-off 14:35 – Sukiyabashi junction (2027 provisional)"
+      }
+    },
+    {
+      "km": 33.5,
+      "type": "medical",
+      "name": null
+    },
+    {
+      "km": 35.2,
+      "type": "sports-drink",
+      "name": null
+    },
+    {
+      "km": 35.2,
+      "type": "water",
+      "name": {
+        "ko": "35km 급수소 (2026 위치)",
+        "en": "35 km aid station (2026 position)"
+      }
+    },
+    {
+      "km": 35.9,
+      "type": "medical",
+      "name": null
+    },
+    {
+      "km": 37.5,
+      "type": "turnaround",
+      "name": {
+        "ko": "다마치역 앞 반환점",
+        "en": "Tamachi Station U-turn"
+      }
+    },
+    {
+      "km": 37.9,
+      "type": "medical",
+      "name": null
+    },
+    {
+      "km": 38.1,
+      "type": "food",
+      "name": {
+        "ko": "우메보시·초콜릿 + 오모테나시 에이드 (2026)",
+        "en": "Pickled plum, chocolate + OMOTENASHI AID (2026)"
+      }
+    },
+    {
+      "km": 38.1,
+      "type": "water",
+      "name": {
+        "ko": "38km 급수소 (2026 위치)",
+        "en": "38 km aid station (2026 position)"
+      }
+    },
+    {
+      "km": 38.5,
+      "type": "cutoff",
+      "name": {
+        "ko": "관문 15:20 – 시바공원 그라운드 앞 교차로 (2027 잠정)",
+        "en": "Cut-off 15:20 – Shiba Park Ground-mae junction (2027 provisional)"
+      }
+    },
+    {
+      "km": 40.3,
+      "type": "sports-drink",
+      "name": null
+    },
+    {
+      "km": 40.3,
+      "type": "water",
+      "name": {
+        "ko": "40km 급수소 (2026 위치)",
+        "en": "40 km aid station (2026 position)"
+      }
+    },
+    {
+      "km": 40.5,
+      "type": "medical",
+      "name": null
+    },
+    {
+      "km": 41.1,
+      "type": "landmark",
+      "name": {
+        "ko": "히비야 교차로",
+        "en": "Hibiya junction"
+      }
+    },
+    {
+      "km": 42.195,
+      "type": "landmark",
+      "name": {
+        "ko": "결승 – 도쿄역 앞 교코도리",
+        "en": "Finish – Gyoko-dori in front of Tokyo Station"
+      }
+    }
+  ],
+  "segments": [
+    {
+      "fromKm": 0,
+      "toKm": 5,
+      "title": {
+        "ko": "도쿄도청 → 신주쿠역 북쪽 → 아케보노바시 → 이치가야",
+        "en": "Tokyo Metropolitan Govt. Bldg. → north of Shinjuku Station → Akebonobashi → Ichigaya"
+      },
+      "tip": {
+        "ko": "도청 앞 해발 약 41m에서 출발해 5km까지 27m쯤 내려가고, 특히 3~3.5km 아케보노바시 쪽은 500m에 11m가 떨어집니다. 초반 1km는 여러 출발선이 합쳐지며 꺾임이 많으니, 거저 얻는 속도에 들뜨지 말고 목표 페이스보다 살짝 느리게 지나가세요.",
+        "en": "You start about 41 m up at the Metropolitan Government Building and lose some 27 m by 5 km, most sharply from 3 to 3.5 km toward Akebonobashi (11 m in 500 m). The first kilometre merges several start lanes and has a few turns, so don't bank the free speed; run a touch slower than goal pace."
+      }
+    },
+    {
+      "fromKm": 5,
+      "toKm": 10,
+      "title": {
+        "ko": "이치가야 → 이다바시 → 스이도바시 → 진보초 → 스다초",
+        "en": "Ichigaya → Iidabashi → Suidobashi → Jimbocho → Sudacho"
+      },
+      "tip": {
+        "ko": "옛 외호(소토보리)를 따라 7km 무렵 해발 6m까지 내려오면 그 뒤로는 결승까지 거의 평지입니다. 스이도바시·진보초·스다초에서 꺾임이 이어지니 코너 안쪽 선을 타세요.",
+        "en": "Along the old outer moat (Sotobori) the road eases down to about 6 m by 7 km, and from there it is nearly flat to the finish. Bends at Suidobashi, Jimbocho and Sudacho reward the inside line."
+      }
+    },
+    {
+      "fromKm": 10,
+      "toKm": 15,
+      "title": {
+        "ko": "아키하바라 → 우에노히로코지 반환 → 니혼바시 → 가야바초",
+        "en": "Akihabara → Ueno-hirokoji U-turn → Nihombashi → Kayabacho"
+      },
+      "tip": {
+        "ko": "넓은 주오도리로 북쪽에 올라가 10.6km 우에노히로코지에서 U턴하고, 같은 길로 내려와 니혼바시(13.3km)를 지납니다. 반환 직전에는 속도를 줄이고, 두꺼운 응원과 맞은편 주자들에 휩쓸려 페이스를 올리지 마세요.",
+        "en": "Wide Chuo-dori takes you north to a U-turn at Ueno-hirokoji (10.6 km), then back down past Nihombashi (13.3 km). Ease off before the turn, and don't let the big crowds or the runners coming the other way pull your pace up."
+      }
+    },
+    {
+      "fromKm": 15,
+      "toKm": 20,
+      "title": {
+        "ko": "하마초 → 구라마에 → 아사쿠사 가미나리몬 → 구라마에바시",
+        "en": "Hamacho → Kuramae → Asakusa Kaminarimon → Kuramae Bridge"
+      },
+      "tip": {
+        "ko": "에도도리를 따라 북쪽으로 가서 18.2km 가미나리몬 앞을 돌아 나오는, 코스에서 응원이 가장 뜨거운 곳 중 하나입니다. 20km 구라마에바시는 스미다강을 건너는 약 5m 오르막이고 강바람이 불 수 있어요.",
+        "en": "Edo-dori heads north to loop past Kaminarimon Gate at 18.2 km, one of the loudest spots on the course. Kuramae Bridge at 20 km is a rise of about 5 m over the Sumida River and can catch the wind."
+      }
+    },
+    {
+      "fromKm": 20,
+      "toKm": 25,
+      "title": {
+        "ko": "구라마에바시 → 료고쿠(하프) → 몬젠나카초 → 도미오카하치만구 반환",
+        "en": "Kuramae Bridge → Ryogoku (halfway) → Monzen-nakacho → Tomioka Hachimangu U-turn"
+      },
+      "tip": {
+        "ko": "다리를 건너 기요스미도리를 따라 남쪽으로 곧게 내려가 23.95km 도미오카하치만구 앞에서 U턴합니다. 반환 앞뒤로 꺾임이 이어지니 하프 이후 리듬을 다시 잡는 구간으로 쓰세요.",
+        "en": "Over the bridge, Kiyosumi-dori runs straight south to a U-turn by Tomioka Hachimangu Shrine at 23.95 km. There are several turns around the U-turn, so use this stretch to reset your rhythm after halfway."
+      }
+    },
+    {
+      "fromKm": 25,
+      "toKm": 30,
+      "title": {
+        "ko": "몬젠나카초 → 기요스미도리 → 구라마에바시 → 아사쿠사바시",
+        "en": "Monzen-nakacho → Kiyosumi-dori → Kuramae Bridge → Asakusabashi"
+      },
+      "tip": {
+        "ko": "같은 길을 북쪽으로 되짚어 28km에서 구라마에바시를 다시 건너는데, 약 5.5m로 후반에서 가장 큰 오르막입니다. 짧으니 보폭을 줄여 넘고 내리막에서 자연스럽게 회복하세요.",
+        "en": "You retrace Kiyosumi-dori north and cross Kuramae Bridge again at 28 km; at about 5.5 m it is the biggest rise of the second half. It is short, so shorten your stride over it and recover on the way down."
+      }
+    },
+    {
+      "fromKm": 30,
+      "toKm": 35,
+      "title": {
+        "ko": "하마초 → 니혼바시 → 긴자 4초메 → 히비야",
+        "en": "Hamacho → Nihombashi → Ginza 4-chome → Hibiya"
+      },
+      "tip": {
+        "ko": "31.9km 니혼바시 다카시마야 부근에서 주오도리로 들어가 긴자 4초메(33.4km)에서 꺾어 히비야로 갑니다. 긴자의 응원이 큰 힘이 되지만, 33.5km 스키야바시 뒤로는 빌딩 사이로 바람이 몰리는 히비야도리가 길게 이어지니 무리 속에서 달리세요.",
+        "en": "Near Nihombashi Takashimaya (31.9 km) you join Chuo-dori and turn at Ginza 4-chome (33.4 km) toward Hibiya. Ginza's crowds give a lift, but after Sukiyabashi (33.5 km) the long Hibiya-dori can funnel wind between buildings, so tuck into a group."
+      }
+    },
+    {
+      "fromKm": 35,
+      "toKm": 40,
+      "title": {
+        "ko": "히비야도리 → 시바공원 → 다마치 반환 → 시바공원",
+        "en": "Hibiya-dori → Shiba Park → Tamachi U-turn → Shiba Park"
+      },
+      "tip": {
+        "ko": "도쿄타워 옆 시바공원을 지나 37.5km 다마치역 앞에서 U턴해 돌아오는 완전한 평지 왕복입니다. 반환 뒤 히비야까지 큰 꺾임이 없으니 남은 힘을 여기서 고르게 쓰세요.",
+        "en": "A dead-flat out-and-back past Shiba Park and Tokyo Tower, turning by Tamachi Station at 37.5 km. After the U-turn there are no big corners until Hibiya, so spend what you have evenly from here."
+      }
+    },
+    {
+      "fromKm": 40,
+      "toKm": 42.195,
+      "title": {
+        "ko": "우치사이와이초 → 히비야 교차로 → 마루노우치 나카도리 → 교코도리 결승",
+        "en": "Uchisaiwaicho → Hibiya junction → Marunouchi Naka-dori → Gyoko-dori finish"
+      },
+      "tip": {
+        "ko": "41.1km 히비야 교차로와 42km 무렵 두 번 꺾으면 도쿄역과 황궁 사이를 잇는 교코도리의 결승선입니다. 마지막 직선은 150m 정도로 짧으니 마지막 코너 전에 스퍼트를 시작하세요.",
+        "en": "Two last turns, at the Hibiya junction (41.1 km) and around 42 km, bring you onto Gyoko-dori, the avenue between Tokyo Station and the Imperial Palace. The final straight is only about 150 m, so start your kick before the last corner."
+      }
+    }
+  ],
+  "notes": {
+    "ko": [
+      "대회는 2027년 3월 7일(일)이고 마라톤 출발은 09:10, 휠체어 마라톤은 09:05입니다. 제한 시간은 총성 기준 7시간(16:10 마감)이고 공식 기록도 총성 기준이에요. 공식 예상 통과 시각표에서 맨 뒤 주자가 출발선을 지나는 시각은 09:40입니다.",
+      "2027 공식 사이트의 코스 설명·km별 위치표·반환점(10.6·23.95·37.5km)·잠정 관문 8곳은 2026 코스와 같습니다. 다만 내려받는 코스 지도 파일은 아직 2026년판이라, 바뀌는 점이 있으면 러너 가이드북(2027년 2월 중순 예정)에서 확인하세요. 코스는 JAAF·AIMS·World Athletics 공인입니다.",
+      "잠정 관문(마라톤): 4.9km 이치가야미쓰케 10:25, 9.2km 스다초 11:00, 15.4km 히사마쓰초 11:55, 20.9km 미도리 1초메 12:45, 24.7km 후카가와 1초메 13:20, 29.2km 아사쿠사바시 14:00, 33.5km 스키야바시 14:35, 38.5km 시바공원 그라운드 앞 15:20, 결승 16:10. 시간 안에 못 가거나 크게 뒤처지면 레이스를 멈추라는 지시를 받을 수 있어요.",
+      "급수 위치는 2026년 주최 측 코스 지도 기준이며 2027년판은 아직 나오지 않았습니다. 2026년에는 급수소 15곳 모두에 물, 5km마다 스포츠음료, 20·25·30km에 스펀지가 있었고, 22·27·38km에 우메보시·초콜릿 같은 간식, 17·22·27·32·38km에 기업 제공 간식 '오모테나시 에이드'가 나왔어요. 급수소 150~300m 앞에 안내판이 있습니다.",
+      "출발 구역은 신주쿠 도쿄도청 일대이고 가까운 역은 신주쿠역과 니시신주쿠역입니다. 출발선이 여러 갈래(도초도리·기도도리)로 나뉘고, 배정된 블록·웨이브가 아닌 곳에서 출발하면 실격될 수 있어요. 탈의 텐트는 출발 구역 게이트 안에 있고, 역이나 상가 화장실에서 옷을 갈아입으면 안 됩니다. 게이트 시각과 블록 배치는 2월 가이드북에서 공개됩니다.",
+      "번호표는 도쿄 빅사이트 남관 '도쿄 마라톤 EXPO 2027'에서 본인이 직접 받아야 합니다. 3월 4~5일 10:00~20:30, 3월 6일 10:00~17:30이며 대리 수령은 안 되고 사진 신분증을 확인합니다(해외 참가자는 여권). 수령 때 채운 손목밴드는 결승까지 차고 있어야 하고, 대회 당일 수령은 없어요. 이 사흘 안에 등록하지 않으면 출전할 수 없습니다.",
+      "짐 보관은 참가 신청 때 유료로 고른 사람만 쓸 수 있고(해외 USD 12), 신청 후에는 추가·변경할 수 없습니다. 맡긴 짐을 찾는 곳은 번호표 색깔에 따라 다릅니다.",
+      "결승은 도쿄역 앞 교코도리입니다. 결승선 근처는 출입이 제한되니 가족·친구와는 결승 구역의 '미트 에어리어'에서 만나세요. 짐 보관을 신청한 주자는 결승 구역에서 탈의 공간을 쓸 수 있어요. 도쿄역·오테마치역이 가깝습니다.",
+      "3월 7일 도쿄의 평년값(1991~2020, 기상청)은 최저 3.9°C, 최고 12.9°C라 출발 때는 쌀쌀하고 낮에는 포근합니다. 2026년에는 최고 17°C 예보로 주최 측이 더위 주의를 따로 안내했어요. 일출은 약 06:05입니다(NOAA 태양 계산식으로 산출).",
+      "코스에 반환점이 세 곳(우에노히로코지 10.6km, 도미오카하치만구 23.95km, 다마치 37.5km) 있고, 스미다강 구라마에바시를 20km와 28km에 두 번 건넙니다. 고도는 처음 7km에 약 35m 내려간 뒤로는 해발 약 3~10m의 평지예요.",
+      "아직 공개되지 않은 것: 2027 러너 가이드북(2월 중순 예정), 2027 급수·의료 위치, 교통 통제, 출발 블록·게이트 시각, 결승 구역 상세. 나오면 이 페이지를 고칩니다.",
+      "이 사이트의 실시간 응원은 국내 기록 업체만 지원해서 이 대회에는 연결되어 있지 않습니다."
+    ],
+    "en": [
+      "Race day is Sunday 7 March 2027. The marathon starts at 09:10 and the wheelchair marathon at 09:05. The cut-off is 7 hours from the gun (course closes 16:10), and official times are gun times. The official expected-time table has the last runners crossing the start line at 09:40.",
+      "The 2027 site's course description, km-by-km location table, turning points (10.6, 23.95 and 37.5 km) and the eight provisional cut-off points are the same as the 2026 course. The downloadable map file is still the 2026 edition, so check the Runner Guidebook (due mid-February 2027) for any change. The course is certified by JAAF, AIMS and World Athletics.",
+      "Provisional cut-offs (marathon): 4.9 km Ichigaya-Mitsuke 10:25, 9.2 km Sudacho 11:00, 15.4 km Hisamatsucho 11:55, 20.9 km Midori 1-chome 12:45, 24.7 km Fukagawa 1-chome 13:20, 29.2 km Asakusabashi 14:00, 33.5 km Sukiyabashi 14:35, 38.5 km Shiba Park Ground-mae 15:20, finish 16:10. Runners who miss one, or fall far behind, may be told to stop.",
+      "Aid positions come from the organiser's 2026 course map; the 2027 positions are not out yet. In 2026 all 15 aid stations had water, every 5 km also had sports drink, and 20, 25 and 30 km had sponges. Snacks such as pickled plums and chocolate were at 22, 27 and 38 km, and the sponsor-supplied 'OMOTENASHI AID' food at 17, 22, 27, 32 and 38 km. A sign stands 150–300 m before each station.",
+      "The start area is around the Tokyo Metropolitan Government Building in Shinjuku; the nearest stations are Shinjuku and Nishi-Shinjuku. There are several start lanes (Tocho-dori and Gijido-dori), and starting from a block or wave other than your own can mean disqualification. Changing tents are inside the start-area gates; don't change in station or shop toilets. Gate times and block layout come with the February guidebook.",
+      "Collect your bib in person at Tokyo Marathon EXPO 2027, Tokyo Big Sight South Halls: 4–5 March 10:00–20:30 and 6 March 10:00–17:30. No proxies; photo ID is checked (passport for overseas runners). The wristband you get must stay on until the finish, and there is no race-day pickup. If you don't register in those three days, you can't run.",
+      "Bag check is only for runners who paid for it at entry (USD 12 for overseas entries) and can't be added or changed later. The bag pick-up point depends on your bib colour.",
+      "The finish is on Gyoko-dori in front of Tokyo Station. The area near the line is restricted, so meet family and friends at the Meet Area in the finish zone. Runners with bag check can use changing areas there. Tokyo and Otemachi stations are close by.",
+      "Tokyo's 1991–2020 normals for 7 March (JMA) are a low of 3.9 °C and a high of 12.9 °C, so it is chilly at the start and mild later. In 2026 the organiser issued a heat advisory for a forecast high of 17 °C. Sunrise is around 06:05 (computed with the NOAA solar algorithm).",
+      "The course has three U-turns (Ueno-hirokoji 10.6 km, Tomioka Hachimangu 23.95 km, Tamachi 37.5 km) and crosses the Sumida River twice on Kuramae Bridge, at 20 and 28 km. It drops about 35 m in the first 7 km and then stays flat at 3–10 m above sea level.",
+      "Not published yet: the 2027 Runner Guidebook (mid-February), 2027 aid and medical positions, road closures, start blocks and gate times, and finish-area details. This page will be updated when they are out.",
+      "Live tracking on this site supports Korean timing providers only, so it is not linked for this race."
+    ]
+  },
+  "sources": [
+    "https://www.marathon.tokyo/en/about/course/",
+    "https://www.marathon.tokyo/en/about/outline/",
+    "https://www.marathon.tokyo/en/participants/guideline/",
+    "https://www.marathon.tokyo/en/participants/guideline/checkpoints_2027_en.png",
+    "https://www.marathon.tokyo/en/expo/",
+    "https://www.marathon.tokyo/en/faq/",
+    "https://www.google.com/maps/d/viewer?mid=1jGYjkrF_m5K3rWgYJu1XqyMbjHPq2pQ",
+    "https://www.marathon.tokyo/en/news/detail/news_20260224112134.html",
+    "https://www.marathon.tokyo/news/detail/images/1fef9875cea3b2cc4490051220009148e5c8f7e3.pdf",
+    "https://www.marathon.tokyo/en/news/detail/news_20260226165153.html",
+    "https://www.marathon.tokyo/en/news/detail/news_20260206155423.html",
+    "https://www.data.jma.go.jp/obd/stats/etrn/view/nml_sfc_d.php?prec_no=44&block_no=47662&year=&month=3&day=&view=",
+    "https://www.openstreetmap.org/copyright"
+  ],
+  "live": null
+}
