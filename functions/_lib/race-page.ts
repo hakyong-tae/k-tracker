@@ -63,16 +63,23 @@ export function renderRacePage(env: Env, lang: Lang, race: RaceRecord): Response
   </section>
 
   <section class="stage wrap">
+    <div class="viewer-col">
+    <div class="vtabs" role="tablist" aria-label="${lang === 'ko' ? '코스 보기 방식' : 'Course view'}">
+      <button type="button" role="tab" data-view="3d" aria-selected="true">${raw(icon('cube', 16))}<span>${t(lang, 'view3d')}</span></button>
+      <button type="button" role="tab" data-view="map" aria-selected="false">${raw(icon('map', 16))}<span>${t(lang, 'showMap')}</span></button>
+      <button type="button" role="tab" data-view="street" aria-selected="false">${raw(icon('camera', 16))}<span>${t(lang, 'viewStreet')}</span></button>
+    </div>
     <div class="viewer">
-      <canvas id="fly" aria-label="${lang === 'ko' ? '코스 주행 미리보기' : 'Course fly-through'}"></canvas>
-      <div id="map" class="map" hidden></div>
+      <canvas id="fly" hidden aria-label="${lang === 'ko' ? '코스 주행 미리보기' : 'Course fly-through'}"></canvas>
+      <div id="map" class="map"></div>
+      <div id="street" class="street" hidden></div>
       <div class="ov ov-tl"><span id="ov-km">0.0</span><small>km</small></div>
-      <button class="ov ov-tr iconbtn" id="btn-map" type="button" aria-pressed="false" title="${t(lang, 'showMap')}">${raw(icon('map', 16))}<span>${t(lang, 'showMap')}</span></button>
       <div class="ov ov-bl" id="ov-next"></div>
       <div class="ov ov-br">
         <button class="iconbtn" id="btn-speed" type="button">×10</button>
         <button class="playbtn" id="btn-play" type="button" aria-label="${t(lang, 'play')}">${raw(icon('play', 22))}</button>
       </div>
+    </div>
     </div>
     <aside class="panel" id="panel">
       <div class="panel-top">
@@ -183,7 +190,7 @@ export function renderRacePage(env: Env, lang: Lang, race: RaceRecord): Response
     ${meta.sources.length ? html`<h3>${t(lang, 'sources')}</h3><ul class="small">${meta.sources.map((s) => html`<li><a href="${s}" target="_blank" rel="noopener nofollow">${s.replace(/^https?:\/\//, '').slice(0, 70)}</a></li>`)}</ul>` : ''}
   </section>
 </main>
-${jsonScript('race-data', { meta, course: c, lang })}`;
+${jsonScript('race-data', { meta, course: c, lang, keys: { kakao: env.KAKAO_JS_KEY || '', google: env.GOOGLE_MAPS_KEY || '' } })}`;
 
   const site = (env.SITE_URL || '').replace(/\/$/, '');
   return page({

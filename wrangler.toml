@@ -17,3 +17,6 @@ SITE_URL = "https://k-tracker-vit.pages.dev"
 # Monetization slots stay hidden until these are set (Pages dashboard → Settings → Variables)
 ADSENSE_CLIENT = ""
 AGODA_CID = ""
+# Street photos: Kakao Maps JS key (Korea roadview) / Google Maps Embed key (overseas). Tab falls back to links when empty.
+KAKAO_JS_KEY = "5af3ab529a2880667bb6c56bc04d4ad1"
+GOOGLE_MAPS_KEY = ""

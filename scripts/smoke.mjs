@@ -25,7 +25,7 @@ const gpx = (() => {
 import { writeFileSync } from 'node:fs';
 writeFileSync(`${OUT}/smoke.gpx`, gpx);
 
-const browser = await puppeteer.launch({ headless: true, args: ['--mute-audio', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
+const browser = await puppeteer.launch({ headless: true, args: ['--mute-audio', '--ignore-gpu-blocklist'] });
 try {
   const page = await browser.newPage();
   const errors = [];
@@ -42,6 +42,14 @@ try {
   const html = await page.content();
   ok(html.includes('application/ld+json') && html.includes('SportsEvent'), 'race page has JSON-LD');
   ok((await page.$$('.seg')).length === 9, 'race page renders 9 segments server-side');
+  await page.waitForSelector('#map .maplibregl-canvas', { timeout: 15000 }).catch(() => null);
+  ok(!!(await page.$('#map .maplibregl-canvas')) && !(await page.$eval('#map', (e) => e.hidden)), '3D map view is the default');
+  await page.click('[data-view=street]');
+  await page.waitForSelector('#street .street-msg a, #street .street-frame', { timeout: 5000 }).catch(() => null);
+  ok(!!(await page.$('#street .street-msg a, #street .street-frame')), 'street tab shows a photo or a fallback link');
+  await page.click('[data-view="3d"]');
+
+  await page.goto(`${BASE}/r/singapore-2026?view=classic`, { waitUntil: 'networkidle0' });
   await new Promise((res) => setTimeout(res, 1500));
   const painted = await page.$eval('#fly', (c) => {
     const d = c.getContext('2d').getImageData(0, 0, c.width, c.height).data;
@@ -49,7 +57,7 @@ try {
     for (let i = 0; i < d.length; i += 4 * 997) seen.add((d[i] >> 4) * 256 + (d[i + 1] >> 4) * 16 + (d[i + 2] >> 4));
     return seen.size;
   });
-  ok(painted > 8, `fly-through canvas painted (${painted} colour buckets)`);
+  ok(painted > 8, `classic fly-through canvas painted (${painted} colour buckets)`);
   await page.click('#btn-play');
   await new Promise((res) => setTimeout(res, 2500));
   const km = Number(await page.$eval('#p-km', (e) => e.textContent));

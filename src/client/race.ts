@@ -10,12 +10,13 @@ import { Track, compass } from './track.ts';
 import { Flyover } from './flyover.ts';
 import { Profile } from './profile.ts';
 import type { CourseMap } from './map.ts';
+import type { StreetKeys, StreetView } from './street.ts';
 import { $, $$, h, store } from './dom.ts';
 import { icon, weatherIcon } from '../shared/icons.ts';
 import { clockSec, estimate, kstNowSec } from '../shared/position.ts';
 import type { LiveEvent, LiveRecord } from '../shared/live.ts';
 
-const data = JSON.parse($('#race-data')!.textContent!) as { meta: RaceMeta; course: Course; lang: Lang };
+const data = JSON.parse($('#race-data')!.textContent!) as { meta: RaceMeta; course: Course; lang: Lang; keys: StreetKeys };
 const { meta, course, lang } = data;
 const track = new Track(meta, course);
 const aid = meta.pois.filter((p) => AID_TYPES.includes(p.type));
@@ -43,7 +44,7 @@ if (dd) {
 
 // ---------- views ----------
 const flyCanvas = $<HTMLCanvasElement>('#fly')!;
-const fly = new Flyover(flyCanvas, track, aid);
+let fly: Flyover | null = null;
 const short = (s: string) => s.split(/\s[(（–-]\s?|\s\(/)[0].trim().slice(0, 22);
 const PRI: Record<string, number> = { turnaround: 3, hill: 3, landmark: 1 };
 const labels = [
@@ -53,22 +54,45 @@ const labels = [
 const profile = new Profile($<HTMLCanvasElement>('#profile')!, track, meta.pois, lang, labels);
 profile.onSeek = (km) => { playing = false; syncPlay(); seek(track.dist(km)); };
 
+// 3d = MapLibre follow camera (default) · map = flat overview · street = roadview photo · classic = old canvas (fallback / ?view=classic)
+type View = '3d' | 'map' | 'street' | 'classic';
+let view: View = new URLSearchParams(location.search).get('view') === 'classic' ? 'classic' : '3d';
 let map: CourseMap | null = null;
-const mapEl = $('#map')!;
-const btnMap = $('#btn-map')!;
-btnMap.addEventListener('click', async () => {
-  const show = mapEl.hidden;
-  mapEl.hidden = !show; flyCanvas.hidden = show;
-  btnMap.setAttribute('aria-pressed', String(show));
-  btnMap.innerHTML = show ? `${icon('runner', 16)}<span>${lang === 'ko' ? '주행' : 'Run view'}</span>` : `${icon('map', 16)}<span>${t(lang, 'showMap')}</span>`;
-  if (show && !map) {
-    const { createMap } = await import('./map.ts');
-    map = createMap(mapEl, track, meta.pois, (dd2) => seek(dd2));
-    map.setPosition(d);
-    map.setRunners(liveMarks.map((m) => ({ d: track.dist(m.km), color: m.color, label: m.label })));
-  } else map?.resize();
-  if (!show) { fly.resize(); draw(); }
-});
+let street: StreetView | null = null;
+const mapEl = $('#map')!, streetEl = $('#street')!;
+const tabs = $$<HTMLButtonElement>('.vtabs [data-view]');
+let mapLoading: Promise<CourseMap | null> | null = null;
+function ensureMap() {
+  mapLoading ??= import('./map.ts').then(async ({ createMap }) => {
+    const m = createMap(mapEl, track, meta.pois, lang, (dd2) => seek(dd2));
+    if (!(await m.ready)) return null;
+    map = m;
+    m.setPosition(d);
+    m.setRunners(liveMarks.map((x) => ({ d: track.dist(x.km), color: x.color, label: x.label })));
+    return m;
+  }).catch(() => null);
+  return mapLoading;
+}
+async function setView(v: View) {
+  view = v;
+  tabs.forEach((b) => b.setAttribute('aria-selected', String(b.dataset.view === v)));
+  mapEl.hidden = !(v === '3d' || v === 'map');
+  streetEl.hidden = v !== 'street';
+  flyCanvas.hidden = v !== 'classic';
+  if (v === 'classic') { fly ??= new Flyover(flyCanvas, track, aid); fly.resize(); }
+  if (v === 'street') {
+    if (!street) { const { createStreet } = await import('./street.ts'); street = createStreet(streetEl, lang, isKR, data.keys); }
+  }
+  if (v === '3d' || v === 'map') {
+    const m = await ensureMap();
+    if (!m) { if (view === '3d' || view === 'map') return setView('classic'); return; } // no WebGL → canvas fallback
+    if (view !== v) return;
+    m.resize();
+    m.setMode(v === '3d' ? 'follow' : 'overview');
+  }
+  draw();
+}
+tabs.forEach((b) => b.addEventListener('click', () => setView(b.dataset.view as View)));
 
 // ---------- panel ----------
 const el = {
@@ -127,7 +151,8 @@ function updatePanel() {
 let sunEl = 0;
 function draw() {
   sunEl = updatePanel();
-  if (!flyCanvas.hidden) fly.render(d, sunEl, performance.now() / 1000);
+  if (view === 'classic') fly?.render(d, sunEl, performance.now() / 1000);
+  if (view === 'street' && street) { const [la, lo] = track.latlon(d); street.show(la, lo, track.lookHeading(d, 30), playing); }
   profile.setCursor(track.km(d));
   map?.setPosition(d);
 }
@@ -150,7 +175,7 @@ function frame(now: number) {
     d = Math.min(course.total, d + track.dist(vKm * dt * SPEEDS[speedIdx]));
     if (d >= course.total) { playing = false; syncPlay(); }
     draw();
-  } else if (!flyCanvas.hidden && document.visibilityState === 'visible') {
+  } else if (view === 'classic' && fly && document.visibilityState === 'visible') {
     fly.render(d, sunEl, now / 1000); // keep the crowd moving
   }
   requestAnimationFrame(frame);
@@ -162,7 +187,7 @@ window.addEventListener('keydown', (e) => {
   if (e.code === 'ArrowRight') seek(d + track.dist(0.5));
   if (e.code === 'ArrowLeft') seek(d - track.dist(0.5));
 });
-new ResizeObserver(() => { fly.resize(); profile.resize(); draw(); }).observe(flyCanvas.parentElement!);
+new ResizeObserver(() => { fly?.resize(); map?.resize(); profile.resize(); draw(); }).observe(flyCanvas.parentElement!);
 
 // segment cards jump the viewer
 $$('.seg').forEach((li) => li.addEventListener('click', () => { seek(track.dist(Number(li.dataset.from))); $('.stage')!.scrollIntoView({ behavior: 'smooth', block: 'start' }); }));
@@ -296,5 +321,6 @@ function startLive() {
 }
 
 renderPace();
+setView(view);
 loadWeather();
 startLive();

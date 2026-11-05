@@ -19,7 +19,7 @@ const PAGES = [
 ];
 const WIDTHS = (process.env.WIDTHS || '360,390,430').split(',').map(Number);
 const only = process.argv[2];
-const browser = await puppeteer.launch({ headless: true, args: ['--mute-audio', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
+const browser = await puppeteer.launch({ headless: true, args: ['--mute-audio', '--ignore-gpu-blocklist'] });
 let issues = 0;
 for (const [name, path] of PAGES.filter(([n]) => !only || n.includes(only))) {
   for (const w of WIDTHS) {
