@@ -47,8 +47,15 @@ try {
   await page.click('[data-view=street]');
   await page.waitForSelector('#street .street-msg a, #street .street-frame', { timeout: 5000 }).catch(() => null);
   ok(!!(await page.$('#street .street-msg a, #street .street-frame')), 'street tab shows a photo or a fallback link');
+  // Photo 3D (Google, billed per load): only check the click-to-load gate; never press load in the smoke test
+  if (await page.$('[data-view=photo]')) {
+    await page.click('[data-view=photo]');
+    await page.waitForSelector('#photo .street-msg', { timeout: 5000 }).catch(() => null);
+    ok(!!(await page.$('#photo .street-msg')) && !(await page.$('#photo .photo-canvas')), 'photo 3D tab waits behind a load button (no session spent)');
+  } else console.log('- photo 3D tab skipped (no GOOGLE_MAPS_KEY)');
   await page.click('[data-view="3d"]');
 
+  ok(!(await (await fetch(`${BASE}/r/chuncheon-2026`)).text()).includes('data-view="photo"'), 'photo 3D tab hidden for Korean races');
   await page.goto(`${BASE}/r/singapore-2026?view=classic`, { waitUntil: 'networkidle0' });
   await new Promise((res) => setTimeout(res, 1500));
   const painted = await page.$eval('#fly', (c) => {

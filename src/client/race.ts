@@ -11,6 +11,7 @@ import { Flyover } from './flyover.ts';
 import { Profile } from './profile.ts';
 import type { CourseMap } from './map.ts';
 import type { StreetKeys, StreetView } from './street.ts';
+import type { Photo3d } from './photo3d.ts';
 import { $, $$, h, store } from './dom.ts';
 import { icon, weatherIcon } from '../shared/icons.ts';
 import { clockSec, estimate, kstNowSec } from '../shared/position.ts';
@@ -55,11 +56,12 @@ const profile = new Profile($<HTMLCanvasElement>('#profile')!, track, meta.pois,
 profile.onSeek = (km) => { playing = false; syncPlay(); seek(track.dist(km)); };
 
 // 3d = MapLibre follow camera (default) · map = flat overview · street = roadview photo · classic = old canvas (fallback / ?view=classic)
-type View = '3d' | 'map' | 'street' | 'classic';
+type View = '3d' | 'map' | 'street' | 'photo' | 'classic';
 let view: View = new URLSearchParams(location.search).get('view') === 'classic' ? 'classic' : '3d';
 let map: CourseMap | null = null;
 let street: StreetView | null = null;
-const mapEl = $('#map')!, streetEl = $('#street')!;
+const mapEl = $('#map')!, streetEl = $('#street')!, photoEl = $('#photo');
+let photo: Photo3d | null = null;
 const tabs = $$<HTMLButtonElement>('.vtabs [data-view]');
 let mapLoading: Promise<CourseMap | null> | null = null;
 function ensureMap() {
@@ -78,6 +80,10 @@ async function setView(v: View) {
   tabs.forEach((b) => b.setAttribute('aria-selected', String(b.dataset.view === v)));
   mapEl.hidden = !(v === '3d' || v === 'map');
   streetEl.hidden = v !== 'street';
+  if (photoEl) photoEl.hidden = v !== 'photo';
+  photoEl?.parentElement?.classList.toggle('gate', v === 'photo' && !photo);
+  photo?.setActive(v === 'photo');
+  if (v === 'photo' && !photo) photoGate();
   flyCanvas.hidden = v !== 'classic';
   if (v === 'classic') { fly ??= new Flyover(flyCanvas, track, aid); fly.resize(); }
   if (v === 'street') {
@@ -93,6 +99,44 @@ async function setView(v: View) {
   draw();
 }
 tabs.forEach((b) => b.addEventListener('click', () => setView(b.dataset.view as View)));
+
+// Google Photorealistic 3D: every load is a billed session, so it starts only on a click and within the site's daily budget
+const ko = lang === 'ko';
+function photoMsg(lines: string[], btn?: { label: string; onClick: () => void }) {
+  if (!photoEl) return;
+  photoEl.querySelector('.street-msg')?.remove();
+  const box = h('div', { class: 'street-msg' });
+  lines.forEach((x, i) => box.append(h('p', i ? { class: 'muted' } : {}, x)));
+  if (btn) { const b = h('button', { type: 'button', class: 'btn' }, btn.label); b.addEventListener('click', btn.onClick); box.append(b); }
+  photoEl.append(box);
+}
+const photoSpent = () => photoMsg(
+  [ko ? '오늘 실사 3D 무료 횟수를 다 썼어요.' : "Today's free Photo 3D views are used up.", ko ? '내일 다시 열려요. 그동안 3D 지도를 이용해 주세요.' : 'It opens again tomorrow. Try the 3D map meanwhile.'],
+  { label: t(lang, 'view3d'), onClick: () => setView('3d') },
+);
+async function photoGate() {
+  photoMsg([ko ? '불러오는 중…' : 'Loading…']);
+  const r = await fetch('/api/photo3d').then((x) => x.json() as Promise<{ left: number }>).catch(() => ({ left: 0 }));
+  if (photo) return;
+  if (r.left <= 0) return photoSpent();
+  photoMsg(
+    [ko ? '구글 실사 3D로 코스를 따라가 봐요.' : 'Follow the course in Google photorealistic 3D.', ko ? `오늘 남은 무료 횟수 ${r.left}회 · 한 번 열면 3시간 동안 볼 수 있어요` : `${r.left} free views left today · each lasts up to 3 hours`],
+    { label: ko ? '실사 3D 불러오기' : 'Load Photo 3D', onClick: photoStart },
+  );
+}
+async function photoStart() {
+  photoMsg([ko ? '불러오는 중…' : 'Loading…']);
+  const res = await fetch('/api/photo3d', { method: 'POST' }).catch(() => null);
+  if (!res?.ok) return photoSpent();
+  const { createPhoto3d } = await import('./photo3d.ts');
+  if (photo || !photoEl) return;
+  photoEl.querySelector('.street-msg')?.remove();
+  photoEl.parentElement?.classList.remove('gate');
+  photo = createPhoto3d(photoEl, track, data.keys.google);
+  photo.onError = () => { photo?.setActive(false); photoEl!.querySelector('.photo-canvas')?.remove(); photoEl!.querySelector('.photo-attr')?.remove(); photo = null; photoEl!.parentElement?.classList.add('gate'); photoSpent(); };
+  photo.setPosition(d);
+  photo.setActive(view === 'photo');
+}
 
 // ---------- panel ----------
 const el = {
@@ -155,6 +199,7 @@ function draw() {
   if (view === 'street' && street) { const [la, lo] = track.latlon(d); street.show(la, lo, track.lookHeading(d, 30), playing); }
   profile.setCursor(track.km(d));
   map?.setPosition(d);
+  photo?.setPosition(d);
 }
 function seek(nd: number) { d = Math.max(0, Math.min(course.total, nd)); draw(); }
 
@@ -187,7 +232,7 @@ window.addEventListener('keydown', (e) => {
   if (e.code === 'ArrowRight') seek(d + track.dist(0.5));
   if (e.code === 'ArrowLeft') seek(d - track.dist(0.5));
 });
-new ResizeObserver(() => { fly?.resize(); map?.resize(); profile.resize(); draw(); }).observe(flyCanvas.parentElement!);
+new ResizeObserver(() => { fly?.resize(); map?.resize(); if (view === 'photo') photo?.resize(); profile.resize(); draw(); }).observe(flyCanvas.parentElement!);
 
 // segment cards jump the viewer
 $$('.seg').forEach((li) => li.addEventListener('click', () => { seek(track.dist(Number(li.dataset.from))); $('.stage')!.scrollIntoView({ behavior: 'smooth', block: 'start' }); }));

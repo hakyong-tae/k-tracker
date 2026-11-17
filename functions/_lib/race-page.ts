@@ -38,6 +38,8 @@ export function renderRacePage(env: Env, lang: Lang, race: RaceRecord): Response
   const segTip = (from: number) => meta.segments.find((s) => Math.abs(s.fromKm - from) < 0.5);
   const poisIn = (a: number, b: number) => meta.pois.filter((p) => p.km > a && p.km <= b + 0.001);
   const approx = meta.courseSource?.type?.startsWith('approx');
+  // Google Photorealistic 3D has no Korean buildings, so the tab only shows up abroad
+  const photo3d = meta.country !== 'KR' && !!env.GOOGLE_MAPS_KEY;
 
   const title = lang === 'ko'
     ? `${name} 코스 미리보기 · 고도·구간·페이스 | K-TRACKER`
@@ -68,11 +70,13 @@ export function renderRacePage(env: Env, lang: Lang, race: RaceRecord): Response
       <button type="button" role="tab" data-view="3d" aria-selected="true">${raw(icon('cube', 16))}<span>${t(lang, 'view3d')}</span></button>
       <button type="button" role="tab" data-view="map" aria-selected="false">${raw(icon('map', 16))}<span>${t(lang, 'showMap')}</span></button>
       <button type="button" role="tab" data-view="street" aria-selected="false">${raw(icon('camera', 16))}<span>${t(lang, 'viewStreet')}</span></button>
+      ${photo3d ? html`<button type="button" role="tab" data-view="photo" aria-selected="false">${raw(icon('building', 16))}<span>${t(lang, 'viewPhoto')}</span></button>` : ''}
     </div>
     <div class="viewer">
       <canvas id="fly" hidden aria-label="${lang === 'ko' ? '코스 주행 미리보기' : 'Course fly-through'}"></canvas>
       <div id="map" class="map"></div>
       <div id="street" class="street" hidden></div>
+      ${photo3d ? html`<div id="photo" class="street photo" hidden></div>` : ''}
       <div class="ov ov-tl"><span id="ov-km">0.0</span><small>km</small></div>
       <div class="ov ov-bl" id="ov-next"></div>
       <div class="ov ov-br">

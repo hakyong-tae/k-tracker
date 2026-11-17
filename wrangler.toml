@@ -19,4 +19,4 @@ ADSENSE_CLIENT = ""
 AGODA_CID = ""
 # Street photos: Kakao Maps JS key (Korea roadview) / Google Maps Embed key (overseas). Tab falls back to links when empty.
 KAKAO_JS_KEY = "5af3ab529a2880667bb6c56bc04d4ad1"
-GOOGLE_MAPS_KEY = ""
+GOOGLE_MAPS_KEY = "AIzaSyAPJbuw570WJMFe6X6qiMtw_v7FOCqBJTY"

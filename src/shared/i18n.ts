@@ -32,6 +32,7 @@ const D = {
   showMap: ['지도', 'Map'],
   view3d: ['3D 지도', '3D map'],
   viewStreet: ['거리 사진', 'Street'],
+  viewPhoto: ['실사 3D', 'Photo 3D'],
   viewClassic: ['그림', 'Classic'],
   streetPaused: ['재생을 멈추면 이 위치의 거리 사진이 나와요.', 'Pause to load the street photo here.'],
   streetNone: ['이 위치 근처에는 거리 사진이 없어요.', 'No street imagery near this spot.'],

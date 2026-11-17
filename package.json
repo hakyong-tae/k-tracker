@@ -16,12 +16,15 @@
     "draft": "node scripts/race-draft.ts"
   },
   "dependencies": {
-    "maplibre-gl": "^6.15.0"
+    "3d-tiles-renderer": "^0.5.4",
+    "maplibre-gl": "^6.15.0",
+    "three": "^0.187.0"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^5.20261021.1",
     "@types/geojson": "^7946.0.16",
     "@types/node": "^26.6.5",
+    "@types/three": "^0.187.0",
     "concurrently": "^10.0.6",
     "typescript": "^7.0.2",
     "vite": "^8.3.5",
